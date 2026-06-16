@@ -154,7 +154,6 @@ export default function EnquiryForm({
                       rows={4}
                       className="w-full bg-transparent border-b border-[rgba(28,49,94,0.15)] text-text text-xl py-4 focus:outline-none focus:border-[var(--cta)] transition-colors resize-none placeholder:text-[rgba(28,49,94,0.2)]"
                       onKeyDown={handleKeyDown}
-                      autoFocus
                     />
                   ) : (
                     <input
@@ -166,7 +165,6 @@ export default function EnquiryForm({
                       placeholder={currentQ.placeholder}
                       className="w-full bg-transparent border-b border-[rgba(28,49,94,0.15)] text-text text-2xl md:text-4xl py-4 focus:outline-none focus:border-[var(--cta)] transition-colors placeholder:text-[rgba(28,49,94,0.2)]"
                       onKeyDown={handleKeyDown}
-                      autoFocus
                     />
                   )}
                 </div>

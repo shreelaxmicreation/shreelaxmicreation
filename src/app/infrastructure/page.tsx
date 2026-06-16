@@ -134,11 +134,11 @@ export default function InfrastructurePage() {
             </p>
           </div>
 
-          <div className="p-10 rounded-3xl border border-[rgba(255,255,255,0.1)]">
+          <div className="p-10 rounded-3xl border border-[rgba(255,255,255,0.1)] transition-all duration-400 hover:border-[rgba(214,176,106,0.4)] hover:shadow-[0_8px_40px_rgba(0,0,0,0.3)]">
             <p className="text-label text-cta mb-8 tracking-[0.2em]">Dyeing & Finishing Solutions</p>
             <ul className="space-y-4">
               {processingCapabilities.map((cap) => (
-                <li key={cap} className="flex items-center gap-4 border-b border-[rgba(255,255,255,0.08)] pb-4 font-light" style={{ color: 'rgba(255,255,255,0.6)' }}>
+                <li key={cap} className="flex items-center gap-4 border-b border-[rgba(255,255,255,0.08)] pb-4 font-light text-white/60 hover:text-white transition-colors duration-300">
                   <span className="text-cta text-sm">—</span> {cap}
                 </li>
               ))}

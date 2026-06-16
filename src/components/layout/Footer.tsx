@@ -193,7 +193,16 @@ export default function Footer() {
             className="text-caption-text"
             style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.6875rem' }}
           >
-            Built by Forma Digital
+            Built by{' '}
+            <a
+              href="https://formadigital.in"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="footer-link hover:text-white"
+              style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s ease' }}
+            >
+              Forma Digital
+            </a>
           </p>
         </div>
       </div>
