@@ -32,6 +32,8 @@ export const metadata: Metadata = {
   },
 }
 
+import { GlobalBackgroundPaths } from '@/components/ui/background-paths'
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${bodoni.variable} ${jost.variable} bg-background text-text`}>
@@ -41,6 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main>{children}</main>
           <Footer />
           <CookieBanner />
+          <GlobalBackgroundPaths />
         </SmoothScroll>
       </body>
     </html>

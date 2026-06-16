@@ -85,7 +85,7 @@ export default function EnquiryForm({
         className="w-full section-padded relative overflow-hidden"
         style={{ background: 'var(--navy)' }}
       >
-        <div style={{ maxWidth: 'var(--max-content)', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 1 }}>
+        <div style={{ maxWidth: 'var(--max-content)', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 10 }}>
           <p className="text-label" style={{ color: 'var(--cta)', marginBottom: 16 }}>Get in Touch</p>
           <h2 className="text-heading" style={{ marginBottom: 32, color: '#FFFFFF' }}>
             Ready to craft something <span style={{ fontStyle: 'italic', color: 'var(--cta)' }}>extraordinary?</span>
@@ -105,7 +105,7 @@ export default function EnquiryForm({
       style={{ background: 'var(--surface)' }}
     >
       <div className="absolute inset-0 liquid-gradient opacity-40 pointer-events-none" />
-      <div style={{ maxWidth: showHeading ? 'var(--max-content)' : '100%', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+      <div style={{ maxWidth: showHeading ? 'var(--max-content)' : '100%', margin: '0 auto', position: 'relative', zIndex: 10 }}>
         {showHeading && (
           <div className="mb-16">
             <p className="text-label" style={{ color: 'var(--cta)', marginBottom: 16 }}>Enquire</p>

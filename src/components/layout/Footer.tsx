@@ -17,6 +17,8 @@ export default function Footer() {
           maxWidth: 'var(--max-content)',
           margin: '0 auto',
           padding: '64px 80px 40px',
+          position: 'relative',
+          zIndex: 10,
         }}
       >
         <div className="footer-main-grid">
@@ -152,6 +154,8 @@ export default function Footer() {
         style={{
           borderTop: '1px solid rgba(255,255,255,0.08)',
           padding: '20px 80px',
+          position: 'relative',
+          zIndex: 10,
         }}
       >
         <div

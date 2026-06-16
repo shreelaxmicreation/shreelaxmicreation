@@ -29,7 +29,7 @@ export default function StatsSection() {
     >
       <div className="absolute inset-0 liquid-gradient opacity-40 pointer-events-none" />
       
-      <motion.div style={{ opacity, y, maxWidth: 'var(--max-content)', margin: '0 auto', position: 'relative', zIndex: 1 }}>
+      <motion.div style={{ opacity, y, maxWidth: 'var(--max-content)', margin: '0 auto', position: 'relative', zIndex: 10 }}>
         {/* Section Label */}
         <div className="text-center mb-16">
           <p className="text-label text-cta mb-4 tracking-[0.2em]">At a Glance</p>

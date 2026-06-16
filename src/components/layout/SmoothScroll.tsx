@@ -39,7 +39,7 @@ export default function SmoothScroll({ children }: SmoothScrollProps) {
   }, [])
 
   return (
-    <div className="smooth-scroll-wrapper">
+    <div className="smooth-scroll-wrapper relative">
       {children}
     </div>
   )

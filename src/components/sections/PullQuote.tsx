@@ -28,7 +28,7 @@ export default function PullQuote() {
         }}
       />
 
-      <div style={{ maxWidth: 900, position: 'relative', zIndex: 1 }}>
+      <div style={{ maxWidth: 900, position: 'relative', zIndex: 10 }}>
         <p
           className="text-label"
           style={{ color: 'var(--cta)', marginBottom: 32, letterSpacing: '0.25em' }}

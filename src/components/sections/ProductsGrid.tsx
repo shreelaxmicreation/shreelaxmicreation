@@ -44,7 +44,7 @@ export default function ProductsGrid({ mode, showHeader = true }: ProductsGridPr
         className="w-full section-padded relative overflow-hidden"
         style={{ background: 'var(--surface)' }}
       >
-        <div style={{ maxWidth: 'var(--max-content)', margin: '0 auto', padding: '0 24px', position: 'relative', zIndex: 1 }}>
+        <div style={{ maxWidth: 'var(--max-content)', margin: '0 auto', padding: '0 24px', position: 'relative', zIndex: 10 }}>
           <OrangeRule />
           <p className="text-label mt-6 mb-4 text-muted">What We Make</p>
           <h2 className="text-display-m mb-12" style={{ color: 'var(--navy)' }}>Products</h2>
@@ -63,7 +63,7 @@ export default function ProductsGrid({ mode, showHeader = true }: ProductsGridPr
       style={{ background: 'var(--surface)' }}
     >
       <div className="absolute inset-0 liquid-gradient opacity-20 pointer-events-none" />
-      <div style={{ maxWidth: 'var(--max-content)', margin: '0 auto', padding: '0 24px', position: 'relative', zIndex: 1 }}>
+      <div style={{ maxWidth: 'var(--max-content)', margin: '0 auto', padding: '0 24px', position: 'relative', zIndex: 10 }}>
         {showHeader && (
           <motion.div
             initial={{ opacity: 0, y: 30 }}
