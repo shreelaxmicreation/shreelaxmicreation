@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://shreelaxmicreation.com/sitemap.xml
