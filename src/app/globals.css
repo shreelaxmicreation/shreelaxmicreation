@@ -512,3 +512,17 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(28, 49, 94, 0.3);
 }
+
+/* ── Spline Loader ──────────────────────────── */
+.loader {
+  width: 32px;
+  height: 32px;
+  border: 3px solid rgba(214, 176, 106, 0.2);
+  border-top-color: var(--cta);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

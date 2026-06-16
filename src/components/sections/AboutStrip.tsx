@@ -4,7 +4,7 @@ import { useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import OrangeRule from '@/components/ui/OrangeRule'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, Variants } from 'framer-motion'
 
 export default function AboutStrip() {
   const containerRef = useRef(null)
@@ -17,7 +17,7 @@ export default function AboutStrip() {
   const y = useTransform(scrollYProgress, [0, 1], ['-20%', '20%'])
   const maskClip = useTransform(scrollYProgress, [0, 0.4], ['inset(20% 10% 20% 10%)', 'inset(0% 0% 0% 0%)'])
 
-  const textContainer = {
+  const textContainer: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -25,7 +25,7 @@ export default function AboutStrip() {
     }
   }
 
-  const textItem = {
+  const textItem: Variants = {
     hidden: { opacity: 0, y: 40 },
     visible: { 
       opacity: 1, 
