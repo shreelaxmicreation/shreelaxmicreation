@@ -1,9 +1,8 @@
 import { Resend } from 'resend'
 import { NextRequest, NextResponse } from 'next/server'
 
-const resend = new Resend(process.env.RESEND_API_KEY)
-
 export async function POST(req: NextRequest) {
+  const resend = new Resend(process.env.RESEND_API_KEY)
   const body = await req.json()
   const { name, whatsapp, message } = body
 
@@ -29,8 +28,4 @@ export async function POST(req: NextRequest) {
     console.error('Resend error:', err)
     return NextResponse.json({ error: 'Failed to send.' }, { status: 500 })
   }
-}
-
-export async function GET() {
-  return NextResponse.json({ error: 'Method not allowed.' }, { status: 405 })
 }
