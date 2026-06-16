@@ -122,7 +122,7 @@ export default function Hero() {
               {/* Right content — 3D Robot */}
               <div className="flex-1 relative min-h-[400px] md:min-h-0">
                 <SplineScene 
-                  scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
+                  scene="https://prod.spline.design/gDQMNMoFO6GLsYiK/scene.splinecode"
                   className="w-full h-full"
                 />
               </div>
