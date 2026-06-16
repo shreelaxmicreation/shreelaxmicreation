@@ -1,6 +1,6 @@
 import Hero from '@/components/sections/Hero'
 import PullQuote from '@/components/sections/PullQuote'
-import ProductsGrid from '@/components/sections/ProductsGrid'
+import CatalogScrollSequence from '@/components/sections/CatalogScrollSequence'
 import StatsSection from '@/components/sections/StatsSection'
 import AboutStrip from '@/components/sections/AboutStrip'
 import EnquiryForm from '@/components/sections/EnquiryForm'
@@ -10,7 +10,7 @@ export default function Home() {
     <>
       <Hero />
       <PullQuote />
-      <ProductsGrid mode="preview" />
+      <CatalogScrollSequence />
       <StatsSection />
       <AboutStrip />
       <EnquiryForm />
