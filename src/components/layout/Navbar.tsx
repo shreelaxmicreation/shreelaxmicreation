@@ -130,12 +130,13 @@ export default function Navbar() {
                 <Link
                   key={link.label}
                   href={link.href}
+                  className={`transition-colors duration-200 ${
+                    shouldInvert ? 'text-white hover:text-cta' : 'text-text hover:text-cta'
+                  }`}
                   style={{
                     fontFamily: 'var(--font-body)',
                     fontSize: 14,
-                    color: shouldInvert ? 'var(--white)' : 'var(--text)',
                     marginLeft: 32,
-                    transition: 'color 0.2s ease',
                     borderBottom: pathname === link.href
                       ? '1px solid var(--brand)'
                       : '1px solid transparent',
@@ -219,9 +220,8 @@ export default function Navbar() {
                 key={link.label}
                 href={link.href}
                 onClick={() => setMobileOpen(false)}
-                className="text-display-l"
+                className="text-display-l text-white hover:text-cta transition-colors duration-200"
                 style={{
-                  color: 'var(--white)',
                   textDecoration: 'none',
                 }}
               >
