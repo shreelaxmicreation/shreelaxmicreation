@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Bodoni_Moda, Jost } from 'next/font/google'
+import { Bodoni_Moda, Hanken_Grotesk } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
@@ -13,10 +13,10 @@ const bodoni = Bodoni_Moda({
   display: 'swap',
 })
 
-const jost = Jost({
+const hanken = Hanken_Grotesk({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
-  variable: '--font-jost',
+  variable: '--font-hanken',
   display: 'swap',
 })
 
@@ -35,7 +35,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${bodoni.variable} ${jost.variable} bg-background text-text`}>
+    <html lang="en" className={`${bodoni.variable} ${hanken.variable} bg-background text-text`}>
       <body>
         <SmoothScroll>
           <Navbar />

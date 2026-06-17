@@ -22,7 +22,7 @@ const config: Config = {
       },
       fontFamily: {
         display: ['var(--font-bodoni-moda)', 'Georgia', 'serif'],
-        body:    ['var(--font-jost)', 'system-ui', 'sans-serif'],
+        body:    ['var(--font-hanken)', 'system-ui', 'sans-serif'],
       },
       maxWidth: {
         content: '1200px',
