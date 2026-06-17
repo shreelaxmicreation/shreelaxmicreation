@@ -11,9 +11,9 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    await resend.emails.send({
-      from: process.env.RESEND_FROM_EMAIL!,
-      to: process.env.RESEND_TO_EMAIL!,
+    const { data, error } = await resend.emails.send({
+      from: process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
+      to: process.env.RESEND_TO_EMAIL || 'golecha.aadi30@gmail.com',
       subject: 'New Enquiry — Shree Laxmi Creation',
       html: `
         <table style="font-family:sans-serif;font-size:14px;color:#0D0C0A;">
@@ -23,7 +23,13 @@ export async function POST(req: NextRequest) {
         </table>
       `,
     })
-    return NextResponse.json({ success: true })
+
+    if (error) {
+      console.error('Resend API error:', error)
+      return NextResponse.json({ error: error.message }, { status: 500 })
+    }
+
+    return NextResponse.json({ success: true, data })
   } catch (err) {
     console.error('Resend error:', err)
     return NextResponse.json({ error: 'Failed to send.' }, { status: 500 })
