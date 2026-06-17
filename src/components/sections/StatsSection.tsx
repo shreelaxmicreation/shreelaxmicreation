@@ -33,7 +33,7 @@ export default function StatsSection() {
         {/* Section Label */}
         <div className="text-center mb-16">
           <p className="text-label text-cta mb-4 tracking-[0.2em]">At a Glance</p>
-          <h2 className="font-display text-[clamp(2.5rem,5vw,4rem)] leading-[1.1]" style={{ color: 'var(--navy)' }}>
+          <h2 className="font-display text-[clamp(2rem,5vw,4rem)] leading-[1.1]" style={{ color: 'var(--navy)' }}>
             Numbers That Define{' '}
             <span style={{ fontStyle: 'italic', color: 'var(--cta)' }}>Quality</span>
           </h2>
@@ -52,9 +52,9 @@ export default function StatsSection() {
                 delay: idx * 0.15,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="liquid-glass-card rounded-3xl p-10 text-center flex flex-col items-center justify-center min-h-[280px]"
+              className="liquid-glass-card rounded-3xl p-6 md:p-10 text-center flex flex-col items-center justify-center min-h-[200px] md:min-h-[280px]"
             >
-              <p className="font-display text-[clamp(3.5rem,5vw,4.5rem)] font-light mb-4 leading-none" style={{ color: 'var(--navy)' }}>
+              <p className="font-display text-[clamp(2.5rem,5vw,4.5rem)] font-light mb-4 leading-none" style={{ color: 'var(--navy)' }}>
                 {stat.value}
               </p>
               <div className="w-12 h-[1px] bg-cta mb-6" />

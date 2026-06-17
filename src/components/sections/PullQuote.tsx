@@ -9,7 +9,7 @@ export default function PullQuote() {
       className="w-full flex items-center justify-center text-center relative overflow-hidden"
       style={{
         background: 'var(--navy)',
-        padding: '160px 24px',
+        padding: 'clamp(80px, 15vw, 160px) 24px',
       }}
     >
       {/* Subtle decorative lines */}
@@ -40,7 +40,7 @@ export default function PullQuote() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.1] font-display font-light"
+          className="text-[clamp(2rem,5vw,4.5rem)] leading-[1.1] font-display font-light"
           style={{ color: '#FFFFFF' }}
         >
           From yarn to finished fabric, we deliver <span style={{ fontStyle: 'italic', color: 'var(--cta)' }}>smart fabric solutions</span> for growing brands.

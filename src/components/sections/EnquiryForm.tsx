@@ -142,7 +142,7 @@ export default function EnquiryForm({
                 transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                 className="flex flex-col gap-6"
               >
-                <label className="text-2xl md:text-3xl font-display text-navy font-medium leading-tight">
+                <label className="text-xl md:text-3xl font-display text-navy font-medium leading-tight">
                   {currentQ.label}
                 </label>
                 
@@ -152,7 +152,7 @@ export default function EnquiryForm({
                       {...register(currentQ.id as keyof FormData, { required: true })}
                       placeholder={currentQ.placeholder}
                       rows={4}
-                      className="w-full bg-transparent border-b border-[rgba(28,49,94,0.15)] text-text text-xl py-4 focus:outline-none focus:border-[var(--cta)] transition-colors resize-none placeholder:text-[rgba(28,49,94,0.2)]"
+                      className="w-full bg-transparent border-b border-[rgba(28,49,94,0.15)] text-text text-lg md:text-xl py-4 focus:outline-none focus:border-[var(--cta)] transition-colors resize-none placeholder:text-[rgba(28,49,94,0.2)]"
                       onKeyDown={handleKeyDown}
                     />
                   ) : (
@@ -163,7 +163,7 @@ export default function EnquiryForm({
                       })}
                       type={currentQ.type}
                       placeholder={currentQ.placeholder}
-                      className="w-full bg-transparent border-b border-[rgba(28,49,94,0.15)] text-text text-2xl md:text-4xl py-4 focus:outline-none focus:border-[var(--cta)] transition-colors placeholder:text-[rgba(28,49,94,0.2)]"
+                      className="w-full bg-transparent border-b border-[rgba(28,49,94,0.15)] text-text text-xl md:text-4xl py-4 focus:outline-none focus:border-[var(--cta)] transition-colors placeholder:text-[rgba(28,49,94,0.2)]"
                       onKeyDown={handleKeyDown}
                     />
                   )}

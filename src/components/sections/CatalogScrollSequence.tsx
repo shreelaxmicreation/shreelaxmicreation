@@ -52,7 +52,7 @@ function SwatchCard({ swatch }: { swatch: typeof fabricSwatches[0] }) {
   return (
     <Link
       href={`/contact?subject=${encodeURIComponent(swatch.category)}`}
-      className="group block p-4 rounded-3xl relative overflow-hidden flex-shrink-0 w-[260px] md:w-[340px] transition-transform duration-500 hover:scale-[1.02]"
+      className="group block p-4 rounded-3xl relative overflow-hidden flex-shrink-0 w-[220px] md:w-[340px] transition-transform duration-500 hover:scale-[1.02]"
       style={{ backgroundColor: 'var(--white)', border: '1px solid rgba(28, 49, 94, 0.08)', textDecoration: 'none' }}
     >
       <div 
@@ -73,7 +73,7 @@ function SwatchCard({ swatch }: { swatch: typeof fabricSwatches[0] }) {
         <p className="text-xs uppercase tracking-widest text-cta mb-2 font-medium">
           {swatch.category}
         </p>
-        <h3 className="font-display text-2xl font-normal text-navy transition-colors duration-300 group-hover:text-cta m-0">
+        <h3 className="font-display text-xl md:text-2xl font-normal text-navy transition-colors duration-300 group-hover:text-cta m-0">
           {swatch.label}
         </h3>
       </div>
@@ -229,10 +229,10 @@ export default function CatalogScrollSequence() {
           <svg width="0" height="0" className="absolute pointer-events-none">
             <defs>
               <clipPath id="textMask">
-                <text x="50%" y="45%" textAnchor="middle" dominantBaseline="middle" className="font-display uppercase font-normal font-bold" style={{ fontSize: 'clamp(3.5rem, 12vw, 11rem)' }}>
+                <text x="50%" y="45%" textAnchor="middle" dominantBaseline="middle" className="font-display uppercase font-normal font-bold" style={{ fontSize: 'clamp(2.5rem, 10vw, 11rem)' }}>
                   FABRIC THAT
                 </text>
-                <text x="50%" y="58%" textAnchor="middle" dominantBaseline="middle" className="font-display uppercase font-normal font-bold" style={{ fontSize: 'clamp(3.5rem, 12vw, 11rem)' }}>
+                <text x="50%" y="58%" textAnchor="middle" dominantBaseline="middle" className="font-display uppercase font-normal font-bold" style={{ fontSize: 'clamp(2.5rem, 10vw, 11rem)' }}>
                   BUILDS BRANDS
                 </text>
               </clipPath>
@@ -242,10 +242,10 @@ export default function CatalogScrollSequence() {
           {/* Base Outline / Faded Text */}
           <div className="absolute inset-0 flex flex-col items-center justify-center z-0 pointer-events-none">
             <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-              <text x="50%" y="45%" textAnchor="middle" dominantBaseline="middle" className="font-display uppercase font-normal font-bold" style={{ fontSize: 'clamp(3.5rem, 12vw, 11rem)', fill: 'var(--muted)', opacity: 0.15 }}>
+              <text x="50%" y="45%" textAnchor="middle" dominantBaseline="middle" className="font-display uppercase font-normal font-bold" style={{ fontSize: 'clamp(2.5rem, 10vw, 11rem)', fill: 'var(--muted)', opacity: 0.15 }}>
                 FABRIC THAT
               </text>
-              <text x="50%" y="58%" textAnchor="middle" dominantBaseline="middle" className="font-display uppercase font-normal font-bold" style={{ fontSize: 'clamp(3.5rem, 12vw, 11rem)', fill: 'var(--muted)', opacity: 0.15 }}>
+              <text x="50%" y="58%" textAnchor="middle" dominantBaseline="middle" className="font-display uppercase font-normal font-bold" style={{ fontSize: 'clamp(2.5rem, 10vw, 11rem)', fill: 'var(--muted)', opacity: 0.15 }}>
                 BUILDS BRANDS
               </text>
             </svg>
@@ -269,7 +269,7 @@ export default function CatalogScrollSequence() {
             <div
               key={card.id}
               ref={el => { act2CardsRef.current[i] = el }}
-              className="absolute w-[280px] h-[360px] md:w-[400px] md:h-[500px] rounded-[2rem] overflow-hidden shadow-2xl flex flex-col justify-end p-8"
+              className="absolute w-[240px] h-[320px] md:w-[400px] md:h-[500px] rounded-[2rem] overflow-hidden shadow-2xl flex flex-col justify-end p-6 md:p-8"
               style={{ 
                 backgroundColor: card.color, 
                 willChange: 'transform, opacity',
@@ -284,7 +284,7 @@ export default function CatalogScrollSequence() {
                 <span className="text-sm font-body uppercase tracking-widest text-[var(--white)] opacity-90 mb-2 block">
                   {card.category}
                 </span>
-                <h3 className="text-4xl md:text-5xl font-display text-[var(--white)] leading-tight m-0 font-normal">
+                <h3 className="text-3xl md:text-5xl font-display text-[var(--white)] leading-tight m-0 font-normal">
                   {card.label}
                 </h3>
               </div>
