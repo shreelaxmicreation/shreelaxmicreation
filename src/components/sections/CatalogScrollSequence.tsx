@@ -112,9 +112,6 @@ export default function CatalogScrollSequence() {
   useGSAP(() => {
     if (!isMounted || reduceMotion) return;
 
-    // Refresh ScrollTrigger to ensure correct layout calculations
-    ScrollTrigger.refresh()
-
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: act1Ref.current,
