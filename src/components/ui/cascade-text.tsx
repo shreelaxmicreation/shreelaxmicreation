@@ -44,7 +44,7 @@ const TextReveal = React.memo(function TextReveal({
       const segmenter = new Intl.Segmenter("en", { granularity: "grapheme" });
       return Array.from(segmenter.segment(str), (s) => s.segment);
     }
-    return [...str];
+    return str.split("");
   };
 
   const { chars, hoverChars } = useMemo(() => {
