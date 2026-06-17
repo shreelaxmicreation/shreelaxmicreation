@@ -46,6 +46,9 @@ export default function Navbar() {
     { href: '/contact', label: 'Enquire', isEnquire: true },
   ]
 
+  const isDarkHero = pathname === '/about'
+  const shouldInvert = isDarkHero && !scrolled
+
   return (
     <>
       <motion.nav
@@ -93,6 +96,7 @@ export default function Navbar() {
                 width: 'auto',
                 objectFit: 'contain',
                 transition: 'filter 0.2s ease',
+                filter: shouldInvert ? 'brightness(0) invert(1)' : 'none'
               }}
             />
             <span
@@ -100,7 +104,7 @@ export default function Navbar() {
                 fontFamily: 'var(--font-heading)',
                 fontSize: 20,
                 letterSpacing: '0.02em',
-                color: 'var(--navy)',
+                color: shouldInvert ? 'var(--white)' : 'var(--navy)',
                 fontWeight: 500,
                 transition: 'color 0.2s ease',
               }}
@@ -116,6 +120,7 @@ export default function Navbar() {
                 <div key={link.label} style={{ marginLeft: 32 }}>
                   <OriginButton 
                     onClick={() => router.push(link.href)}
+                    className={shouldInvert ? "!bg-white !text-[var(--navy)] !border-none" : ""}
                     style={{ height: 40, padding: '0 24px', fontSize: 14 }}
                   >
                     {link.label}
@@ -128,7 +133,7 @@ export default function Navbar() {
                   style={{
                     fontFamily: 'var(--font-body)',
                     fontSize: 14,
-                    color: 'var(--text)',
+                    color: shouldInvert ? 'var(--white)' : 'var(--text)',
                     marginLeft: 32,
                     transition: 'color 0.2s ease',
                     borderBottom: pathname === link.href
@@ -155,7 +160,7 @@ export default function Navbar() {
               padding: 8,
             }}
           >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" strokeWidth="2">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={shouldInvert ? 'var(--white)' : 'var(--navy)'} strokeWidth="2" style={{ transition: 'stroke 0.2s ease' }}>
               <line x1="3" y1="6" x2="21" y2="6" />
               <line x1="3" y1="12" x2="21" y2="12" />
               <line x1="3" y1="18" x2="21" y2="18" />
