@@ -50,7 +50,7 @@ function GlobalPaths({ position }: { position: number }) {
 
 export function GlobalBackgroundPaths() {
     return (
-        <div className="absolute inset-0 pointer-events-none -z-10 overflow-visible mix-blend-difference">
+        <div className="absolute inset-0 pointer-events-none z-0 overflow-visible mix-blend-difference">
             <svg
                 className="w-full h-full text-white"
                 viewBox="-400 -400 1500 5400"

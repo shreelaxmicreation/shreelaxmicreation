@@ -24,7 +24,7 @@ export default function StatsSection() {
     <section
       id="stats-section"
       ref={containerRef}
-      className="w-full relative overflow-hidden"
+      className="w-full relative z-10 overflow-hidden"
       style={{ padding: '120px 24px', background: 'var(--surface)' }}
     >
       <div className="absolute inset-0 liquid-gradient opacity-40 pointer-events-none" />

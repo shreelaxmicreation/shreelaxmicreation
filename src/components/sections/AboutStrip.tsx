@@ -38,7 +38,7 @@ export default function AboutStrip() {
     <section
       id="about-strip"
       ref={containerRef}
-      className="w-full section-padded overflow-hidden relative"
+      className="w-full section-padded overflow-hidden relative z-10"
       style={{ background: 'var(--canvas)' }}
     >
       <div className="absolute inset-0 liquid-gradient opacity-30 pointer-events-none" />

@@ -101,7 +101,7 @@ export default function EnquiryForm({
   return (
     <section
       id="enquiry-form"
-      className={`w-full relative overflow-hidden ${showHeading ? 'section-padded' : ''}`}
+      className={`w-full relative z-10 overflow-hidden ${showHeading ? 'section-padded' : ''}`}
       style={{ background: 'var(--surface)' }}
     >
       <div className="absolute inset-0 liquid-gradient opacity-40 pointer-events-none" />
