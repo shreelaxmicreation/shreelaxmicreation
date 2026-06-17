@@ -3,6 +3,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import { SilkBackground } from "./silk-background-animation";
 
 function GlobalPaths({ position }: { position: number }) {
     const paths = Array.from({ length: 36 }, (_, i) => {
@@ -77,6 +78,7 @@ export function BackgroundPaths({
 
     return (
         <div className="relative min-h-[90vh] w-full flex items-center justify-center overflow-hidden">
+            <SilkBackground />
             <div className="relative z-10 container mx-auto px-4 md:px-6 text-center">
                 <motion.div
                     initial={{ opacity: 0 }}
