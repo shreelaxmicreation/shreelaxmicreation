@@ -190,12 +190,11 @@ const OriginButton = React.forwardRef<HTMLButtonElement, OriginButtonProps>(
         className={cn(
           componentThemeClassName,
           "relative inline-flex h-12 cursor-pointer touch-manipulation select-none items-center justify-center overflow-hidden rounded-xl px-8 font-medium text-[15px] tracking-[-0.02em]",
-          "border-[0.5px] border-border bg-card text-card-foreground",
-          "dark:bg-muted dark:text-foreground",
+          "bg-[var(--navy)] text-white border border-[rgba(255,255,255,0.1)]",
           "transition-[color] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--canvas)]",
           "disabled:pointer-events-none disabled:opacity-50",
-          showFill && "text-background dark:text-neutral-950",
+          showFill && "text-[var(--navy)]",
           className
         )}
         data-pressed={isPressed ? "true" : "false"}
@@ -283,7 +282,7 @@ const OriginButton = React.forwardRef<HTMLButtonElement, OriginButtonProps>(
         <motion.span
           animate={{ scale: showFill && coverSize > 0 ? 1 : 0 }}
           aria-hidden
-          className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 rounded-full bg-foreground dark:bg-neutral-50"
+          className="pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 rounded-full bg-[var(--cta)]"
           initial={false}
           style={{
             height: coverSize,
