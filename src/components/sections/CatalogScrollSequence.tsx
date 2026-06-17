@@ -12,44 +12,38 @@ if (typeof window !== 'undefined') {
 }
 
 const fabricSwatches = [
-  { id: "cotton-01", label: "Pure Cotton", color: "#E8E2D5", category: "Cotton Fabrics" },
-  { id: "cotton-02", label: "Poplin", color: "#E0D7C6", category: "Cotton Fabrics" },
-  { id: "cotton-03", label: "Oxford", color: "#D8CDBC", category: "Cotton Fabrics" },
-  { id: "dobby-01", label: "Dobby Weave", color: "#D6CDB8", category: "Dobby Fabrics" },
-  { id: "dobby-02", label: "Textured Dobby", color: "#CFC3AD", category: "Dobby Fabrics" },
-  { id: "dobby-03", label: "Micro Dobby", color: "#C5B8A1", category: "Dobby Fabrics" },
-  { id: "struct-01", label: "Herringbone", color: "#D9D0BD", category: "Structured Weaves" },
-  { id: "struct-02", label: "Twill", color: "#D1C6B0", category: "Structured Weaves" },
-  { id: "struct-03", label: "Birdseye", color: "#C6BAA3", category: "Structured Weaves" },
-  { id: "blend-01", label: "Poly-Cotton", color: "#D5CCB6", category: "Cotton-Poly Blends" },
-  { id: "blend-02", label: "Stretch Blend", color: "#CCBFA7", category: "Cotton-Poly Blends" },
+  { id: "cotton-01", label: "Pure Cotton", color: "#E8E2D5", category: "Cotton Fabrics", image: "https://images.unsplash.com/photo-1594938298595-d2d87e0b82f0?q=80&w=800&auto=format&fit=crop" },
+  { id: "cotton-02", label: "Poplin", color: "#E0D7C6", category: "Cotton Fabrics", image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=800&auto=format&fit=crop" },
+  { id: "cotton-03", label: "Oxford", color: "#D8CDBC", category: "Cotton Fabrics", image: "https://images.unsplash.com/photo-1574015974293-817f0ebebb74?q=80&w=800&auto=format&fit=crop" },
+  { id: "dobby-01", label: "Dobby Weave", color: "#D6CDB8", category: "Dobby Fabrics", image: "https://images.unsplash.com/photo-1584031402281-224cb82cb8cb?q=80&w=800&auto=format&fit=crop" },
+  { id: "dobby-02", label: "Textured Dobby", color: "#CFC3AD", category: "Dobby Fabrics", image: "https://images.unsplash.com/photo-1620799139834-6b8f844fbe61?q=80&w=800&auto=format&fit=crop" },
+  { id: "dobby-03", label: "Micro Dobby", color: "#C5B8A1", category: "Dobby Fabrics", image: "https://images.unsplash.com/photo-1594938298595-d2d87e0b82f0?q=80&w=800&auto=format&fit=crop" },
+  { id: "struct-01", label: "Herringbone", color: "#D9D0BD", category: "Structured Weaves", image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=800&auto=format&fit=crop" },
+  { id: "struct-02", label: "Twill", color: "#D1C6B0", category: "Structured Weaves", image: "https://images.unsplash.com/photo-1574015974293-817f0ebebb74?q=80&w=800&auto=format&fit=crop" },
+  { id: "struct-03", label: "Birdseye", color: "#C6BAA3", category: "Structured Weaves", image: "https://images.unsplash.com/photo-1584031402281-224cb82cb8cb?q=80&w=800&auto=format&fit=crop" },
+  { id: "blend-01", label: "Poly-Cotton", color: "#D5CCB6", category: "Cotton-Poly Blends", image: "https://images.unsplash.com/photo-1620799139834-6b8f844fbe61?q=80&w=800&auto=format&fit=crop" },
+  { id: "blend-02", label: "Stretch Blend", color: "#CCBFA7", category: "Cotton-Poly Blends", image: "https://images.unsplash.com/photo-1594938298595-d2d87e0b82f0?q=80&w=800&auto=format&fit=crop" },
 ]
 
 const act2Cards = [
-  { id: "act2-cotton", label: "Cotton", color: "#E8E2D5", category: "Cotton Fabrics" },
-  { id: "act2-dobby", label: "Dobby", color: "#D6CDB8", category: "Dobby Fabrics" },
-  { id: "act2-struct", label: "Structured", color: "#D9D0BD", category: "Structured Weaves" },
-  { id: "act2-blend", label: "Blends", color: "#D5CCB6", category: "Cotton-Poly Blends" },
+  { id: "act2-cotton", label: "Cotton", color: "#E8E2D5", category: "Cotton Fabrics", image: "https://images.unsplash.com/photo-1594938298595-d2d87e0b82f0?q=80&w=1200&auto=format&fit=crop" },
+  { id: "act2-dobby", label: "Dobby", color: "#D6CDB8", category: "Dobby Fabrics", image: "https://images.unsplash.com/photo-1584031402281-224cb82cb8cb?q=80&w=1200&auto=format&fit=crop" },
+  { id: "act2-struct", label: "Structured", color: "#D9D0BD", category: "Structured Weaves", image: "https://images.unsplash.com/photo-1574015974293-817f0ebebb74?q=80&w=1200&auto=format&fit=crop" },
+  { id: "act2-blend", label: "Blends", color: "#D5CCB6", category: "Cotton-Poly Blends", image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=1200&auto=format&fit=crop" },
 ]
 
 // Animated CSS Gradient Placeholder
 // Built so a <video> can easily be dropped in here later
 function TextureBackground() {
   return (
-    <div 
-      className="w-full h-full"
-      style={{
-        background: 'linear-gradient(210deg, #D6B06A 0%, #F5F1E8 30%, #D6CDB8 60%, #1C315E 100%)',
-        backgroundSize: '400% 400%',
-        animation: 'bg-shift 12s ease-in-out infinite alternate',
-      }}
-    >
-      <style dangerouslySetInnerHTML={{__html: `
-        @keyframes bg-shift {
-          0% { background-position: 0% 0%; }
-          100% { background-position: 100% 100%; }
-        }
-      `}} />
+    <div className="w-full h-full relative">
+      <img 
+        src="https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?q=80&w=3000&auto=format&fit=crop" 
+        alt="Fabric Texture placeholder" 
+        className="w-full h-full object-cover"
+      />
+      {/* Overlay to ensure text legibility and match brand tones */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-[rgba(28,49,94,0.4)] to-[rgba(214,176,106,0.2)] mix-blend-multiply" />
     </div>
   )
 }
@@ -65,6 +59,7 @@ function SwatchCard({ swatch }: { swatch: typeof fabricSwatches[0] }) {
         className="relative w-full aspect-[4/5] rounded-2xl flex items-center justify-center transition-transform duration-700 group-hover:scale-105 overflow-hidden"
         style={{ backgroundColor: swatch.color }}
       >
+        <img src={swatch.image} alt={swatch.label} className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-50" />
         <div className="absolute inset-0 bg-gradient-to-t from-[rgba(28,49,94,0.85)] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-between p-6">
           <span className="font-body text-sm font-medium tracking-widest uppercase text-white">
             Enquire
@@ -124,8 +119,8 @@ export default function CatalogScrollSequence() {
       scrollTrigger: {
         trigger: act1Ref.current,
         start: "top top",
-        end: "+=300%", // ~300vh scroll duration for pinned section
-        scrub: true,
+        end: "+=400%", // ~400vh scroll duration for pinned section
+        scrub: 1.5,
         pin: true,
         anticipatePin: 1,
       }
@@ -282,12 +277,17 @@ export default function CatalogScrollSequence() {
                 display: reduceMotion ? 'none' : 'flex' // Hide in reduced motion to avoid clutter
               }}
             >
-              <span className="text-sm font-body uppercase tracking-widest text-[var(--navy)] opacity-70 mb-2">
-                {card.category}
-              </span>
-              <h3 className="text-4xl md:text-5xl font-display text-[var(--navy)] leading-tight m-0 font-normal">
-                {card.label}
-              </h3>
+              <img src={card.image} alt={card.label} className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-60 z-0" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[rgba(28,49,94,0.7)] to-transparent z-0 pointer-events-none" />
+              
+              <div className="relative z-10">
+                <span className="text-sm font-body uppercase tracking-widest text-[var(--white)] opacity-90 mb-2 block">
+                  {card.category}
+                </span>
+                <h3 className="text-4xl md:text-5xl font-display text-[var(--white)] leading-tight m-0 font-normal">
+                  {card.label}
+                </h3>
+              </div>
             </div>
           ))}
         </div>

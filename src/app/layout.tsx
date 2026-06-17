@@ -32,7 +32,6 @@ export const metadata: Metadata = {
   },
 }
 
-import { GlobalBackgroundPaths } from '@/components/ui/background-paths'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -40,10 +39,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body>
         <SmoothScroll>
           <Navbar />
-          <main>{children}</main>
+          <main className="relative">{children}</main>
           <Footer />
           <CookieBanner />
-          <GlobalBackgroundPaths />
         </SmoothScroll>
       </body>
     </html>
