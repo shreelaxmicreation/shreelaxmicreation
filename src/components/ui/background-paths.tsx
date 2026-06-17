@@ -1,10 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 function GlobalPaths({ position }: { position: number }) {
-    // Generate paths that span a very tall viewBox (0 to 5000 units vertically)
     const paths = Array.from({ length: 36 }, (_, i) => {
         const xOffset = i * 5 * position;
         const ySpread = i * 6;
@@ -66,11 +66,14 @@ export function GlobalBackgroundPaths() {
 }
 
 export function BackgroundPaths({
-    title = "Background Paths",
+    title = "Reliable Shirting Fabric Solutions",
 }: {
     title?: string;
 }) {
-    const words = title.split(" ");
+    const [isHovered, setIsHovered] = useState(false);
+    
+    const displayText = isHovered ? "Shree Laxmi Creation" : title;
+    const words = displayText.split(" ");
 
     return (
         <div className="relative min-h-[90vh] w-full flex items-center justify-center overflow-hidden">
@@ -80,33 +83,36 @@ export function BackgroundPaths({
                     animate={{ opacity: 1 }}
                     transition={{ duration: 2 }}
                     className="max-w-4xl mx-auto"
+                    onMouseEnter={() => setIsHovered(true)}
+                    onMouseLeave={() => setIsHovered(false)}
                 >
                     <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold mb-8 tracking-tighter">
-                        {words.map((word, wordIndex) => (
-                            <span
-                                key={wordIndex}
-                                className="inline-block mr-4 last:mr-0"
-                            >
-                                {word.split("").map((letter, letterIndex) => (
-                                    <motion.span
-                                        key={`${wordIndex}-${letterIndex}`}
-                                        initial={{ y: 100, opacity: 0 }}
-                                        animate={{ y: 0, opacity: 1 }}
-                                        transition={{
-                                            delay:
-                                                wordIndex * 0.1 +
-                                                letterIndex * 0.03,
-                                            type: "spring",
-                                            stiffness: 150,
-                                            damping: 25,
-                                        }}
-                                        className="inline-block text-[var(--navy)]"
-                                    >
-                                        {letter}
-                                    </motion.span>
-                                ))}
-                            </span>
-                        ))}
+                        <AnimatePresence mode="popLayout">
+                            {words.map((word, wordIndex) => (
+                                <span
+                                    key={`${word}-${wordIndex}-${isHovered ? 'hover' : 'default'}`}
+                                    className="inline-block mr-4 last:mr-0"
+                                >
+                                    {word.split("").map((letter, letterIndex) => (
+                                        <motion.span
+                                            key={`${word}-${wordIndex}-${letterIndex}-${isHovered ? 'hover' : 'default'}`}
+                                            initial={{ y: 50, opacity: 0 }}
+                                            animate={{ y: 0, opacity: 1 }}
+                                            exit={{ y: -50, opacity: 0 }}
+                                            transition={{
+                                                delay: wordIndex * 0.05 + letterIndex * 0.02,
+                                                type: "spring",
+                                                stiffness: 200,
+                                                damping: 20,
+                                            }}
+                                            className="inline-block text-[var(--navy)]"
+                                        >
+                                            {letter}
+                                        </motion.span>
+                                    ))}
+                                </span>
+                            ))}
+                        </AnimatePresence>
                     </h1>
 
                     <div
