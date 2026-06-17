@@ -216,7 +216,7 @@ export default function CatalogScrollSequence() {
   const marqueeItems = [...fabricSwatches, ...fabricSwatches, ...fabricSwatches, ...fabricSwatches]
 
   return (
-    <section ref={containerRef} className="w-full bg-[var(--canvas)] relative">
+    <section ref={containerRef} className="w-full relative z-10">
       
       {/* ACT 1 & 2: Pinned Section */}
       <div ref={act1Ref} className="h-[100svh] w-full relative flex items-center justify-center overflow-hidden">
