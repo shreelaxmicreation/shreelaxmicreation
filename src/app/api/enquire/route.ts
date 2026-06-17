@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
   try {
     const { data, error } = await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
-      to: process.env.RESEND_TO_EMAIL || 'golecha.aadi30@gmail.com',
+      to: process.env.RESEND_TO_EMAIL || 'shreelaxmicreation380002@gmail.com',
       subject: 'New Enquiry — Shree Laxmi Creation',
       html: `
         <table style="font-family:sans-serif;font-size:14px;color:#0D0C0A;">
