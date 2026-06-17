@@ -87,6 +87,7 @@ export default function CatalogScrollSequence() {
   const act1ContentRef = useRef<HTMLDivElement>(null)
   const maskRectRef = useRef<HTMLDivElement>(null)
   const act2CardsRef = useRef<(HTMLDivElement | null)[]>([])
+  const scrollIndicatorRef = useRef<HTMLDivElement>(null)
   
   const marqueeRef = useRef<HTMLDivElement>(null)
   const row1Ref = useRef<HTMLDivElement>(null)
@@ -123,12 +124,19 @@ export default function CatalogScrollSequence() {
       }
     })
 
+    // Fade out scroll indicator immediately upon scrolling
+    tl.to(scrollIndicatorRef.current, {
+      opacity: 0,
+      duration: 0.3,
+      ease: "power2.out"
+    }, 0)
+
     // ACT 1: Text Mask Reveal (Bottom to Top)
     tl.to(maskRectRef.current, {
       clipPath: 'inset(0% 0% 0% 0%)',
       ease: "none",
       duration: 1
-    })
+    }, 0)
 
     // Fade out Act 1 to prepare for Act 2
     if (act1ContentRef.current) {
@@ -219,8 +227,14 @@ export default function CatalogScrollSequence() {
     <section ref={containerRef} className="w-full relative z-10">
       
       {/* ACT 1 & 2: Pinned Section */}
-      <div ref={act1Ref} className="h-[100svh] w-full relative flex items-center justify-center overflow-hidden">
+      <div ref={act1Ref} className="h-[100svh] w-full relative flex items-center justify-center overflow-hidden bg-[var(--canvas)]">
         
+        {/* Scroll Indicator */}
+        <div ref={scrollIndicatorRef} className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-60 z-30 pointer-events-none">
+          <span className="text-[10px] tracking-[0.2em] uppercase mb-3 font-medium text-[var(--navy)] animate-pulse">Scroll to explore</span>
+          <div className="w-[1px] h-12 bg-gradient-to-b from-[var(--navy)] to-transparent" />
+        </div>
+
         <div ref={act1ContentRef} className="act1-content absolute inset-0 w-full h-full">
           {/* SVG Definition for Text Mask */}
           <svg width="0" height="0" className="absolute pointer-events-none">
@@ -239,10 +253,10 @@ export default function CatalogScrollSequence() {
           {/* Base Outline / Faded Text */}
           <div className="absolute inset-0 flex flex-col items-center justify-center z-0 pointer-events-none">
             <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-              <text x="50%" y="45%" textAnchor="middle" dominantBaseline="middle" className="font-display uppercase font-normal font-bold" style={{ fontSize: 'clamp(2.5rem, 10vw, 11rem)', fill: 'var(--muted)', opacity: 0.15 }}>
+              <text x="50%" y="45%" textAnchor="middle" dominantBaseline="middle" className="font-display uppercase font-normal font-bold" style={{ fontSize: 'clamp(2.5rem, 10vw, 11rem)', fill: 'var(--navy)', opacity: 0.1 }}>
                 FABRIC THAT
               </text>
-              <text x="50%" y="58%" textAnchor="middle" dominantBaseline="middle" className="font-display uppercase font-normal font-bold" style={{ fontSize: 'clamp(2.5rem, 10vw, 11rem)', fill: 'var(--muted)', opacity: 0.15 }}>
+              <text x="50%" y="58%" textAnchor="middle" dominantBaseline="middle" className="font-display uppercase font-normal font-bold" style={{ fontSize: 'clamp(2.5rem, 10vw, 11rem)', fill: 'var(--navy)', opacity: 0.1 }}>
                 BUILDS BRANDS
               </text>
             </svg>
