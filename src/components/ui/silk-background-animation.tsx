@@ -14,7 +14,7 @@ export const SilkBackground = () => {
     if (!ctx) return;
 
     let time = 0;
-    const speed = 0.015;
+    const speed = 0.022;
     const scale = 2;
     const noiseIntensity = 0.8;
     
