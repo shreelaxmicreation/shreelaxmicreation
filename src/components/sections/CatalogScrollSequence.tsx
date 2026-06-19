@@ -26,10 +26,10 @@ const fabricSwatches = [
 ]
 
 const act2Cards = [
-  { id: "act2-cotton", label: "Cotton", color: "#E8E2D5", category: "Cotton Fabrics", image: "https://images.unsplash.com/photo-1594938298595-d2d87e0b82f0?q=80&w=1200&auto=format&fit=crop" },
-  { id: "act2-dobby", label: "Dobby", color: "#D6CDB8", category: "Dobby Fabrics", image: "https://images.unsplash.com/photo-1584031402281-224cb82cb8cb?q=80&w=1200&auto=format&fit=crop" },
-  { id: "act2-struct", label: "Structured", color: "#D9D0BD", category: "Structured Weaves", image: "https://images.unsplash.com/photo-1574015974293-817f0ebebb74?q=80&w=1200&auto=format&fit=crop" },
-  { id: "act2-blend", label: "Blends", color: "#D5CCB6", category: "Cotton-Poly Blends", image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=1200&auto=format&fit=crop" },
+  { id: "cotton", label: "Cotton", color: "#E8E2D5", category: "Cotton Fabrics", image: "https://images.unsplash.com/photo-1594938298595-d2d87e0b82f0?q=80&w=1200&auto=format&fit=crop", fromX: "-60vw", fromY: "10vh", startScale: 0.25, peakScale: 2.6, size: "lg", delayOffset: 0.00 },
+  { id: "dobby", label: "Dobby", color: "#D6CDB8", category: "Dobby Fabrics", image: "https://images.unsplash.com/photo-1584031402281-224cb82cb8cb?q=80&w=1200&auto=format&fit=crop", fromX: "70vw", fromY: "-15vh", startScale: 0.35, peakScale: 2.1, size: "md", delayOffset: 0.12 },
+  { id: "structured", label: "Structured", color: "#D9D0BD", category: "Structured Weaves", image: "https://images.unsplash.com/photo-1574015974293-817f0ebebb74?q=80&w=1200&auto=format&fit=crop", fromX: "-40vw", fromY: "20vh", startScale: 0.30, peakScale: 2.4, size: "lg", delayOffset: 0.22 },
+  { id: "blends", label: "Blends", color: "#D5CCB6", category: "Cotton-Poly Blends", image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=1200&auto=format&fit=crop", fromX: "55vw", fromY: "5vh", startScale: 0.40, peakScale: 1.9, size: "sm", delayOffset: 0.32 },
 ]
 
 // Animated CSS Gradient Placeholder
@@ -148,27 +148,31 @@ export default function CatalogScrollSequence() {
     }
 
     // ACT 2: Z-Depth Punch Through
-    act2CardsRef.current.forEach((card, index) => {
+    act2Cards.forEach((cardData, index) => {
+      const card = act2CardsRef.current[index];
       if (!card) return;
-      const startTime = 1.3 + (index * 0.4); 
+      
+      const startTime = 1.3 + cardData.delayOffset; 
       
       tl.fromTo(card, {
-        scale: isMobile ? 0.7 : 0.3,
+        x: cardData.fromX,
+        y: isMobile ? 0 : cardData.fromY,
+        scale: cardData.startScale,
         opacity: 0,
-        y: isMobile ? 30 : 0
       }, {
-        scale: isMobile ? 1.05 : 2.5,
-        opacity: 1,
+        x: 0,
         y: 0,
-        duration: 0.5,
+        scale: isMobile ? Math.min(cardData.peakScale, 1.8) : cardData.peakScale,
+        opacity: 1,
+        duration: 0.35,
         ease: "power2.in"
       }, startTime)
       
       tl.to(card, {
         opacity: 0,
-        duration: 0.1,
+        duration: 0.05,
         ease: "power1.in"
-      }, startTime + 0.5)
+      }, startTime + 0.35)
     })
 
     // Buffer space at end
@@ -253,10 +257,10 @@ export default function CatalogScrollSequence() {
           {/* Base Outline / Faded Text */}
           <div className="absolute inset-0 flex flex-col items-center justify-center z-0 pointer-events-none">
             <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-              <text x="50%" y="45%" textAnchor="middle" dominantBaseline="middle" className="font-display uppercase font-normal font-bold" style={{ fontSize: 'clamp(2.5rem, 10vw, 11rem)', fill: 'var(--navy)', opacity: 0.1 }}>
+              <text x="50%" y="45%" textAnchor="middle" dominantBaseline="middle" className="font-display uppercase font-normal font-bold" style={{ fontSize: 'clamp(2.5rem, 10vw, 11rem)', fill: 'var(--navy)', opacity: 1 }}>
                 FABRIC THAT
               </text>
-              <text x="50%" y="58%" textAnchor="middle" dominantBaseline="middle" className="font-display uppercase font-normal font-bold" style={{ fontSize: 'clamp(2.5rem, 10vw, 11rem)', fill: 'var(--navy)', opacity: 0.1 }}>
+              <text x="50%" y="58%" textAnchor="middle" dominantBaseline="middle" className="font-display uppercase font-normal font-bold" style={{ fontSize: 'clamp(2.5rem, 10vw, 11rem)', fill: 'var(--navy)', opacity: 1 }}>
                 BUILDS BRANDS
               </text>
             </svg>
@@ -280,7 +284,11 @@ export default function CatalogScrollSequence() {
             <div
               key={card.id}
               ref={el => { act2CardsRef.current[i] = el }}
-              className="absolute w-[240px] h-[320px] md:w-[400px] md:h-[500px] rounded-[2rem] overflow-hidden shadow-2xl flex flex-col justify-end p-6 md:p-8"
+              className={`absolute rounded-[2rem] overflow-hidden shadow-2xl flex flex-col justify-end p-6 md:p-8 ${
+                card.size === 'lg' ? 'w-[300px] h-[400px] md:w-[500px] md:h-[650px]' : 
+                card.size === 'md' ? 'w-[240px] h-[320px] md:w-[400px] md:h-[500px]' : 
+                'w-[180px] h-[240px] md:w-[300px] md:h-[400px]'
+              }`}
               style={{ 
                 backgroundColor: card.color, 
                 willChange: 'transform, opacity',

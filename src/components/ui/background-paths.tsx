@@ -51,9 +51,15 @@ function GlobalPaths({ position }: { position: number }) {
 
 export function GlobalBackgroundPaths() {
     return (
-        <div className="absolute inset-0 pointer-events-none z-0 overflow-visible mix-blend-difference">
+        <div 
+            className="fixed inset-0 pointer-events-none z-40 overflow-hidden opacity-30"
+            style={{ 
+                maskImage: 'linear-gradient(to right, black 0%, transparent 20%, transparent 80%, black 100%)', 
+                WebkitMaskImage: 'linear-gradient(to right, black 0%, transparent 20%, transparent 80%, black 100%)' 
+            }}
+        >
             <svg
-                className="w-full h-full text-white"
+                className="w-full h-full text-[var(--cta)]"
                 viewBox="-400 -400 1500 5400"
                 preserveAspectRatio="none"
                 fill="none"
@@ -85,10 +91,12 @@ export function BackgroundPaths({
                     animate={{ opacity: 1 }}
                     transition={{ duration: 2 }}
                     className="max-w-4xl mx-auto"
-                    onMouseEnter={() => setIsHovered(true)}
-                    onMouseLeave={() => setIsHovered(false)}
                 >
-                    <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold mb-8 tracking-tighter">
+                    <h1 
+                        className="font-display text-4xl sm:text-6xl md:text-8xl mb-8 tracking-tight font-medium"
+                        onMouseEnter={() => setIsHovered(true)}
+                        onMouseLeave={() => setIsHovered(false)}
+                    >
                         <AnimatePresence mode="popLayout">
                             {words.map((word, wordIndex) => (
                                 <span
