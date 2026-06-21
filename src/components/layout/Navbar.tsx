@@ -87,7 +87,7 @@ export default function Navbar() {
             style={{ display: 'flex', alignItems: 'center', gap: 16, textDecoration: 'none' }}
           >
             <Image
-              src="/images/logo.png"
+              src="/images/logo.svg"
               alt="Shree Laxmi Creation"
               width={50}
               height={50}
@@ -99,18 +99,6 @@ export default function Navbar() {
                 filter: shouldInvert ? 'brightness(0) invert(1)' : 'none'
               }}
             />
-            <span
-              style={{
-                fontFamily: 'var(--font-heading)',
-                fontSize: 20,
-                letterSpacing: '0.02em',
-                color: shouldInvert ? 'var(--white)' : 'var(--navy)',
-                fontWeight: 500,
-                transition: 'color 0.2s ease',
-              }}
-            >
-              Shree Laxmi Creation
-            </span>
           </Link>
 
           {/* Desktop Links */}

@@ -29,7 +29,7 @@ export default function Footer() {
               style={{ display: 'flex', alignItems: 'center', gap: 12, textDecoration: 'none', marginBottom: 20 }}
             >
               <Image
-                src="/images/logo.png"
+                src="/images/logo.svg"
                 alt="Shree Laxmi Creation"
                 width={40}
                 height={40}

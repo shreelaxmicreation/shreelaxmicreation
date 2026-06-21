@@ -90,6 +90,9 @@ export default function CatalogScrollSequence() {
   const scrollIndicatorRef = useRef<HTMLDivElement>(null)
   
   const marqueeRef = useRef<HTMLDivElement>(null)
+  const row1ParentRef = useRef<HTMLDivElement>(null)
+  const row2ParentRef = useRef<HTMLDivElement>(null)
+  const row3ParentRef = useRef<HTMLDivElement>(null)
   const row1Ref = useRef<HTMLDivElement>(null)
   const row2Ref = useRef<HTMLDivElement>(null)
   const row3Ref = useRef<HTMLDivElement>(null)
@@ -107,6 +110,12 @@ export default function CatalogScrollSequence() {
     checkMotion()
     
     window.addEventListener('resize', checkMobile)
+
+    // Scroll the draggable containers to the middle so the user has infinite scrolling in both directions
+    if (row1ParentRef.current) row1ParentRef.current.scrollLeft = 4000;
+    if (row2ParentRef.current) row2ParentRef.current.scrollLeft = 4000;
+    if (row3ParentRef.current) row3ParentRef.current.scrollLeft = 4000;
+
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
 
@@ -117,7 +126,7 @@ export default function CatalogScrollSequence() {
       scrollTrigger: {
         trigger: act1Ref.current,
         start: "top top",
-        end: "+=400%", // ~400vh scroll duration for pinned section
+        end: "+=500%", // ~500vh scroll duration for more breathing room
         scrub: 1.5,
         pin: true,
         anticipatePin: 1,
@@ -135,16 +144,16 @@ export default function CatalogScrollSequence() {
     tl.to(maskRectRef.current, {
       clipPath: 'inset(0% 0% 0% 0%)',
       ease: "none",
-      duration: 1
+      duration: 0.4 // Fast Act 1
     }, 0)
 
     // Fade out Act 1 to prepare for Act 2
     if (act1ContentRef.current) {
       tl.to(act1ContentRef.current, {
         opacity: 0,
-        duration: 0.2,
+        duration: 0.1, 
         ease: "power2.inOut"
-      }, "+=0.1")
+      }, "+=0.05")
     }
 
     // ACT 2: Z-Depth Punch Through
@@ -152,31 +161,43 @@ export default function CatalogScrollSequence() {
       const card = act2CardsRef.current[index];
       if (!card) return;
       
-      const startTime = 1.3 + cardData.delayOffset; 
+      const spacing = 0.8;
+      const startTime = 0.6 + (index * spacing); 
       
+      const targetScale = isMobile ? cardData.peakScale * 0.45 : cardData.peakScale * 0.65;
+      
+      // Continuous slow movement
       tl.fromTo(card, {
         x: cardData.fromX,
         y: isMobile ? 0 : cardData.fromY,
         scale: cardData.startScale,
-        opacity: 0,
       }, {
         x: 0,
         y: 0,
-        scale: isMobile ? Math.min(cardData.peakScale, 1.8) : cardData.peakScale,
-        opacity: 1,
-        duration: 0.35,
-        ease: "power2.in"
+        scale: targetScale, // Much less zoomed
+        duration: 1.7, 
+        ease: "power1.out"
       }, startTime)
       
+      // Fade in
+      tl.fromTo(card, {
+        opacity: 0,
+      }, {
+        opacity: 1,
+        duration: 0.6,
+        ease: "power2.inOut"
+      }, startTime)
+
+      // Fade out
       tl.to(card, {
         opacity: 0,
-        duration: 0.05,
-        ease: "power1.in"
-      }, startTime + 0.35)
+        duration: 0.3, 
+        ease: "power2.inOut"
+      }, startTime + 1.4)
     })
 
     // Buffer space at end
-    tl.to({}, { duration: 0.2 })
+    tl.to({}, { duration: 0.4 })
 
     // ACT 3: Counter-scroll Marquee
     const row1 = row1Ref.current
@@ -184,7 +205,9 @@ export default function CatalogScrollSequence() {
     const row3 = row3Ref.current
 
     if (row1) {
-      gsap.to(row1, {
+      gsap.fromTo(row1, {
+        x: "0%",
+      }, {
         x: "-15%",
         ease: "none",
         scrollTrigger: {
@@ -197,8 +220,10 @@ export default function CatalogScrollSequence() {
     }
     
     if (row2) {
-      gsap.to(row2, {
-        x: "15%",
+      gsap.fromTo(row2, {
+        x: "-15%",
+      }, {
+        x: "0%",
         ease: "none",
         scrollTrigger: {
           trigger: marqueeRef.current,
@@ -210,7 +235,9 @@ export default function CatalogScrollSequence() {
     }
 
     if (row3 && !isMobile) {
-      gsap.to(row3, {
+      gsap.fromTo(row3, {
+        x: "0%",
+      }, {
         x: "-15%",
         ease: "none",
         scrollTrigger: {
@@ -231,7 +258,7 @@ export default function CatalogScrollSequence() {
     <section ref={containerRef} className="w-full relative z-10">
       
       {/* ACT 1 & 2: Pinned Section */}
-      <div ref={act1Ref} className="h-[100svh] w-full relative flex items-center justify-center overflow-hidden bg-[var(--canvas)]">
+      <div ref={act1Ref} className="h-[100vh] w-full relative flex items-center justify-center overflow-hidden bg-[var(--canvas)]">
         
         {/* Scroll Indicator */}
         <div ref={scrollIndicatorRef} className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-60 z-30 pointer-events-none">
@@ -240,41 +267,41 @@ export default function CatalogScrollSequence() {
         </div>
 
         <div ref={act1ContentRef} className="act1-content absolute inset-0 w-full h-full">
-          {/* SVG Definition for Text Mask */}
-          <svg width="0" height="0" className="absolute pointer-events-none">
-            <defs>
-              <clipPath id="textMask">
-                <text x="50%" y="45%" textAnchor="middle" dominantBaseline="middle" className="font-display uppercase font-normal font-bold" style={{ fontSize: 'clamp(2.5rem, 10vw, 11rem)' }}>
-                  FABRIC THAT
-                </text>
-                <text x="50%" y="58%" textAnchor="middle" dominantBaseline="middle" className="font-display uppercase font-normal font-bold" style={{ fontSize: 'clamp(2.5rem, 10vw, 11rem)' }}>
-                  BUILDS BRANDS
-                </text>
-              </clipPath>
-            </defs>
-          </svg>
-
           {/* Base Outline / Faded Text */}
           <div className="absolute inset-0 flex flex-col items-center justify-center z-0 pointer-events-none">
             <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-              <text x="50%" y="45%" textAnchor="middle" dominantBaseline="middle" className="font-display uppercase font-normal font-bold" style={{ fontSize: 'clamp(2.5rem, 10vw, 11rem)', fill: 'var(--navy)', opacity: 1 }}>
+              <text x="50%" y="38%" textAnchor="middle" dy="0.1em" dominantBaseline="middle" className="font-display uppercase font-bold tracking-tight" style={{ fontSize: 'clamp(3rem, 12vw, 13rem)', fill: 'var(--navy)', opacity: 1 }}>
                 FABRIC THAT
               </text>
-              <text x="50%" y="58%" textAnchor="middle" dominantBaseline="middle" className="font-display uppercase font-normal font-bold" style={{ fontSize: 'clamp(2.5rem, 10vw, 11rem)', fill: 'var(--navy)', opacity: 1 }}>
+              <text x="50%" y="62%" textAnchor="middle" dy="0.1em" dominantBaseline="middle" className="font-display uppercase font-bold tracking-tight" style={{ fontSize: 'clamp(3rem, 12vw, 13rem)', fill: 'var(--navy)', opacity: 1 }}>
                 BUILDS BRANDS
               </text>
             </svg>
           </div>
 
-          {/* Mask Reveal Layer */}
+          {/* Mask Reveal Layer using Native SVG to ensure iOS Safari compatibility */}
           <div 
             ref={maskRectRef}
             className="absolute inset-0 z-10 pointer-events-none"
             style={{ clipPath: reduceMotion ? 'none' : 'inset(100% 0% 0% 0%)' }}
           >
-            <div className="w-full h-full" style={{ clipPath: 'url(#textMask)' }}>
-              <TextureBackground />
-            </div>
+            <svg width="100%" height="100%" className="absolute inset-0 pointer-events-none">
+              <defs>
+                <clipPath id="textMask">
+                  <text x="50%" y="38%" textAnchor="middle" dy="0.1em" dominantBaseline="middle" className="font-display uppercase font-bold tracking-tight" style={{ fontSize: 'clamp(3rem, 12vw, 13rem)' }}>
+                    FABRIC THAT
+                  </text>
+                  <text x="50%" y="62%" textAnchor="middle" dy="0.1em" dominantBaseline="middle" className="font-display uppercase font-bold tracking-tight" style={{ fontSize: 'clamp(3rem, 12vw, 13rem)' }}>
+                    BUILDS BRANDS
+                  </text>
+                </clipPath>
+              </defs>
+              <g clipPath="url(#textMask)">
+                <image href="https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?q=80&w=3000&auto=format&fit=crop" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" />
+                <rect width="100%" height="100%" fill="rgba(28,49,94,0.4)" style={{ mixBlendMode: 'multiply' }} />
+                <rect width="100%" height="100%" fill="rgba(214,176,106,0.2)" style={{ mixBlendMode: 'multiply' }} />
+              </g>
+            </svg>
           </div>
         </div>
 
@@ -319,25 +346,31 @@ export default function CatalogScrollSequence() {
           <h2 className="text-heading text-navy">Our Collection</h2>
         </div>
 
-        <div className="flex flex-col gap-6 md:gap-8 relative" style={{ willChange: 'transform' }}>
+        <div className="flex flex-col gap-6 md:gap-8 relative w-full" style={{ willChange: 'transform' }}>
           
-          <div ref={row1Ref} className="flex gap-6 md:gap-8 w-max pl-[5vw]" style={{ transform: reduceMotion ? 'none' : 'translateX(0)' }}>
-            {marqueeItems.map((swatch, idx) => (
-              <SwatchCard key={`r1-${idx}`} swatch={swatch} />
-            ))}
+          <div ref={row1ParentRef} className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] touch-pan-x">
+            <div ref={row1Ref} className="flex gap-6 md:gap-8 w-max pl-[5vw]" style={{ transform: reduceMotion ? 'none' : 'translateX(0)' }}>
+              {marqueeItems.map((swatch, idx) => (
+                <SwatchCard key={`r1-${idx}`} swatch={swatch} />
+              ))}
+            </div>
           </div>
           
-          <div ref={row2Ref} className="flex gap-6 md:gap-8 w-max pl-[0vw]" style={{ transform: reduceMotion ? 'none' : 'translateX(0)' }}>
-            {[...marqueeItems].reverse().map((swatch, idx) => (
-              <SwatchCard key={`r2-${idx}`} swatch={swatch} />
-            ))}
+          <div ref={row2ParentRef} className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] touch-pan-x">
+            <div ref={row2Ref} className="flex gap-6 md:gap-8 w-max pl-[0vw]" style={{ transform: reduceMotion ? 'none' : 'translateX(0)' }}>
+              {[...marqueeItems].reverse().map((swatch, idx) => (
+                <SwatchCard key={`r2-${idx}`} swatch={swatch} />
+              ))}
+            </div>
           </div>
           
           {!isMobile && (
-            <div ref={row3Ref} className="flex gap-6 md:gap-8 w-max pl-[10vw]" style={{ transform: reduceMotion ? 'none' : 'translateX(0)' }}>
-              {marqueeItems.map((swatch, idx) => (
-                <SwatchCard key={`r3-${idx}`} swatch={swatch} />
-              ))}
+            <div ref={row3ParentRef} className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] touch-pan-x">
+              <div ref={row3Ref} className="flex gap-6 md:gap-8 w-max pl-[10vw]" style={{ transform: reduceMotion ? 'none' : 'translateX(0)' }}>
+                {marqueeItems.map((swatch, idx) => (
+                  <SwatchCard key={`r3-${idx}`} swatch={swatch} />
+                ))}
+              </div>
             </div>
           )}
 
