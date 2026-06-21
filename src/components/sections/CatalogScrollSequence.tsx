@@ -258,7 +258,7 @@ export default function CatalogScrollSequence() {
     <section ref={containerRef} className="w-full relative z-10">
       
       {/* ACT 1 & 2: Pinned Section */}
-      <div ref={act1Ref} className="h-[100vh] w-full relative flex items-center justify-center overflow-hidden bg-[var(--canvas)]">
+      <div ref={act1Ref} className="h-[100svh] w-full relative flex items-center justify-center overflow-hidden bg-[var(--canvas)]">
         
         {/* Scroll Indicator */}
         <div ref={scrollIndicatorRef} className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-60 z-30 pointer-events-none">
