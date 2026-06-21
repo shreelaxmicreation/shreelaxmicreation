@@ -10,7 +10,6 @@ import { OriginButton } from '@/components/ui/origin-button'
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
-  const [mobileOpen, setMobileOpen] = useState(false)
   const pathname = usePathname()
   const router = useRouter()
 
@@ -23,22 +22,6 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') setMobileOpen(false)
-    }
-    if (mobileOpen) {
-      document.body.style.overflow = 'hidden'
-      window.addEventListener('keydown', handleEsc)
-    } else {
-      document.body.style.overflow = ''
-    }
-    return () => {
-      document.body.style.overflow = ''
-      window.removeEventListener('keydown', handleEsc)
-    }
-  }, [mobileOpen])
-
   const navLinks = [
     { href: '/products', label: 'Products' },
     { href: '/infrastructure', label: 'Infrastructure' },
@@ -46,11 +29,20 @@ export default function Navbar() {
     { href: '/contact', label: 'Enquire', isEnquire: true },
   ]
 
+  const pillLinks = [
+    { href: '/', label: 'Home' },
+    { href: '/products', label: 'Products' },
+    { href: '/infrastructure', label: 'Infra' },
+    { href: '/about', label: 'About' },
+    { href: '/contact', label: 'Enquire' },
+  ]
+
   const isDarkHero = pathname === '/about'
   const shouldInvert = isDarkHero && !scrolled
 
   return (
     <>
+      {/* ── Desktop Top Bar ─────────────────────────── */}
       <motion.nav
         id="navbar"
         initial={{ y: '-100%' }}
@@ -67,7 +59,7 @@ export default function Navbar() {
           WebkitBackdropFilter: scrolled ? 'blur(16px) saturate(120%)' : 'none',
           borderBottom: scrolled ? '1px solid rgba(28, 49, 94, 0.06)' : '1px solid transparent',
           transition: 'background 0.3s ease, border-bottom 0.3s ease, backdrop-filter 0.3s ease',
-          padding: '0 80px',
+          padding: '0 clamp(16px, 4vw, 80px)',
         }}
       >
         <div
@@ -80,7 +72,7 @@ export default function Navbar() {
             height: 72,
           }}
         >
-          {/* Logo & Brand Name */}
+          {/* Logo */}
           <Link 
             href="/" 
             aria-label="Shree Laxmi Creation — Home"
@@ -136,89 +128,64 @@ export default function Navbar() {
               )
             ))}
           </div>
-
-          {/* Mobile Hamburger */}
-          <button
-            className="nav-hamburger"
-            onClick={() => setMobileOpen(true)}
-            aria-label="Open navigation menu"
-            style={{
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-              padding: 8,
-            }}
-          >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke={shouldInvert ? 'var(--white)' : 'var(--navy)'} strokeWidth="2" style={{ transition: 'stroke 0.2s ease' }}>
-              <line x1="3" y1="6" x2="21" y2="6" />
-              <line x1="3" y1="12" x2="21" y2="12" />
-              <line x1="3" y1="18" x2="21" y2="18" />
-            </svg>
-          </button>
         </div>
       </motion.nav>
 
-      {/* Mobile Overlay */}
-      {mobileOpen && (
-        <div
-          style={{
-            position: 'fixed',
-            inset: 0,
-            zIndex: 100,
-            background: 'var(--navy)',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            gap: 32,
-          }}
-        >
-          <button
-            onClick={() => setMobileOpen(false)}
-            aria-label="Close navigation menu"
-            style={{
-              position: 'absolute',
-              top: 24,
-              right: 24,
-              background: 'none',
-              border: 'none',
-              cursor: 'pointer',
-            }}
-          >
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-              <line x1="4" y1="4" x2="20" y2="20" />
-              <line x1="20" y1="4" x2="4" y2="20" />
-            </svg>
-          </button>
-
-          {navLinks.map((link) => (
-            link.isEnquire ? (
-              <OriginButton 
-                key={link.label}
-                onClick={() => {
-                  setMobileOpen(false)
-                  router.push(link.href)
-                }}
-                style={{ height: 56, padding: '0 40px', fontSize: 24, marginTop: 16 }}
-              >
-                {link.label}
-              </OriginButton>
-            ) : (
+      {/* ── Mobile Bottom Pill Nav ──────────────────── */}
+      <motion.div
+        className="nav-pill-mobile"
+        initial={{ y: 80, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.6, delay: 0.5, ease: 'easeOut' }}
+        style={{
+          position: 'fixed',
+          bottom: 16,
+          left: '50%',
+          transform: 'translateX(-50%)',
+          zIndex: 100,
+          display: 'none', // Hidden by default, shown on mobile via CSS
+          background: 'rgba(28, 49, 94, 0.92)',
+          backdropFilter: 'blur(20px) saturate(150%)',
+          WebkitBackdropFilter: 'blur(20px) saturate(150%)',
+          borderRadius: 999,
+          padding: '6px 6px',
+          boxShadow: '0 8px 32px rgba(28, 49, 94, 0.3), 0 2px 8px rgba(0,0,0,0.1)',
+          border: '1px solid rgba(255,255,255,0.1)',
+        }}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+          {pillLinks.map((link) => {
+            const isActive = pathname === link.href
+            const isEnquire = link.href === '/contact'
+            
+            return (
               <Link
                 key={link.label}
                 href={link.href}
-                onClick={() => setMobileOpen(false)}
-                className="text-display-l text-white hover:text-cta transition-colors duration-200"
                 style={{
                   textDecoration: 'none',
+                  fontFamily: 'var(--font-body)',
+                  fontSize: 11,
+                  fontWeight: isActive ? 600 : 400,
+                  letterSpacing: '0.02em',
+                  padding: '8px 12px',
+                  borderRadius: 999,
+                  color: isEnquire
+                    ? (isActive ? 'var(--navy)' : 'var(--navy)')
+                    : (isActive ? 'var(--navy)' : 'rgba(255,255,255,0.7)'),
+                  background: isEnquire
+                    ? 'var(--cta)'
+                    : (isActive ? 'rgba(255,255,255,0.95)' : 'transparent'),
+                  transition: 'all 0.25s ease',
+                  whiteSpace: 'nowrap',
                 }}
               >
                 {link.label}
               </Link>
             )
-          ))}
+          })}
         </div>
-      )}
+      </motion.div>
     </>
   )
 }

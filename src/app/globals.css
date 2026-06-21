@@ -347,7 +347,7 @@ html.lenis, html.lenis body {
   align-items: center;
 }
 
-.nav-hamburger {
+.nav-pill-mobile {
   display: none !important;
 }
 
@@ -480,7 +480,7 @@ html.lenis, html.lenis body {
     display: none !important;
   }
 
-  .nav-hamburger {
+  .nav-pill-mobile {
     display: block !important;
   }
 
