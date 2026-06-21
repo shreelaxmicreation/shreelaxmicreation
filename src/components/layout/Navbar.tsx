@@ -132,27 +132,34 @@ export default function Navbar() {
       </motion.nav>
 
       {/* ── Mobile Bottom Pill Nav ──────────────────── */}
-      <motion.div
+      <div
         className="nav-pill-mobile"
-        initial={{ y: 80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, delay: 0.5, ease: 'easeOut' }}
         style={{
           position: 'fixed',
           bottom: 16,
-          left: '50%',
-          transform: 'translateX(-50%)',
+          left: 0,
+          right: 0,
           zIndex: 100,
           display: 'none', // Hidden by default, shown on mobile via CSS
-          background: 'rgba(28, 49, 94, 0.92)',
-          backdropFilter: 'blur(20px) saturate(150%)',
-          WebkitBackdropFilter: 'blur(20px) saturate(150%)',
-          borderRadius: 999,
-          padding: '6px 6px',
-          boxShadow: '0 8px 32px rgba(28, 49, 94, 0.3), 0 2px 8px rgba(0,0,0,0.1)',
-          border: '1px solid rgba(255,255,255,0.1)',
+          justifyContent: 'center',
+          pointerEvents: 'none',
         }}
       >
+        <motion.div
+          initial={{ y: 80, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.5, ease: 'easeOut' }}
+          style={{
+            pointerEvents: 'auto',
+            background: 'rgba(28, 49, 94, 0.92)',
+            backdropFilter: 'blur(20px) saturate(150%)',
+            WebkitBackdropFilter: 'blur(20px) saturate(150%)',
+            borderRadius: 999,
+            padding: '6px 6px',
+            boxShadow: '0 8px 32px rgba(28, 49, 94, 0.3), 0 2px 8px rgba(0,0,0,0.1)',
+            border: '1px solid rgba(255,255,255,0.1)',
+          }}
+        >
         <div style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           {pillLinks.map((link) => {
             const isActive = pathname === link.href
@@ -186,6 +193,7 @@ export default function Navbar() {
           })}
         </div>
       </motion.div>
+      </div>
     </>
   )
 }

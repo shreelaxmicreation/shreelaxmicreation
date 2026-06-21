@@ -481,7 +481,7 @@ html.lenis, html.lenis body {
   }
 
   .nav-pill-mobile {
-    display: block !important;
+    display: flex !important;
   }
 
   .about-hero {
