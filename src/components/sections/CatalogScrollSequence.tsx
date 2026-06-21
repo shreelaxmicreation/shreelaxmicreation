@@ -254,6 +254,115 @@ export default function CatalogScrollSequence() {
   // Concatenated arrays for smooth marquee scrolling
   const marqueeItems = [...fabricSwatches, ...fabricSwatches, ...fabricSwatches, ...fabricSwatches]
 
+  // ── REDUCED MOTION FALLBACK ──────────────────────────
+  if (reduceMotion && isMounted) {
+    return (
+      <section className="w-full relative z-10">
+        {/* Static Hero Banner */}
+        <div className="w-full relative flex items-center justify-center overflow-hidden bg-[var(--canvas)]" style={{ minHeight: '60vh' }}>
+          <div className="absolute inset-0 w-full h-full">
+            {/* Text with texture fill - fully revealed */}
+            <svg width="100%" height="100%" className="absolute inset-0 pointer-events-none">
+              <defs>
+                <clipPath id="textMaskStatic">
+                  <text x="50%" y="38%" textAnchor="middle" dy="0.1em" dominantBaseline="middle" className="font-display uppercase font-bold tracking-tight" style={{ fontSize: 'clamp(3rem, 12vw, 13rem)' }}>
+                    FABRIC THAT
+                  </text>
+                  <text x="50%" y="62%" textAnchor="middle" dy="0.1em" dominantBaseline="middle" className="font-display uppercase font-bold tracking-tight" style={{ fontSize: 'clamp(3rem, 12vw, 13rem)' }}>
+                    BUILDS BRANDS
+                  </text>
+                </clipPath>
+              </defs>
+              <g clipPath="url(#textMaskStatic)">
+                <image href="https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?q=80&w=3000&auto=format&fit=crop" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" />
+                <rect width="100%" height="100%" fill="rgba(28,49,94,0.4)" style={{ mixBlendMode: 'multiply' }} />
+                <rect width="100%" height="100%" fill="rgba(214,176,106,0.2)" style={{ mixBlendMode: 'multiply' }} />
+              </g>
+            </svg>
+          </div>
+        </div>
+
+        {/* Static Category Cards Grid */}
+        <div className="w-full bg-[var(--canvas)] py-16 md:py-24">
+          <div className="max-w-[var(--max-content)] mx-auto px-6">
+            <p className="text-label text-cta mb-4 text-center">Our Expertise</p>
+            <h2 className="text-heading text-navy text-center mb-12 md:mb-16">Fabric Categories</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {act2Cards.map((card) => (
+                <Link
+                  key={card.id}
+                  href={`/contact?subject=${encodeURIComponent(card.category)}`}
+                  className="group block rounded-2xl overflow-hidden relative"
+                  style={{ textDecoration: 'none', aspectRatio: '3/4' }}
+                >
+                  <img
+                    src={card.image}
+                    alt={card.label}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[rgba(28,49,94,0.85)] via-[rgba(28,49,94,0.2)] to-transparent" />
+                  <div className="absolute bottom-0 left-0 right-0 p-6 relative z-10">
+                    <span className="text-xs font-body uppercase tracking-widest text-[var(--white)] opacity-80 mb-2 block">
+                      {card.category}
+                    </span>
+                    <h3 className="text-2xl md:text-3xl font-display text-[var(--white)] leading-tight m-0 font-normal">
+                      {card.label}
+                    </h3>
+                  </div>
+                  {/* Hover arrow */}
+                  <div className="absolute top-4 right-4 w-10 h-10 rounded-full border border-white/30 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    →
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Static Scrollable Catalog */}
+        <div className="w-full bg-[var(--surface)] py-24 overflow-hidden relative rounded-t-[3rem] z-30 border-t border-[rgba(28,49,94,0.05)] shadow-[0_-20px_60px_rgba(0,0,0,0.03)]">
+          <div className="max-w-[var(--max-content)] mx-auto px-6 mb-16 text-center">
+            <p className="text-label text-cta mb-4">Fabric Range</p>
+            <h2 className="text-heading text-navy">Our Collection</h2>
+          </div>
+
+          <div className="flex flex-col gap-6 md:gap-8 relative w-full">
+            <div className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] touch-pan-x">
+              <div className="flex gap-6 md:gap-8 w-max pl-[5vw]">
+                {fabricSwatches.map((swatch, idx) => (
+                  <SwatchCard key={`static-r1-${idx}`} swatch={swatch} />
+                ))}
+              </div>
+            </div>
+            <div className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] touch-pan-x">
+              <div className="flex gap-6 md:gap-8 w-max pl-[0vw]">
+                {[...fabricSwatches].reverse().map((swatch, idx) => (
+                  <SwatchCard key={`static-r2-${idx}`} swatch={swatch} />
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-24 text-center">
+            <Link
+              href="/products"
+              className="text-label inline-block hover:text-cta transition-colors"
+              style={{
+                color: 'var(--navy)',
+                textDecoration: 'none',
+                borderBottom: '1px solid var(--cta)',
+                paddingBottom: 6,
+                letterSpacing: '0.15em',
+              }}
+            >
+              View All Products →
+            </Link>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
   return (
     <section ref={containerRef} className="w-full relative z-10">
       
@@ -283,7 +392,7 @@ export default function CatalogScrollSequence() {
           <div 
             ref={maskRectRef}
             className="absolute inset-0 z-10 pointer-events-none"
-            style={{ clipPath: reduceMotion ? 'none' : 'inset(100% 0% 0% 0%)' }}
+            style={{ clipPath: 'inset(100% 0% 0% 0%)' }}
           >
             <svg width="100%" height="100%" className="absolute inset-0 pointer-events-none">
               <defs>
@@ -319,8 +428,7 @@ export default function CatalogScrollSequence() {
               style={{ 
                 backgroundColor: card.color, 
                 willChange: 'transform, opacity',
-                opacity: reduceMotion ? 1 : 0,
-                display: reduceMotion ? 'none' : 'flex' // Hide in reduced motion to avoid clutter
+                opacity: 0,
               }}
             >
               <img src={card.image} alt={card.label} className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-60 z-0" />
@@ -349,7 +457,7 @@ export default function CatalogScrollSequence() {
         <div className="flex flex-col gap-6 md:gap-8 relative w-full" style={{ willChange: 'transform' }}>
           
           <div ref={row1ParentRef} className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] touch-pan-x">
-            <div ref={row1Ref} className="flex gap-6 md:gap-8 w-max pl-[5vw]" style={{ transform: reduceMotion ? 'none' : 'translateX(0)' }}>
+            <div ref={row1Ref} className="flex gap-6 md:gap-8 w-max pl-[5vw]" style={{ transform: 'translateX(0)' }}>
               {marqueeItems.map((swatch, idx) => (
                 <SwatchCard key={`r1-${idx}`} swatch={swatch} />
               ))}
@@ -357,7 +465,7 @@ export default function CatalogScrollSequence() {
           </div>
           
           <div ref={row2ParentRef} className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] touch-pan-x">
-            <div ref={row2Ref} className="flex gap-6 md:gap-8 w-max pl-[0vw]" style={{ transform: reduceMotion ? 'none' : 'translateX(0)' }}>
+            <div ref={row2Ref} className="flex gap-6 md:gap-8 w-max pl-[0vw]" style={{ transform: 'translateX(0)' }}>
               {[...marqueeItems].reverse().map((swatch, idx) => (
                 <SwatchCard key={`r2-${idx}`} swatch={swatch} />
               ))}
@@ -366,7 +474,7 @@ export default function CatalogScrollSequence() {
           
           {!isMobile && (
             <div ref={row3ParentRef} className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] touch-pan-x">
-              <div ref={row3Ref} className="flex gap-6 md:gap-8 w-max pl-[10vw]" style={{ transform: reduceMotion ? 'none' : 'translateX(0)' }}>
+              <div ref={row3Ref} className="flex gap-6 md:gap-8 w-max pl-[10vw]" style={{ transform: 'translateX(0)' }}>
                 {marqueeItems.map((swatch, idx) => (
                   <SwatchCard key={`r3-${idx}`} swatch={swatch} />
                 ))}
@@ -396,3 +504,4 @@ export default function CatalogScrollSequence() {
     </section>
   )
 }
+
