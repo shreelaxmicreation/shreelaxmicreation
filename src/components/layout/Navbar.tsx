@@ -177,16 +177,40 @@ export default function Navbar() {
                   letterSpacing: '0.02em',
                   padding: '8px 12px',
                   borderRadius: 999,
+                  position: 'relative',
                   color: isEnquire
-                    ? (isActive ? 'var(--navy)' : 'var(--navy)')
+                    ? 'var(--navy)'
                     : (isActive ? 'var(--navy)' : 'rgba(255,255,255,0.7)'),
-                  background: isEnquire
-                    ? 'var(--cta)'
-                    : (isActive ? 'rgba(255,255,255,0.95)' : 'transparent'),
-                  transition: 'all 0.25s ease',
                   whiteSpace: 'nowrap',
+                  zIndex: 1,
                 }}
               >
+                {/* Sliding active indicator */}
+                {isActive && !isEnquire && (
+                  <motion.span
+                    layoutId="pill-active"
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      borderRadius: 999,
+                      background: 'rgba(255,255,255,0.95)',
+                      zIndex: -1,
+                    }}
+                    transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                  />
+                )}
+                {/* Enquire always-on gold bg */}
+                {isEnquire && (
+                  <span
+                    style={{
+                      position: 'absolute',
+                      inset: 0,
+                      borderRadius: 999,
+                      background: 'var(--cta)',
+                      zIndex: -1,
+                    }}
+                  />
+                )}
                 {link.label}
               </Link>
             )
