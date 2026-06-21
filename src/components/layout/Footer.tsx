@@ -16,7 +16,7 @@ export default function Footer() {
         style={{
           maxWidth: 'var(--max-content)',
           margin: '0 auto',
-          padding: '64px 80px 40px',
+          padding: '48px 24px 32px',
           position: 'relative',
           zIndex: 10,
         }}
@@ -153,7 +153,7 @@ export default function Footer() {
       <div
         style={{
           borderTop: '1px solid rgba(255,255,255,0.08)',
-          padding: '20px 80px',
+          padding: '20px 24px',
           position: 'relative',
           zIndex: 10,
         }}

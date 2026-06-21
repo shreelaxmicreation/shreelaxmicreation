@@ -447,7 +447,8 @@ html.lenis, html.lenis body {
   }
 
   .values-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
   }
 
   .contact-grid {
@@ -455,8 +456,12 @@ html.lenis, html.lenis body {
   }
 
   .footer-main-grid {
-    grid-template-columns: 1fr;
-    gap: 32px;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px 16px;
+  }
+
+  .footer-main-grid > div:first-child {
+    grid-column: 1 / -1;
   }
 
   .footer-bottom {
