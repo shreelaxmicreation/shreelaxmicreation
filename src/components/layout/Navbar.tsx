@@ -91,6 +91,20 @@ export default function Navbar() {
                 filter: shouldInvert ? 'brightness(0) invert(1)' : 'none'
               }}
             />
+            <Image
+              src="/images/logo-text.svg"
+              alt="Shree Laxmi Creation"
+              width={160}
+              height={30}
+              className="hidden md:block"
+              style={{
+                height: 28,
+                width: 'auto',
+                objectFit: 'contain',
+                transition: 'filter 0.2s ease',
+                filter: shouldInvert ? 'brightness(0) invert(1)' : 'none'
+              }}
+            />
           </Link>
 
           {/* Desktop Links */}
