@@ -4,6 +4,7 @@ import './globals.css'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import CookieBanner from '@/components/ui/CookieBanner'
+import FloatingBestSellers from '@/components/ui/FloatingBestSellers'
 import SmoothScroll from '@/components/layout/SmoothScroll'
 
 const bodoni = Bodoni_Moda({
@@ -42,6 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <main className="relative">{children}</main>
           <Footer />
           <CookieBanner />
+          <FloatingBestSellers />
         </SmoothScroll>
       </body>
     </html>

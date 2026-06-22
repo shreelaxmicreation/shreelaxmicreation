@@ -1,0 +1,171 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Flame, X } from 'lucide-react'
+import Link from 'next/link'
+import DisplayCards from '@/components/ui/display-cards'
+import type { DisplayCardProps } from '@/components/ui/display-cards'
+
+const bestSellers: DisplayCardProps[] = [
+  {
+    icon: <Flame className="size-4 text-[var(--cta)]" />,
+    title: "Cotton Poplin",
+    description: "Most ordered this quarter",
+    date: "Bestseller",
+    image: "https://images.unsplash.com/photo-1594938298595-d2d87e0b82f0?q=80&w=800&auto=format&fit=crop",
+    titleClassName: "text-[var(--navy)]",
+    className:
+      "[grid-area:stack] hover:-translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-[rgba(28,49,94,0.08)] before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-[var(--canvas)]/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
+  },
+  {
+    icon: <Flame className="size-4 text-[var(--cta)]" />,
+    title: "Dobby Weave",
+    description: "Trending with brands",
+    date: "Top pick",
+    image: "https://images.unsplash.com/photo-1584031402281-224cb82cb8cb?q=80&w=800&auto=format&fit=crop",
+    titleClassName: "text-[var(--navy)]",
+    className:
+      "[grid-area:stack] translate-x-12 translate-y-10 hover:-translate-y-1 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-[rgba(28,49,94,0.08)] before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-[var(--canvas)]/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
+  },
+  {
+    icon: <Flame className="size-4 text-[var(--cta)]" />,
+    title: "Yarn Dyed",
+    description: "Premium color fastness",
+    date: "New arrival",
+    image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=800&auto=format&fit=crop",
+    titleClassName: "text-[var(--navy)]",
+    className:
+      "[grid-area:stack] translate-x-24 translate-y-20 hover:translate-y-10",
+  },
+]
+
+export default function FloatingBestSellers() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [hasScrolled, setHasScrolled] = useState(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setHasScrolled(window.scrollY > 400)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Hide on mobile (pill nav is there)
+  // Only show after user has scrolled a bit
+  if (!hasScrolled) return null
+
+  return (
+    <>
+      {/* Trigger Button */}
+      <AnimatePresence>
+        {!isOpen && (
+          <motion.button
+            initial={{ scale: 0, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0, opacity: 0 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
+            onClick={() => setIsOpen(true)}
+            className="fixed bottom-6 right-6 z-[90] hidden md:flex items-center gap-2 rounded-full px-5 py-3 cursor-pointer border-none"
+            style={{
+              background: 'var(--navy)',
+              color: 'var(--white)',
+              fontFamily: 'var(--font-body)',
+              fontSize: 12,
+              fontWeight: 500,
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase' as const,
+              boxShadow: '0 8px 32px rgba(28, 49, 94, 0.35)',
+            }}
+          >
+            <Flame className="size-4 text-[var(--cta)]" />
+            Best Sellers
+          </motion.button>
+        )}
+      </AnimatePresence>
+
+      {/* Expanded Panel */}
+      <AnimatePresence>
+        {isOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsOpen(false)}
+              className="fixed inset-0 z-[90] bg-[rgba(28,49,94,0.15)] backdrop-blur-[2px] hidden md:block"
+            />
+
+            {/* Card Panel */}
+            <motion.div
+              initial={{ opacity: 0, y: 40, scale: 0.9 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 40, scale: 0.9 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              className="fixed bottom-6 right-6 z-[95] hidden md:block"
+            >
+              <div
+                className="rounded-3xl p-8 pb-6 relative"
+                style={{
+                  background: 'var(--canvas)',
+                  border: '1px solid rgba(28, 49, 94, 0.08)',
+                  boxShadow: '0 24px 80px rgba(28, 49, 94, 0.2), 0 4px 16px rgba(0,0,0,0.06)',
+                }}
+              >
+                {/* Header */}
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-2">
+                    <Flame className="size-4 text-[var(--cta)]" />
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-body)',
+                        fontSize: 11,
+                        fontWeight: 600,
+                        letterSpacing: '0.15em',
+                        textTransform: 'uppercase' as const,
+                        color: 'var(--navy)',
+                      }}
+                    >
+                      Best Sellers
+                    </span>
+                  </div>
+                  <button
+                    onClick={() => setIsOpen(false)}
+                    className="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer border-none hover:bg-[rgba(28,49,94,0.06)] transition-colors"
+                    style={{ background: 'transparent', color: 'var(--muted)' }}
+                  >
+                    <X className="size-4" />
+                  </button>
+                </div>
+
+                {/* Scaled-down cards */}
+                <div className="transform scale-[0.72] origin-top-right -mr-12 -mb-8">
+                  <DisplayCards cards={bestSellers} />
+                </div>
+
+                {/* Footer CTA */}
+                <div className="mt-4 text-center">
+                  <Link
+                    href="/products"
+                    onClick={() => setIsOpen(false)}
+                    className="text-xs uppercase tracking-[0.15em] font-medium hover:text-[var(--cta)] transition-colors"
+                    style={{
+                      color: 'var(--navy)',
+                      textDecoration: 'none',
+                      borderBottom: '1px solid var(--cta)',
+                      paddingBottom: 2,
+                    }}
+                  >
+                    View All Products →
+                  </Link>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </>
+  )
+}
