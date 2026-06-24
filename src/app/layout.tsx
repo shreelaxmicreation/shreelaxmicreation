@@ -33,11 +33,6 @@ export const metadata: Metadata = {
   openGraph: {
     images: ['/og-image.jpg'],
   },
-  icons: {
-    icon: '/icon.svg',
-    shortcut: '/icon.svg',
-    apple: '/icon.svg',
-  },
 }
 
 
