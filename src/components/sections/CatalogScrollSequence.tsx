@@ -6,60 +6,43 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
 import Image from 'next/image'
+import { urlFor } from '@/sanity/lib/image'
+import type { SanityFabricSwatch, SanityProduct } from '@/sanity/lib/types'
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, useGSAP)
 }
 
-const fabricSwatches = [
-  { id: "cotton-01", label: "Pure Cotton", color: "#E8E2D5", category: "Cotton Fabrics", image: "https://images.unsplash.com/photo-1594938298595-d2d87e0b82f0?q=80&w=800&auto=format&fit=crop" },
-  { id: "cotton-02", label: "Poplin", color: "#E0D7C6", category: "Cotton Fabrics", image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=800&auto=format&fit=crop" },
-  { id: "cotton-03", label: "Oxford", color: "#D8CDBC", category: "Cotton Fabrics", image: "https://images.unsplash.com/photo-1574015974293-817f0ebebb74?q=80&w=800&auto=format&fit=crop" },
-  { id: "dobby-01", label: "Dobby Weave", color: "#D6CDB8", category: "Dobby Fabrics", image: "https://images.unsplash.com/photo-1584031402281-224cb82cb8cb?q=80&w=800&auto=format&fit=crop" },
-  { id: "dobby-02", label: "Textured Dobby", color: "#CFC3AD", category: "Dobby Fabrics", image: "https://images.unsplash.com/photo-1620799139834-6b8f844fbe61?q=80&w=800&auto=format&fit=crop" },
-  { id: "dobby-03", label: "Micro Dobby", color: "#C5B8A1", category: "Dobby Fabrics", image: "https://images.unsplash.com/photo-1594938298595-d2d87e0b82f0?q=80&w=800&auto=format&fit=crop" },
-  { id: "struct-01", label: "Herringbone", color: "#D9D0BD", category: "Structured Weaves", image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=800&auto=format&fit=crop" },
-  { id: "struct-02", label: "Twill", color: "#D1C6B0", category: "Structured Weaves", image: "https://images.unsplash.com/photo-1574015974293-817f0ebebb74?q=80&w=800&auto=format&fit=crop" },
-  { id: "struct-03", label: "Birdseye", color: "#C6BAA3", category: "Structured Weaves", image: "https://images.unsplash.com/photo-1584031402281-224cb82cb8cb?q=80&w=800&auto=format&fit=crop" },
-  { id: "blend-01", label: "Poly-Cotton", color: "#D5CCB6", category: "Cotton-Poly Blends", image: "https://images.unsplash.com/photo-1620799139834-6b8f844fbe61?q=80&w=800&auto=format&fit=crop" },
-  { id: "blend-02", label: "Stretch Blend", color: "#CCBFA7", category: "Cotton-Poly Blends", image: "https://images.unsplash.com/photo-1594938298595-d2d87e0b82f0?q=80&w=800&auto=format&fit=crop" },
-]
-
-const act2Cards = [
-  { id: "cotton", label: "Cotton", color: "#E8E2D5", category: "Cotton Fabrics", image: "https://images.unsplash.com/photo-1594938298595-d2d87e0b82f0?q=80&w=1200&auto=format&fit=crop", fromX: "-60vw", fromY: "10vh", startScale: 0.25, peakScale: 2.6, size: "lg", delayOffset: 0.00 },
-  { id: "dobby", label: "Dobby", color: "#D6CDB8", category: "Dobby Fabrics", image: "https://images.unsplash.com/photo-1584031402281-224cb82cb8cb?q=80&w=1200&auto=format&fit=crop", fromX: "70vw", fromY: "-15vh", startScale: 0.35, peakScale: 2.1, size: "md", delayOffset: 0.12 },
-  { id: "structured", label: "Structured", color: "#D9D0BD", category: "Structured Weaves", image: "https://images.unsplash.com/photo-1574015974293-817f0ebebb74?q=80&w=1200&auto=format&fit=crop", fromX: "-40vw", fromY: "20vh", startScale: 0.30, peakScale: 2.4, size: "lg", delayOffset: 0.22 },
-  { id: "blends", label: "Blends", color: "#D5CCB6", category: "Cotton-Poly Blends", image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=1200&auto=format&fit=crop", fromX: "55vw", fromY: "5vh", startScale: 0.40, peakScale: 1.9, size: "sm", delayOffset: 0.32 },
-]
-
-// Animated CSS Gradient Placeholder
-// Built so a <video> can easily be dropped in here later
-function TextureBackground() {
-  return (
-    <div className="w-full h-full relative">
-      <img 
-        src="https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?q=80&w=3000&auto=format&fit=crop" 
-        alt="Fabric Texture placeholder" 
-        className="w-full h-full object-cover"
-      />
-      {/* Overlay to ensure text legibility and match brand tones */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-[rgba(28,49,94,0.4)] to-[rgba(214,176,106,0.2)] mix-blend-multiply" />
-    </div>
-  )
+// ── Default animation config for featured cards ──
+const featuredCardDefaults: Record<number, { fromX: string; fromY: string; startScale: number; peakScale: number; delayOffset: number }> = {
+  0: { fromX: "-60vw", fromY: "10vh", startScale: 0.25, peakScale: 2.6, delayOffset: 0.00 },
+  1: { fromX: "70vw", fromY: "-15vh", startScale: 0.35, peakScale: 2.1, delayOffset: 0.12 },
+  2: { fromX: "-40vw", fromY: "20vh", startScale: 0.30, peakScale: 2.4, delayOffset: 0.22 },
+  3: { fromX: "55vw", fromY: "5vh", startScale: 0.40, peakScale: 1.9, delayOffset: 0.32 },
 }
 
-function SwatchCard({ swatch }: { swatch: typeof fabricSwatches[0] }) {
+interface CatalogScrollSequenceProps {
+  items: SanityProduct[]
+}
+
+function SwatchCard({ item }: { item: SanityProduct | SanityFabricSwatch | any }) {
+  const sourceImage = item.gallery?.[0] || item.image
+  const imageUrl = sourceImage ? urlFor(sourceImage).width(800).quality(80).format('webp').url() : ''
+  const name = 'name' in item ? item.name : item.label
+  const category = item.category || 'Shirting'
+  const color = item.color || 'var(--surface)'
+
   return (
     <Link
-      href={`/contact?subject=${encodeURIComponent(swatch.category)}`}
+      href={`/contact?subject=${encodeURIComponent(category)}`}
       className="group block p-4 rounded-3xl relative overflow-hidden flex-shrink-0 w-[220px] md:w-[340px] transition-transform duration-500 hover:scale-[1.02]"
       style={{ backgroundColor: 'var(--white)', border: '1px solid rgba(28, 49, 94, 0.08)', textDecoration: 'none' }}
     >
       <div 
         className="relative w-full aspect-[4/5] rounded-2xl flex items-center justify-center transition-transform duration-700 group-hover:scale-105 overflow-hidden"
-        style={{ backgroundColor: swatch.color }}
+        style={{ backgroundColor: color }}
       >
-        <img src={swatch.image} alt={swatch.label} className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-50" />
+        {imageUrl && <img src={imageUrl} alt={name} className="absolute inset-0 w-full h-full object-cover" />}
         <div className="absolute inset-0 bg-gradient-to-t from-[rgba(28,49,94,0.85)] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-between p-6">
           <span className="font-body text-sm font-medium tracking-widest uppercase text-white">
             Enquire
@@ -71,22 +54,23 @@ function SwatchCard({ swatch }: { swatch: typeof fabricSwatches[0] }) {
       </div>
       <div className="mt-6 px-2 pb-2">
         <p className="text-xs uppercase tracking-widest text-cta mb-2 font-medium">
-          {swatch.category}
+          {category}
         </p>
         <h3 className="font-display text-xl md:text-2xl font-normal text-navy transition-colors duration-300 group-hover:text-cta m-0">
-          {swatch.label}
+          {name}
         </h3>
       </div>
     </Link>
   )
 }
 
-export default function CatalogScrollSequence() {
+export default function CatalogScrollSequence({ items = [] }: CatalogScrollSequenceProps) {
+  console.log("CLIENT RENDER CatalogScrollSequence items length:", items.length)
+
   const containerRef = useRef<HTMLDivElement>(null)
   const act1Ref = useRef<HTMLDivElement>(null)
   const act1ContentRef = useRef<HTMLDivElement>(null)
   const maskRectRef = useRef<HTMLDivElement>(null)
-  const act2CardsRef = useRef<(HTMLDivElement | null)[]>([])
   const scrollIndicatorRef = useRef<HTMLDivElement>(null)
   
   const marqueeRef = useRef<HTMLDivElement>(null)
@@ -101,10 +85,33 @@ export default function CatalogScrollSequence() {
   const [isMobile, setIsMobile] = useState(false)
   const [reduceMotion, setReduceMotion] = useState(false)
 
+  // Only use products that have at least one valid photo (gallery or image)
+  // This ensures we don't render blank cards, while honoring the user's manual CMS selections.
+  const validProducts = items.filter(item => (item.gallery && item.gallery.length > 0) || item.image)
+  
+  // If we don't have enough valid products, fallback to raw items just in case
+  const featuredSource = validProducts.length > 0 ? validProducts : items
+  const featuredCards = featuredSource.slice(0, 4)
+  
+  // Fill Act 3 with products. If we don't have 8, repeat them.
+  let allSwatches: any[] = []
+  if (validProducts.length > 0) {
+    allSwatches = validProducts.slice(4, 12)
+    // If there were 4 or fewer products, slice(4, 12) is empty. Fall back to reusing the same products.
+    if (allSwatches.length === 0) {
+      allSwatches = [...validProducts]
+    }
+    while (allSwatches.length < 8 && allSwatches.length > 0) {
+      allSwatches = [...allSwatches, ...validProducts].slice(0, 8)
+    }
+  } else {
+    allSwatches = items.slice(4, 12)
+  }
+
   useEffect(() => {
     setIsMounted(true)
     const checkMobile = () => setIsMobile(window.innerWidth < 768)
-    const checkMotion = () => setReduceMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
+    const checkMotion = () => setReduceMotion(false)
     
     checkMobile()
     checkMotion()
@@ -157,20 +164,24 @@ export default function CatalogScrollSequence() {
     }
 
     // ACT 2: Z-Depth Punch Through
-    act2Cards.forEach((cardData, index) => {
-      const card = act2CardsRef.current[index];
+    const act2Cards = gsap.utils.toArray<HTMLDivElement>('.act2-card', containerRef.current);
+    
+    featuredCards.forEach((cardData, index) => {
+      const card = act2Cards[index];
+      console.log(`CLIENT GSAP SETUP Act 2 card ${index}:`, !!card)
       if (!card) return;
       
+      const defaults = featuredCardDefaults[index] || featuredCardDefaults[0]
       const spacing = 0.8;
       const startTime = 0.6 + (index * spacing); 
       
-      const targetScale = isMobile ? cardData.peakScale * 0.45 : cardData.peakScale * 0.65;
+      const targetScale = isMobile ? defaults.peakScale * 0.45 : defaults.peakScale * 0.65;
       
       // Continuous slow movement
       tl.fromTo(card, {
-        x: cardData.fromX,
-        y: isMobile ? 0 : cardData.fromY,
-        scale: cardData.startScale,
+        x: defaults.fromX,
+        y: isMobile ? 0 : defaults.fromY,
+        scale: defaults.startScale,
       }, {
         x: 0,
         y: 0,
@@ -249,10 +260,10 @@ export default function CatalogScrollSequence() {
       })
     }
 
-  }, { scope: containerRef, dependencies: [isMounted, isMobile, reduceMotion] })
+  }, { scope: containerRef, dependencies: [isMounted, isMobile, reduceMotion, featuredCards] })
 
   // Concatenated arrays for smooth marquee scrolling
-  const marqueeItems = [...fabricSwatches, ...fabricSwatches, ...fabricSwatches, ...fabricSwatches]
+  const marqueeItems = [...allSwatches, ...allSwatches, ...allSwatches, ...allSwatches]
 
   // ── REDUCED MOTION FALLBACK ──────────────────────────
   if (reduceMotion && isMounted) {
@@ -274,9 +285,7 @@ export default function CatalogScrollSequence() {
                 </clipPath>
               </defs>
               <g clipPath="url(#textMaskStatic)">
-                <image href="https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?q=80&w=3000&auto=format&fit=crop" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" />
-                <rect width="100%" height="100%" fill="rgba(28,49,94,0.4)" style={{ mixBlendMode: 'multiply' }} />
-                <rect width="100%" height="100%" fill="rgba(214,176,106,0.2)" style={{ mixBlendMode: 'multiply' }} />
+                <rect width="100%" height="100%" fill="var(--navy)" />
               </g>
             </svg>
           </div>
@@ -288,33 +297,33 @@ export default function CatalogScrollSequence() {
             <p className="text-label text-cta mb-4 text-center">Our Expertise</p>
             <h2 className="text-heading text-navy text-center mb-12 md:mb-16">Fabric Categories</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {act2Cards.map((card) => (
-                <Link
-                  key={card.id}
-                  href={`/contact?subject=${encodeURIComponent(card.category)}`}
-                  className="group block rounded-2xl overflow-hidden relative"
-                  style={{ textDecoration: 'none', aspectRatio: '3/4' }}
-                >
-                  <img
-                    src={card.image}
-                    alt={card.label}
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[rgba(28,49,94,0.85)] via-[rgba(28,49,94,0.2)] to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6 relative z-10">
-                    <span className="text-xs font-body uppercase tracking-widest text-[var(--white)] opacity-80 mb-2 block">
-                      {card.category}
-                    </span>
-                    <h3 className="text-2xl md:text-3xl font-display text-[var(--white)] leading-tight m-0 font-normal">
-                      {card.label}
-                    </h3>
-                  </div>
-                  {/* Hover arrow */}
-                  <div className="absolute top-4 right-4 w-10 h-10 rounded-full border border-white/30 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    →
-                  </div>
-                </Link>
-              ))}
+              {featuredCards.map((card) => {
+                const sourceImage = card.gallery?.[0] || card.image
+                const imageUrl = sourceImage ? urlFor(sourceImage).width(1200).quality(80).format('webp').url() : ''
+                return (
+                  <Link
+                    key={card._id}
+                    href={`/contact?subject=${encodeURIComponent(card.category)}`}
+                    className="group block rounded-2xl overflow-hidden relative"
+                    style={{ textDecoration: 'none', aspectRatio: '3/4' }}
+                  >
+                    {imageUrl && <img src={imageUrl} alt={card.label} className="absolute inset-0 w-full h-full object-cover" />}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[rgba(28,49,94,0.85)] via-[rgba(28,49,94,0.2)] to-transparent" />
+                    <div className="absolute bottom-0 left-0 right-0 p-6 relative z-10">
+                      <span className="text-xs font-body uppercase tracking-widest text-[var(--white)] opacity-80 mb-2 block">
+                        {card.category}
+                      </span>
+                      <h3 className="text-2xl md:text-3xl font-display text-[var(--white)] leading-tight m-0 font-normal">
+                        {'name' in card ? card.name : card.label}
+                      </h3>
+                    </div>
+                    {/* Hover arrow */}
+                    <div className="absolute top-4 right-4 w-10 h-10 rounded-full border border-white/30 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      →
+                    </div>
+                  </Link>
+                )
+              })}
             </div>
           </div>
         </div>
@@ -329,14 +338,14 @@ export default function CatalogScrollSequence() {
           <div className="flex flex-col gap-6 md:gap-8 relative w-full">
             <div className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] touch-pan-x">
               <div className="flex gap-6 md:gap-8 w-max pl-[5vw]">
-                {fabricSwatches.map((swatch, idx) => (
+                {allSwatches.map((swatch, idx) => (
                   <SwatchCard key={`static-r1-${idx}`} swatch={swatch} />
                 ))}
               </div>
             </div>
             <div className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] touch-pan-x">
               <div className="flex gap-6 md:gap-8 w-max pl-[0vw]">
-                {[...fabricSwatches].reverse().map((swatch, idx) => (
+                {[...allSwatches].reverse().map((swatch, idx) => (
                   <SwatchCard key={`static-r2-${idx}`} swatch={swatch} />
                 ))}
               </div>
@@ -369,6 +378,8 @@ export default function CatalogScrollSequence() {
       {/* ACT 1 & 2: Pinned Section */}
       <div ref={act1Ref} className="h-[100svh] w-full relative flex items-center justify-center overflow-hidden bg-[var(--canvas)]">
         
+
+
         {/* Scroll Indicator */}
         <div ref={scrollIndicatorRef} className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-60 z-30 pointer-events-none">
           <span className="text-[10px] tracking-[0.2em] uppercase mb-3 font-medium text-[var(--navy)] animate-pulse">Scroll to explore</span>
@@ -379,10 +390,10 @@ export default function CatalogScrollSequence() {
           {/* Base Outline / Faded Text */}
           <div className="absolute inset-0 flex flex-col items-center justify-center z-0 pointer-events-none">
             <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-              <text x="50%" y="38%" textAnchor="middle" dy="0.1em" dominantBaseline="middle" className="font-display uppercase font-bold tracking-tight" style={{ fontSize: 'clamp(3rem, 12vw, 13rem)', fill: 'var(--navy)', opacity: 1 }}>
+              <text x="50%" y="38%" textAnchor="middle" dy="0.1em" dominantBaseline="middle" className="font-display uppercase font-bold tracking-tight" style={{ fontSize: 'clamp(3rem, 12vw, 13rem)', fill: 'var(--navy)', opacity: 0.15 }}>
                 FABRIC THAT
               </text>
-              <text x="50%" y="62%" textAnchor="middle" dy="0.1em" dominantBaseline="middle" className="font-display uppercase font-bold tracking-tight" style={{ fontSize: 'clamp(3rem, 12vw, 13rem)', fill: 'var(--navy)', opacity: 1 }}>
+              <text x="50%" y="62%" textAnchor="middle" dy="0.1em" dominantBaseline="middle" className="font-display uppercase font-bold tracking-tight" style={{ fontSize: 'clamp(3rem, 12vw, 13rem)', fill: 'var(--navy)', opacity: 0.15 }}>
                 BUILDS BRANDS
               </text>
             </svg>
@@ -406,9 +417,7 @@ export default function CatalogScrollSequence() {
                 </clipPath>
               </defs>
               <g clipPath="url(#textMask)">
-                <image href="https://images.unsplash.com/photo-1620799140188-3b2a02fd9a77?q=80&w=3000&auto=format&fit=crop" preserveAspectRatio="xMidYMid slice" width="100%" height="100%" />
-                <rect width="100%" height="100%" fill="rgba(28,49,94,0.4)" style={{ mixBlendMode: 'multiply' }} />
-                <rect width="100%" height="100%" fill="rgba(214,176,106,0.2)" style={{ mixBlendMode: 'multiply' }} />
+                <rect width="100%" height="100%" fill="var(--navy)" />
               </g>
             </svg>
           </div>
@@ -416,34 +425,39 @@ export default function CatalogScrollSequence() {
 
         {/* Act 2: Z-Depth Cards */}
         <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-20">
-          {act2Cards.map((card, i) => (
-            <div
-              key={card.id}
-              ref={el => { act2CardsRef.current[i] = el }}
-              className={`absolute rounded-[2rem] overflow-hidden shadow-2xl flex flex-col justify-end p-6 md:p-8 ${
-                card.size === 'lg' ? 'w-[300px] h-[400px] md:w-[500px] md:h-[650px]' : 
-                card.size === 'md' ? 'w-[240px] h-[320px] md:w-[400px] md:h-[500px]' : 
-                'w-[180px] h-[240px] md:w-[300px] md:h-[400px]'
-              }`}
-              style={{ 
-                backgroundColor: card.color, 
-                willChange: 'transform, opacity',
-                opacity: 0,
-              }}
-            >
-              <img src={card.image} alt={card.label} className="absolute inset-0 w-full h-full object-cover mix-blend-multiply opacity-60 z-0" />
-              <div className="absolute inset-0 bg-gradient-to-t from-[rgba(28,49,94,0.7)] to-transparent z-0 pointer-events-none" />
-              
-              <div className="relative z-10">
-                <span className="text-sm font-body uppercase tracking-widest text-[var(--white)] opacity-90 mb-2 block">
-                  {card.category}
-                </span>
-                <h3 className="text-3xl md:text-5xl font-display text-[var(--white)] leading-tight m-0 font-normal">
-                  {card.label}
-                </h3>
+          {featuredCards.map((card, i) => {
+            const defaults = featuredCardDefaults[i] || featuredCardDefaults[0]
+            const size = card.featuredSize || (i === 0 || i === 2 ? 'lg' : i === 1 ? 'md' : 'sm')
+            const sourceImage = card.gallery?.[0] || card.image
+            const imageUrl = sourceImage ? urlFor(sourceImage).width(1200).quality(80).format('webp').url() : ''
+            
+            return (
+              <div
+                key={card._id}
+                className={`act2-card absolute rounded-[2rem] overflow-hidden shadow-2xl flex flex-col justify-end p-6 md:p-8 ${
+                  size === 'lg' ? 'w-[300px] h-[400px] md:w-[500px] md:h-[650px]' : 
+                  size === 'md' ? 'w-[240px] h-[320px] md:w-[400px] md:h-[500px]' : 
+                  'w-[180px] h-[240px] md:w-[300px] md:h-[400px]'
+                }`}
+                style={{ 
+                  backgroundColor: card.color, 
+                  willChange: 'transform, opacity',
+                }}
+              >
+                {imageUrl && <img src={imageUrl} alt={card.label} className="absolute inset-0 w-full h-full object-cover" />}
+                <div className="absolute inset-0 bg-gradient-to-t from-[rgba(28,49,94,0.7)] to-transparent z-0 pointer-events-none" />
+                
+                <div className="relative z-10">
+                  <span className="text-sm font-body uppercase tracking-widest text-[var(--white)] opacity-90 mb-2 block">
+                    {card.category}
+                  </span>
+                  <h3 className="text-3xl md:text-5xl font-display text-[var(--white)] leading-tight m-0 font-normal">
+                    {'name' in card ? card.name : card.label}
+                  </h3>
+                </div>
               </div>
-            </div>
-          ))}
+            )
+          })}
         </div>
       </div>
 
@@ -458,16 +472,16 @@ export default function CatalogScrollSequence() {
           
           <div ref={row1ParentRef} className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] touch-pan-x">
             <div ref={row1Ref} className="flex gap-6 md:gap-8 w-max pl-[5vw]" style={{ transform: 'translateX(0)' }}>
-              {marqueeItems.map((swatch, idx) => (
-                <SwatchCard key={`r1-${idx}`} swatch={swatch} />
+              {marqueeItems.map((item, idx) => (
+                <SwatchCard key={`r1-${idx}`} item={item} />
               ))}
             </div>
           </div>
           
           <div ref={row2ParentRef} className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] touch-pan-x">
             <div ref={row2Ref} className="flex gap-6 md:gap-8 w-max pl-[0vw]" style={{ transform: 'translateX(0)' }}>
-              {[...marqueeItems].reverse().map((swatch, idx) => (
-                <SwatchCard key={`r2-${idx}`} swatch={swatch} />
+              {[...marqueeItems].reverse().map((item, idx) => (
+                <SwatchCard key={`r2-${idx}`} item={item} />
               ))}
             </div>
           </div>
@@ -475,8 +489,8 @@ export default function CatalogScrollSequence() {
           {!isMobile && (
             <div ref={row3ParentRef} className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] touch-pan-x">
               <div ref={row3Ref} className="flex gap-6 md:gap-8 w-max pl-[10vw]" style={{ transform: 'translateX(0)' }}>
-                {marqueeItems.map((swatch, idx) => (
-                  <SwatchCard key={`r3-${idx}`} swatch={swatch} />
+                {marqueeItems.map((item, idx) => (
+                  <SwatchCard key={`r3-${idx}`} item={item} />
                 ))}
               </div>
             </div>
@@ -504,4 +518,3 @@ export default function CatalogScrollSequence() {
     </section>
   )
 }
-

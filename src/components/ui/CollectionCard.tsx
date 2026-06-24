@@ -8,9 +8,11 @@ interface CollectionCardProps {
   name: string
   category: string
   slug: string
+  fabricTypes?: string[]
+  printTypes?: string[]
 }
 
-export default function CollectionCard({ image, name, category, slug }: CollectionCardProps) {
+export default function CollectionCard({ image, name, category, slug, fabricTypes, printTypes }: CollectionCardProps) {
   return (
     <Link
       href={`/contact?subject=${encodeURIComponent(name)}`}
@@ -44,9 +46,22 @@ export default function CollectionCard({ image, name, category, slug }: Collecti
 
       {/* Info */}
       <div className="mt-6 px-2 pb-2">
-        <p className="text-xs uppercase tracking-widest text-cta mb-2 font-medium">
-          {category}
-        </p>
+        <div className="flex flex-wrap items-center gap-2 mb-2">
+          <p className="text-xs uppercase tracking-widest text-cta font-medium">
+            {category}
+          </p>
+          {(fabricTypes || printTypes) && <span className="text-muted text-xs">•</span>}
+          {fabricTypes?.map((f, i) => (
+            <span key={f} className="text-[10px] uppercase tracking-widest text-muted border border-muted/30 px-2 py-0.5 rounded-full">
+              {f}
+            </span>
+          ))}
+          {printTypes?.map((p, i) => (
+            <span key={p} className="text-[10px] uppercase tracking-widest text-muted border border-muted/30 px-2 py-0.5 rounded-full">
+              {p}
+            </span>
+          ))}
+        </div>
         <h3 className="font-display text-3xl font-normal text-navy transition-colors duration-300 group-hover:text-cta">
           {name}
         </h3>

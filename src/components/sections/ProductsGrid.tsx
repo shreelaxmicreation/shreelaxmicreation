@@ -2,23 +2,64 @@
 
 import OrangeRule from '@/components/ui/OrangeRule'
 import CollectionCard from '@/components/ui/CollectionCard'
-import { products } from '@/data/products'
 import Link from 'next/link'
 import { motion, Variants } from 'framer-motion'
+import type { SanityProduct } from '@/sanity/lib/types'
+import { urlFor } from '@/sanity/lib/image'
+import { useState, useMemo } from 'react'
 
 interface ProductsGridProps {
   mode: 'preview' | 'full'
   showHeader?: boolean
+  products: SanityProduct[]
 }
 
-export default function ProductsGrid({ mode, showHeader = true }: ProductsGridProps) {
-  const items = mode === 'preview' ? products.slice(0, 4) : products
+export default function ProductsGrid({ mode, showHeader = true, products = [] }: ProductsGridProps) {
+  // On homepage (preview mode), ensure we only show products with at least one photo
+  const baseProducts = mode === 'preview' 
+    ? (products || []).filter(p => (p.gallery && p.gallery.length > 0) || p.image)
+    : (products || []);
+  
+  const safeProducts = baseProducts.length > 0 ? baseProducts : (products || []);
+  
+  const [selectedFabrics, setSelectedFabrics] = useState<string[]>([]);
+  const [selectedPrints, setSelectedPrints] = useState<string[]>([]);
+
+  const allFabrics = useMemo(() => {
+    const fabrics = new Set<string>();
+    safeProducts.forEach(p => p.fabricTypes?.forEach(f => fabrics.add(f)));
+    return Array.from(fabrics).sort();
+  }, [safeProducts]);
+
+  const allPrints = useMemo(() => {
+    const prints = new Set<string>();
+    safeProducts.forEach(p => p.printTypes?.forEach(pr => prints.add(pr)));
+    return Array.from(prints).sort();
+  }, [safeProducts]);
+
+  const toggleFabric = (fabric: string) => {
+    setSelectedFabrics(prev => prev.includes(fabric) ? prev.filter(f => f !== fabric) : [...prev, fabric]);
+  };
+
+  const togglePrint = (print: string) => {
+    setSelectedPrints(prev => prev.includes(print) ? prev.filter(p => p !== print) : [...prev, print]);
+  };
+
+  const filteredProducts = useMemo(() => {
+    return safeProducts.filter(p => {
+      const matchFabric = selectedFabrics.length === 0 || selectedFabrics.some(f => p.fabricTypes?.includes(f));
+      const matchPrint = selectedPrints.length === 0 || selectedPrints.some(pr => p.printTypes?.includes(pr));
+      return matchFabric && matchPrint;
+    });
+  }, [safeProducts, selectedFabrics, selectedPrints]);
+
+  const items = mode === 'preview' ? filteredProducts.slice(0, 4) : filteredProducts;
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.2 },
+      transition: { staggerChildren: 0.1 },
     },
   }
 
@@ -37,7 +78,7 @@ export default function ProductsGrid({ mode, showHeader = true }: ProductsGridPr
     },
   }
 
-  if (products.length === 0) {
+  if (safeProducts.length === 0) {
     return (
       <section
         id="products-grid"
@@ -83,30 +124,135 @@ export default function ProductsGrid({ mode, showHeader = true }: ProductsGridPr
           </motion.div>
         )}
 
-        <motion.div 
-          className={mode === 'preview' ? 'collections-preview-grid' : 'collections-full-grid'}
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-100px' }}
-        >
-          {items.map((item) => (
-            <motion.div key={item.slug} variants={itemVariants}>
-              <CollectionCard
-                image={item.image}
-                name={item.name}
-                category={item.category}
-                slug={`products/${item.slug}`}
-              />
-            </motion.div>
-          ))}
-        </motion.div>
+        {/* Filter Pills */}
+        {mode === 'full' && (allFabrics.length > 0 || allPrints.length > 0) && (
+          <div className="mb-12 flex flex-col gap-6" style={{ marginTop: showHeader ? '0' : '40px' }}>
+            {allFabrics.length > 0 && (
+              <div>
+                <span className="text-sm uppercase tracking-widest text-muted mb-3 inline-block font-medium">Fabric Type</span>
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    onClick={() => setSelectedFabrics([])}
+                    className="px-4 py-1.5 rounded-full text-sm transition-colors duration-300"
+                    style={{
+                      border: '1px solid var(--navy)',
+                      backgroundColor: selectedFabrics.length === 0 ? 'var(--navy)' : 'transparent',
+                      color: selectedFabrics.length === 0 ? 'var(--white)' : 'var(--navy)',
+                      opacity: selectedFabrics.length === 0 ? 1 : 0.6
+                    }}
+                  >
+                    All
+                  </button>
+                  {allFabrics.map(f => {
+                    const isSelected = selectedFabrics.includes(f);
+                    return (
+                      <button
+                        key={f}
+                        onClick={() => toggleFabric(f)}
+                        className="px-4 py-1.5 rounded-full text-sm transition-colors duration-300"
+                        style={{
+                          border: '1px solid var(--navy)',
+                          backgroundColor: isSelected ? 'var(--navy)' : 'transparent',
+                          color: isSelected ? 'var(--white)' : 'var(--navy)',
+                          opacity: isSelected ? 1 : 0.6
+                        }}
+                      >
+                        {f}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+
+            {allPrints.length > 0 && (
+              <div>
+                <span className="text-sm uppercase tracking-widest text-muted mb-3 inline-block font-medium">Print & Pattern</span>
+                <div className="flex flex-wrap gap-2">
+                  <button
+                    onClick={() => setSelectedPrints([])}
+                    className="px-4 py-1.5 rounded-full text-sm transition-colors duration-300"
+                    style={{
+                      border: '1px solid var(--navy)',
+                      backgroundColor: selectedPrints.length === 0 ? 'var(--navy)' : 'transparent',
+                      color: selectedPrints.length === 0 ? 'var(--white)' : 'var(--navy)',
+                      opacity: selectedPrints.length === 0 ? 1 : 0.6
+                    }}
+                  >
+                    All
+                  </button>
+                  {allPrints.map(p => {
+                    const isSelected = selectedPrints.includes(p);
+                    return (
+                      <button
+                        key={p}
+                        onClick={() => togglePrint(p)}
+                        className="px-4 py-1.5 rounded-full text-sm transition-colors duration-300"
+                        style={{
+                          border: '1px solid var(--navy)',
+                          backgroundColor: isSelected ? 'var(--navy)' : 'transparent',
+                          color: isSelected ? 'var(--white)' : 'var(--navy)',
+                          opacity: isSelected ? 1 : 0.6
+                        }}
+                      >
+                        {p}
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
+        {items.length === 0 ? (
+          <div className="py-20 text-center">
+            <p className="text-body text-muted">No products found matching your filters.</p>
+            <button
+              onClick={() => {
+                setSelectedFabrics([]);
+                setSelectedPrints([]);
+              }}
+              className="mt-4 text-sm font-medium tracking-widest uppercase transition-colors"
+              style={{ color: 'var(--cta)', borderBottom: '1px solid var(--cta)' }}
+            >
+              Clear filters
+            </button>
+          </div>
+        ) : (
+          <motion.div 
+            className={mode === 'preview' ? 'collections-preview-grid' : 'collections-full-grid'}
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-100px' }}
+          >
+            {items.map((item) => {
+              const sourceImage = item.gallery?.[0] || item.image
+              const imageUrl = sourceImage
+                ? urlFor(sourceImage).width(800).height(1000).quality(80).format('webp').url()
+                : ''
+              return (
+                <motion.div key={item._id || item.slug} variants={itemVariants}>
+                  <CollectionCard
+                    image={imageUrl}
+                    name={item.name}
+                    category={item.category}
+                    slug={`/products/${item.slug}`}
+                    fabricTypes={item.fabricTypes}
+                    printTypes={item.printTypes}
+                  />
+                </motion.div>
+              )
+            })}
+          </motion.div>
+        )}
 
         {mode === 'preview' && (
           <div style={{ marginTop: 80, textAlign: 'center' }}>
             <Link
               href="/products"
-              className="text-label inline-block hover:text-cta transition-colors"
+              className="text-label inline-block hover:opacity-80 transition-opacity"
               style={{
                 color: 'var(--navy)',
                 textDecoration: 'none',

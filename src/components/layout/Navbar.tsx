@@ -8,7 +8,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { OriginButton } from '@/components/ui/origin-button'
 
-export default function Navbar() {
+export default function Navbar({ logoUrl, logoTextUrl }: { logoUrl: string; logoTextUrl: string }) {
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
   const router = useRouter()
@@ -26,13 +26,14 @@ export default function Navbar() {
     { href: '/products', label: 'Products' },
     { href: '/infrastructure', label: 'Infrastructure' },
     { href: '/about', label: 'About' },
+    { href: '/blog', label: 'Blog' },
     { href: '/contact', label: 'Enquire', isEnquire: true },
   ]
 
   const pillLinks = [
     { href: '/', label: 'Home' },
     { href: '/products', label: 'Products' },
-    { href: '/infrastructure', label: 'Infra' },
+    { href: '/blog', label: 'Blog' },
     { href: '/about', label: 'About' },
     { href: '/contact', label: 'Enquire' },
   ]
@@ -79,7 +80,7 @@ export default function Navbar() {
             style={{ display: 'flex', alignItems: 'center', gap: 16, textDecoration: 'none' }}
           >
             <Image
-              src="/images/logo.svg"
+              src={logoUrl}
               alt="Shree Laxmi Creation"
               width={50}
               height={50}
@@ -92,7 +93,7 @@ export default function Navbar() {
               }}
             />
             <Image
-              src="/images/logo-text.svg"
+              src={logoTextUrl}
               alt="Shree Laxmi Creation"
               width={160}
               height={30}

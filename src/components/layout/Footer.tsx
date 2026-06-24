@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
-export default function Footer() {
+export default function Footer({ logoUrl }: { logoUrl: string }) {
   return (
     <footer
       id="footer"
@@ -29,7 +29,7 @@ export default function Footer() {
               style={{ display: 'flex', alignItems: 'center', gap: 12, textDecoration: 'none', marginBottom: 20 }}
             >
               <Image
-                src="/images/logo.svg"
+                src={logoUrl}
                 alt="Shree Laxmi Creation"
                 width={40}
                 height={40}
@@ -69,6 +69,7 @@ export default function Footer() {
                 { href: '/products', label: 'Products' },
                 { href: '/infrastructure', label: 'Infrastructure' },
                 { href: '/about', label: 'About Us' },
+                { href: '/blog', label: 'Blog' },
                 { href: '/contact', label: 'Contact' },
               ].map((link) => (
                 <Link

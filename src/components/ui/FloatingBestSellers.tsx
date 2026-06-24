@@ -6,43 +6,23 @@ import { Flame, X } from 'lucide-react'
 import Link from 'next/link'
 import DisplayCards from '@/components/ui/display-cards'
 import type { DisplayCardProps } from '@/components/ui/display-cards'
+import { urlFor } from '@/sanity/lib/image'
+import type { SanityBestSeller } from '@/sanity/lib/types'
 
-const bestSellers: DisplayCardProps[] = [
-  {
-    icon: <Flame className="size-4 text-[var(--cta)]" />,
-    title: "Cotton Poplin",
-    description: "Most ordered this quarter",
-    date: "Bestseller",
-    image: "https://images.unsplash.com/photo-1594938298595-d2d87e0b82f0?q=80&w=800&auto=format&fit=crop",
-    titleClassName: "text-[var(--navy)]",
-    className:
-      "[grid-area:stack] hover:-translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-[rgba(28,49,94,0.08)] before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-[var(--canvas)]/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
-  },
-  {
-    icon: <Flame className="size-4 text-[var(--cta)]" />,
-    title: "Dobby Weave",
-    description: "Trending with brands",
-    date: "Top pick",
-    image: "https://images.unsplash.com/photo-1584031402281-224cb82cb8cb?q=80&w=800&auto=format&fit=crop",
-    titleClassName: "text-[var(--navy)]",
-    className:
-      "[grid-area:stack] translate-x-12 translate-y-10 hover:-translate-y-1 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-[rgba(28,49,94,0.08)] before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-[var(--canvas)]/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
-  },
-  {
-    icon: <Flame className="size-4 text-[var(--cta)]" />,
-    title: "Yarn Dyed",
-    description: "Premium color fastness",
-    date: "New arrival",
-    image: "https://images.unsplash.com/photo-1620799140408-edc6dcb6d633?q=80&w=800&auto=format&fit=crop",
-    titleClassName: "text-[var(--navy)]",
-    className:
-      "[grid-area:stack] translate-x-24 translate-y-20 hover:translate-y-10",
-  },
+const cardClassNames = [
+  "[grid-area:stack] hover:-translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-[rgba(28,49,94,0.08)] before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-[var(--canvas)]/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
+  "[grid-area:stack] translate-x-12 translate-y-10 hover:-translate-y-1 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-[rgba(28,49,94,0.08)] before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-[var(--canvas)]/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
+  "[grid-area:stack] translate-x-24 translate-y-20 hover:translate-y-10",
 ]
 
-export default function FloatingBestSellers() {
+interface FloatingBestSellersProps {
+  bestSellers: SanityBestSeller[]
+}
+
+export default function FloatingBestSellers({ bestSellers }: FloatingBestSellersProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [hasScrolled, setHasScrolled] = useState(false)
+  const [bestSellerCards, setBestSellerCards] = useState<DisplayCardProps[]>([])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,9 +32,25 @@ export default function FloatingBestSellers() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
+  // Map best sellers from props
+  useEffect(() => {
+    if (bestSellers && bestSellers.length > 0) {
+      const cards: DisplayCardProps[] = bestSellers.map((item, idx) => ({
+        icon: <Flame className="size-4 text-[var(--cta)]" />,
+        title: item.title,
+        description: item.description,
+        date: item.badge,
+        image: item.image ? urlFor(item.image).width(800).quality(80).format('webp').url() : undefined,
+        titleClassName: "text-[var(--navy)]",
+        className: cardClassNames[idx] || cardClassNames[cardClassNames.length - 1],
+      }))
+      setBestSellerCards(cards)
+    }
+  }, [bestSellers])
+
   // Hide on mobile (pill nav is there)
   // Only show after user has scrolled a bit
-  if (!hasScrolled) return null
+  if (!hasScrolled || bestSellerCards.length === 0) return null
 
   return (
     <>
@@ -142,7 +138,7 @@ export default function FloatingBestSellers() {
 
                 {/* Scaled-down cards */}
                 <div className="transform scale-[0.72] origin-top-right -mr-12 -mb-8">
-                  <DisplayCards cards={bestSellers} />
+                  <DisplayCards cards={bestSellerCards} />
                 </div>
 
                 {/* Footer CTA */}

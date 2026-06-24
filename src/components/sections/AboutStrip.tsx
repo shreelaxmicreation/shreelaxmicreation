@@ -5,8 +5,14 @@ import Image from 'next/image'
 import Link from 'next/link'
 import OrangeRule from '@/components/ui/OrangeRule'
 import { motion, useScroll, useTransform, Variants } from 'framer-motion'
+import { urlFor } from '@/sanity/lib/image'
+// import type { SanityImageSource } from '@sanity/image-url/lib/types/types'
 
-export default function AboutStrip() {
+interface AboutStripProps {
+  aboutStripImage?: any
+}
+
+export default function AboutStrip({ aboutStripImage }: AboutStripProps) {
   const containerRef = useRef(null)
   
   const { scrollYProgress } = useScroll({
@@ -33,6 +39,10 @@ export default function AboutStrip() {
       transition: { type: 'spring', stiffness: 80, damping: 20 }
     }
   }
+
+  const imageUrl = aboutStripImage
+    ? urlFor(aboutStripImage).width(1200).height(1600).quality(80).format('webp').url()
+    : '/images/about-strip.jpg'
 
   return (
     <section
@@ -106,7 +116,7 @@ export default function AboutStrip() {
             className="absolute top-[-20%] left-0 right-0"
           >
             <Image
-              src="/images/about-strip.jpg"
+              src={imageUrl}
               alt="Shree Laxmi Creation Craftsmanship"
               fill
               sizes="(max-width: 768px) 100vw, 50vw"
