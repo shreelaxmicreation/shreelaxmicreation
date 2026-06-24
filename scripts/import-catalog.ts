@@ -73,7 +73,7 @@ async function importCatalog() {
 
     console.log(`Creating document for ${designCode}...`)
 
-    const doc = {
+    const doc: any = {
       _type: 'product',
       name: designCode,
       slug: {
