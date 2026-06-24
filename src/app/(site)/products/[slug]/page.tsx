@@ -57,25 +57,25 @@ export default async function ProductPage({ params }: ProductPageProps) {
   }
 
   return (
-    <div className="bg-[#0a0a0a] min-h-screen text-white pt-24 pb-16">
+    <div className="min-h-screen pt-24 pb-16" style={{ background: 'var(--surface)' }}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
       />
       <div className="container mx-auto px-4 max-w-6xl">
         {/* Breadcrumb */}
-        <nav className="flex items-center text-sm text-gray-400 mb-8">
-          <Link href="/" className="hover:text-white transition-colors">Home</Link>
+        <nav className="flex items-center text-sm text-muted mb-8">
+          <Link href="/" className="hover:opacity-80 transition-opacity" style={{ color: 'var(--navy)' }}>Home</Link>
           <ChevronRight className="w-4 h-4 mx-2" />
-          <Link href="/products" className="hover:text-white transition-colors">Products</Link>
+          <Link href="/products" className="hover:opacity-80 transition-opacity" style={{ color: 'var(--navy)' }}>Products</Link>
           <ChevronRight className="w-4 h-4 mx-2" />
-          <span className="text-white">{product.name}</span>
+          <span style={{ color: 'var(--navy)' }}>{product.name}</span>
         </nav>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Image Gallery */}
           <div className="flex flex-col gap-4">
-            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden bg-white/5 border border-white/10">
+            <div className="relative aspect-[4/5] rounded-2xl overflow-hidden border" style={{ background: 'var(--card-bg)', borderColor: 'var(--card-border)' }}>
               {product.image && (
                 <Image
                   src={urlFor(product.image).url()}
@@ -89,7 +89,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             {product.gallery && product.gallery.length > 0 && (
               <div className="grid grid-cols-2 gap-4">
                 {product.gallery.map((img: any, idx: number) => (
-                  <div key={idx} className="relative aspect-square rounded-xl overflow-hidden bg-white/5 border border-white/10">
+                  <div key={idx} className="relative aspect-square rounded-xl overflow-hidden border" style={{ background: 'var(--card-bg)', borderColor: 'var(--card-border)' }}>
                     <Image
                       src={urlFor(img).url()}
                       alt={`${product.name} lifestyle shot ${idx + 1}`}
@@ -104,56 +104,49 @@ export default async function ProductPage({ params }: ProductPageProps) {
 
           {/* Product Details */}
           <div>
-            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-4">
+            <h1 className="text-4xl sm:text-5xl font-display font-normal tracking-tight mb-4" style={{ color: 'var(--navy)' }}>
               {product.name}
             </h1>
-            <div className="inline-block px-3 py-1 rounded-full bg-white/10 text-sm font-medium mb-8">
+            <div className="inline-block px-3 py-1 rounded-full text-sm font-medium mb-8" style={{ background: 'var(--card-bg)', border: '1px solid var(--card-border)', color: 'var(--cta)' }}>
               {product.category}
             </div>
 
             {/* Specifications Table */}
-            <div className="bg-white/5 border border-white/10 rounded-xl overflow-hidden mb-8">
-              <div className="px-6 py-4 border-b border-white/10 bg-white/5">
-                <h3 className="font-semibold text-lg">Fabric Specifications</h3>
+            <div className="rounded-xl overflow-hidden mb-8" style={{ background: 'var(--card-bg)', border: '1px solid var(--card-border)' }}>
+              <div className="px-6 py-4" style={{ borderBottom: '1px solid var(--card-border)', background: 'var(--surface)' }}>
+                <h3 className="font-display font-normal text-lg" style={{ color: 'var(--navy)' }}>Fabric Specifications</h3>
               </div>
-              <div className="divide-y divide-white/10">
-                <div className="flex px-6 py-3">
-                  <span className="w-1/3 text-gray-400">Composition</span>
-                  <span className="w-2/3 font-medium">{product.composition || 'Contact for details'}</span>
-                </div>
-                <div className="flex px-6 py-3">
-                  <span className="w-1/3 text-gray-400">GSM Range</span>
-                  <span className="w-2/3 font-medium">{product.gsmRange || 'Contact for details'}</span>
-                </div>
-                <div className="flex px-6 py-3">
-                  <span className="w-1/3 text-gray-400">Width</span>
-                  <span className="w-2/3 font-medium">{product.width || 'Contact for details'}</span>
-                </div>
-                <div className="flex px-6 py-3">
-                  <span className="w-1/3 text-gray-400">MOQ</span>
-                  <span className="w-2/3 font-medium">{product.moq || 'Contact for details'}</span>
-                </div>
-                <div className="flex px-6 py-3">
-                  <span className="w-1/3 text-gray-400">Finishes</span>
-                  <span className="w-2/3 font-medium">{product.availableFinishes || 'Contact for details'}</span>
-                </div>
+              <div style={{ borderColor: 'var(--card-border)' }}>
+                {[
+                  { label: 'Composition', value: product.composition },
+                  { label: 'GSM Range', value: product.gsmRange },
+                  { label: 'Width', value: product.width },
+                  { label: 'MOQ', value: product.moq },
+                  { label: 'Finishes', value: product.availableFinishes },
+                ].map((spec, i) => (
+                  <div key={spec.label} className="flex px-6 py-3" style={{ borderBottom: i < 4 ? '1px solid var(--card-border)' : 'none' }}>
+                    <span className="w-1/3 text-muted">{spec.label}</span>
+                    <span className="w-2/3 font-medium" style={{ color: 'var(--ink)' }}>{spec.value || 'Contact for details'}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
             {/* CTA */}
             <Link
               href={`/contact?subject=Enquiry regarding ${encodeURIComponent(product.name)}`}
-              className="block w-full py-4 text-center rounded-xl bg-white text-black font-semibold text-lg hover:bg-gray-200 transition-colors mb-12"
+              className="block w-full py-4 text-center rounded-xl font-semibold text-lg transition-opacity hover:opacity-90 mb-12"
+              style={{ background: 'var(--navy)', color: 'var(--canvas)' }}
             >
               Enquire About This Fabric
             </Link>
 
             {/* Long Form SEO Content */}
-            <div className="prose prose-invert max-w-none">
+            <div className="prose prose-lg max-w-none prose-headings:font-display prose-headings:font-normal prose-headings:text-[var(--navy)] prose-a:text-[var(--cta)] prose-p:text-[var(--muted)] prose-li:text-[var(--muted)] prose-strong:text-[var(--navy)]">
               {product.bodyCopy ? (
                 <PortableText value={product.bodyCopy} />
               ) : (
-                <p className="text-gray-400">{product.description}</p>
+                <p className="text-muted">{product.description}</p>
               )}
             </div>
           </div>

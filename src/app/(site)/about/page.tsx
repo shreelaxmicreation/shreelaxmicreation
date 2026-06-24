@@ -30,7 +30,7 @@ export default async function AboutPage() {
       {/* Hero Header */}
       <section
         className="relative w-full overflow-hidden flex items-end pb-24 px-6 md:px-20"
-        style={{ minHeight: '60vh', background: 'var(--navy)' }}
+        style={{ minHeight: '60vh', background: 'var(--accent-bg)' }}
       >
         <div
           className="absolute inset-0 bg-cover bg-center opacity-20 mix-blend-luminosity"
@@ -77,7 +77,7 @@ export default async function AboutPage() {
       </section>
 
       {/* Numbers Section — Navy */}
-      <section className="w-full section-padded relative overflow-hidden" style={{ background: 'var(--navy)' }}>
+      <section className="w-full section-padded relative overflow-hidden" style={{ background: 'var(--accent-bg)' }}>
         <div className="max-w-[var(--max-content)] mx-auto px-6 relative z-10">
           <p className="text-label text-cta mb-4 tracking-[0.2em]">By the Numbers</p>
           <h2 className="font-display text-[clamp(2rem,3.5vw,2.75rem)] leading-[1.1] mb-16" style={{ color: '#FFFFFF' }}>

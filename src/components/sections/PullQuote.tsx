@@ -8,7 +8,7 @@ export default function PullQuote() {
       id="pull-quote"
       className="w-full flex items-center justify-center text-center relative overflow-hidden"
       style={{
-        background: 'var(--navy)',
+        background: 'var(--accent-bg)',
         padding: 'clamp(80px, 15vw, 160px) 24px',
       }}
     >

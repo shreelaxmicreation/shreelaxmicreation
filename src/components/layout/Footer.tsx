@@ -7,16 +7,16 @@ export default function Footer({ logoUrl }: { logoUrl: string }) {
       id="footer"
       className="w-full"
       style={{
-        background: 'var(--navy)',
-        color: 'rgba(255,255,255,0.7)',
+        background: 'var(--footer-bg)',
+        color: 'var(--footer-text)',
       }}
     >
       {/* Main Footer */}
       <div
+        className="px-4 py-6 md:px-6 md:pt-12 md:pb-8"
         style={{
           maxWidth: 'var(--max-content)',
           margin: '0 auto',
-          padding: '48px 24px 32px',
           position: 'relative',
           zIndex: 10,
         }}
@@ -26,30 +26,25 @@ export default function Footer({ logoUrl }: { logoUrl: string }) {
           <div style={{ maxWidth: 320 }}>
             <Link
               href="/"
-              style={{ display: 'flex', alignItems: 'center', gap: 12, textDecoration: 'none', marginBottom: 20 }}
+              className="flex items-center gap-2 md:gap-3 no-underline mb-3 md:mb-5"
             >
               <Image
                 src={logoUrl}
                 alt="Shree Laxmi Creation"
                 width={40}
                 height={40}
-                style={{ height: 40, width: 'auto', objectFit: 'contain', filter: 'brightness(0) invert(1)' }}
+                className="max-md:w-8 max-md:h-8"
+                style={{ objectFit: 'contain', filter: 'brightness(0) invert(1)' }}
               />
               <span
-                style={{
-                  fontFamily: 'var(--font-display)',
-                  fontSize: 18,
-                  fontWeight: 400,
-                  color: '#FFFFFF',
-                  letterSpacing: '0.02em',
-                }}
+                className="font-display font-normal text-white max-md:text-sm md:text-lg tracking-wide"
               >
                 Shree Laxmi Creation
               </span>
             </Link>
             <p
-              className="text-caption-text"
-              style={{ color: 'rgba(255,255,255,0.5)', lineHeight: 1.8 }}
+              className="text-caption-text max-md:text-[10px] max-md:leading-normal"
+              style={{ color: 'var(--footer-text-dim)', lineHeight: 1.8 }}
             >
               Ahmedabad-based shirting fabric manufacturer delivering economical 
               and mid-range fabrics with integrated supply chain from Ichalkaranji to Ahmedabad.
@@ -59,12 +54,12 @@ export default function Footer({ logoUrl }: { logoUrl: string }) {
           {/* Column 2: Quick Links */}
           <div>
             <p
-              className="text-label"
-              style={{ color: 'var(--cta)', marginBottom: 20 }}
+              className="text-label mb-2 md:mb-5 max-md:text-[10px]"
+              style={{ color: 'var(--cta)' }}
             >
               Explore
             </p>
-            <nav style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <nav className="flex flex-col gap-1 md:gap-3">
               {[
                 { href: '/products', label: 'Products' },
                 { href: '/infrastructure', label: 'Infrastructure' },
@@ -76,7 +71,7 @@ export default function Footer({ logoUrl }: { logoUrl: string }) {
                   key={link.label}
                   href={link.href}
                   className="text-caption-text footer-link"
-                  style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', transition: 'color 0.2s ease' }}
+                  style={{ color: 'var(--footer-text-dim)', textDecoration: 'none', transition: 'color 0.2s ease' }}
                 >
                   {link.label}
                 </Link>
@@ -87,14 +82,14 @@ export default function Footer({ logoUrl }: { logoUrl: string }) {
           {/* Column 3: Contact */}
           <div>
             <p
-              className="text-label"
-              style={{ color: 'var(--cta)', marginBottom: 20 }}
+              className="text-label mb-2 md:mb-5 max-md:text-[10px]"
+              style={{ color: 'var(--cta)' }}
             >
               Get in Touch
             </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+            <div className="flex flex-col gap-3 md:gap-4">
               <div>
-                <p className="text-label" style={{ color: 'rgba(255,255,255,0.35)', marginBottom: 4, fontSize: '0.625rem' }}>
+                <p className="text-label" style={{ color: 'var(--footer-text-label)', marginBottom: 4, fontSize: '0.625rem' }}>
                   WhatsApp
                 </p>
                 <a
@@ -102,16 +97,16 @@ export default function Footer({ logoUrl }: { logoUrl: string }) {
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-caption-text footer-link"
-                  style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', transition: 'color 0.2s ease' }}
+                  style={{ color: 'var(--footer-text-dim)', textDecoration: 'none', transition: 'color 0.2s ease' }}
                 >
                   +91 79905 96697
                 </a>
               </div>
               <div>
-                <p className="text-label" style={{ color: 'rgba(255,255,255,0.35)', marginBottom: 4, fontSize: '0.625rem' }}>
+                <p className="text-label" style={{ color: 'var(--footer-text-label)', marginBottom: 4, fontSize: '0.625rem' }}>
                   Location
                 </p>
-                <p className="text-caption-text" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                <p className="text-caption-text" style={{ color: 'var(--footer-text-dim)' }}>
                   Ahmedabad, Gujarat, India
                 </p>
               </div>
@@ -121,18 +116,18 @@ export default function Footer({ logoUrl }: { logoUrl: string }) {
           {/* Column 4: Social */}
           <div>
             <p
-              className="text-label"
-              style={{ color: 'var(--cta)', marginBottom: 20 }}
+              className="text-label mb-2 md:mb-5 max-md:text-[10px]"
+              style={{ color: 'var(--cta)' }}
             >
               Follow Us
             </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div className="flex flex-col gap-1 md:gap-3">
               <a
                 href="https://www.instagram.com/shreelaxmicreation_/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-caption-text footer-link"
-                style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', transition: 'color 0.2s ease' }}
+                style={{ color: 'var(--footer-text-dim)', textDecoration: 'none', transition: 'color 0.2s ease' }}
               >
                 Instagram ↗
               </a>
@@ -141,7 +136,7 @@ export default function Footer({ logoUrl }: { logoUrl: string }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-caption-text footer-link"
-                style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none', transition: 'color 0.2s ease' }}
+                style={{ color: 'var(--footer-text-dim)', textDecoration: 'none', transition: 'color 0.2s ease' }}
               >
                 WhatsApp ↗
               </a>
@@ -152,54 +147,43 @@ export default function Footer({ logoUrl }: { logoUrl: string }) {
 
       {/* Bottom bar */}
       <div
+        className="pt-4 pb-24 md:py-5 px-4 md:px-6 relative z-10"
         style={{
-          borderTop: '1px solid rgba(255,255,255,0.08)',
-          padding: '20px 24px',
-          position: 'relative',
-          zIndex: 10,
+          borderTop: '1px solid var(--footer-border)',
         }}
       >
         <div
-          className="footer-bottom"
-          style={{
-            maxWidth: 'var(--max-content)',
-            margin: '0 auto',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: 12,
-          }}
+          className="max-w-[var(--max-content)] mx-auto flex items-center justify-between max-md:justify-start max-md:flex-nowrap flex-wrap max-md:gap-3 gap-6 max-md:overflow-x-auto max-md:[-ms-overflow-style:none] max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden whitespace-nowrap"
         >
-          <p className="text-caption-text" style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.6875rem' }}>
+          <p className="text-caption-text max-md:text-[9px]" style={{ color: 'var(--footer-text-dimmer)', fontSize: '0.6875rem' }}>
             Shree Laxmi Creation © {new Date().getFullYear()}
           </p>
-          <div style={{ display: 'flex', gap: 24 }}>
+          <div className="flex gap-3 md:gap-6">
             <Link
               href="/privacy-policy"
-              className="text-caption-text footer-link"
-              style={{ color: 'rgba(255,255,255,0.4)', textDecoration: 'none', transition: 'color 0.2s ease', fontSize: '0.6875rem' }}
+              className="text-caption-text footer-link max-md:text-[9px]"
+              style={{ color: 'var(--footer-text-dimmer)', textDecoration: 'none', transition: 'color 0.2s ease', fontSize: '0.6875rem' }}
             >
               Privacy Policy
             </Link>
             <Link
               href="/terms"
-              className="text-caption-text footer-link"
-              style={{ color: 'rgba(255,255,255,0.4)', textDecoration: 'none', transition: 'color 0.2s ease', fontSize: '0.6875rem' }}
+              className="text-caption-text footer-link max-md:text-[9px]"
+              style={{ color: 'var(--footer-text-dimmer)', textDecoration: 'none', transition: 'color 0.2s ease', fontSize: '0.6875rem' }}
             >
               Terms
             </Link>
           </div>
           <p
-            className="text-caption-text"
-            style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.6875rem' }}
+            className="text-caption-text max-md:text-[9px]"
+            style={{ color: 'var(--footer-text-dimmer)', fontSize: '0.6875rem' }}
           >
             Built by{' '}
             <a
               href="https://formadigital.in"
               target="_blank"
               rel="noopener noreferrer"
-              className="footer-link hover:text-white"
+              className="footer-link"
               style={{ color: 'inherit', textDecoration: 'none', transition: 'color 0.2s ease' }}
             >
               Forma Digital

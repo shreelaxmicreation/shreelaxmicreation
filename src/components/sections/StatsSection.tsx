@@ -40,7 +40,7 @@ export default function StatsSection() {
         </div>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-4 gap-2 md:gap-6">
           {stats.map((stat, idx) => (
             <motion.div
               key={stat.label}
@@ -52,16 +52,16 @@ export default function StatsSection() {
                 delay: idx * 0.15,
                 ease: [0.16, 1, 0.3, 1],
               }}
-              className="liquid-glass-card rounded-3xl p-6 md:p-10 text-center flex flex-col items-center justify-center min-h-[200px] md:min-h-[280px]"
+              className="liquid-glass-card rounded-2xl md:rounded-3xl p-2 sm:p-4 md:p-10 text-center flex flex-col items-center justify-center min-h-[120px] md:min-h-[280px]"
             >
-              <p className="font-display text-[clamp(2.5rem,5vw,4.5rem)] font-light mb-4 leading-none" style={{ color: 'var(--navy)' }}>
+              <p className="font-display text-xl sm:text-3xl md:text-[clamp(2.5rem,5vw,4.5rem)] font-light mb-2 md:mb-4 leading-none" style={{ color: 'var(--navy)' }}>
                 {stat.value}
               </p>
-              <div className="w-12 h-[1px] bg-cta mb-6" />
-              <p className="text-sm font-medium tracking-widest uppercase text-text mb-2">
+              <div className="w-6 md:w-12 h-[1px] bg-cta mb-2 md:mb-6" />
+              <p className="text-[8px] sm:text-[10px] md:text-sm font-medium tracking-widest uppercase text-text mb-1 md:mb-2">
                 {stat.label}
               </p>
-              <p className="text-sm text-muted">
+              <p className="text-[8px] sm:text-[10px] md:text-sm text-muted hidden sm:block">
                 {stat.description}
               </p>
             </motion.div>

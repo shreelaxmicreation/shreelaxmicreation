@@ -18,11 +18,11 @@ export default async function ProductsPage() {
     <>
       {/* Page Header */}
       <section
-        className="w-full section-padded-top-nav"
+        className="w-full section-padded-top-nav relative max-md:!pt-[72px] max-md:!pb-4"
         style={{ background: 'var(--canvas)' }}
       >
-        <div style={{ maxWidth: 'var(--max-content)', margin: '0 auto' }}>
-          <p className="text-label" style={{ color: 'var(--brand)', marginBottom: 16 }}>
+        <div style={{ maxWidth: 'var(--max-content)', margin: '0 auto', position: 'relative' }}>
+          <p className="text-label max-md:absolute max-md:-top-[46px] max-md:right-0 md:mb-4" style={{ color: 'var(--brand)' }}>
             Our Product Range
           </p>
           <h1

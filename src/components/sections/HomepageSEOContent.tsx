@@ -23,14 +23,14 @@ export default function HomepageSEOContent() {
   }
 
   return (
-    <section className="bg-white/5 py-16 sm:py-24 border-y border-white/10">
+    <section className="py-16 sm:py-24" style={{ background: 'var(--surface)', borderTop: '1px solid var(--card-border)', borderBottom: '1px solid var(--card-border)' }}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
       />
       <div className="container mx-auto px-4 max-w-4xl">
-        <div className="prose prose-invert prose-lg max-w-none">
-          <h2 className="text-3xl font-bold tracking-tight mb-6">
+        <div className="prose prose-lg max-w-none prose-headings:text-[var(--navy)] prose-p:text-[var(--muted)] prose-strong:text-[var(--navy)]">
+          <h2 className="text-3xl font-display font-normal tracking-tight mb-6" style={{ color: 'var(--navy)' }}>
             Leading Shirting Fabric Manufacturer Ahmedabad
           </h2>
           <p>

@@ -1,6 +1,7 @@
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
+  darkMode: 'class',
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -9,16 +10,16 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: '#F5F1E8', // Soft Cream — primary bg (70%)
-        surface: '#FAF8F3',    // Stone White — cards, alt sections
-        secondary: '#1C315E',  // Midnight Navy
-        cta: '#D6B06A',        // Warm Sand — accent (10%)
-        text: '#232323',       // Charcoal
-        muted: '#8A8578',      // Warm grey
-        brand: '#D6B06A',      // Warm Sand alias
-        ink: '#232323',        // Charcoal alias
-        canvas: '#F5F1E8',     // Cream alias
-        navy: '#1C315E',       // Midnight Navy
+        background: 'var(--background)',
+        surface: 'var(--surface)',
+        secondary: 'var(--navy)',
+        cta: 'var(--cta)',
+        text: 'var(--text)',
+        muted: 'var(--muted)',
+        brand: 'var(--brand)',
+        ink: 'var(--ink)',
+        canvas: 'var(--canvas)',
+        navy: 'var(--navy)',
       },
       fontFamily: {
         display: ['var(--font-bodoni-moda)', 'Georgia', 'serif'],

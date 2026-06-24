@@ -57,7 +57,7 @@ export default function EnquiryForm({
       <section
         id="enquiry-cta"
         className="w-full section-padded relative overflow-hidden"
-        style={{ background: 'var(--navy)' }}
+        style={{ background: 'var(--accent-bg)' }}
       >
         <div style={{ maxWidth: 'var(--max-content)', margin: '0 auto', textAlign: 'center', position: 'relative', zIndex: 10 }}>
           <p className="text-label" style={{ color: 'var(--cta)', marginBottom: 16 }}>Get in Touch</p>

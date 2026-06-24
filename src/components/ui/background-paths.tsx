@@ -132,7 +132,7 @@ export function BackgroundPaths({
                         <Button
                             variant="ghost"
                             className="rounded-[1.15rem] px-6 py-4 sm:px-8 sm:py-6 text-base sm:text-lg font-semibold backdrop-blur-md 
-                            bg-[var(--navy)] hover:bg-[var(--brand)] text-white transition-all duration-300 
+                            bg-[var(--navy)] hover:bg-[var(--brand)] text-[var(--white)] transition-all duration-300 
                             group-hover:-translate-y-0.5 border border-[var(--navy)]/20 hover:border-[var(--brand)]/50
                             hover:shadow-md"
                         >

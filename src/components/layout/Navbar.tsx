@@ -4,14 +4,21 @@ import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
+import { useTheme } from 'next-themes'
+import { Sun, Moon } from 'lucide-react'
 
 import { motion } from 'framer-motion'
 import { OriginButton } from '@/components/ui/origin-button'
+import ThemeToggle from '@/components/ui/ThemeToggle'
 
 export default function Navbar({ logoUrl, logoTextUrl }: { logoUrl: string; logoTextUrl: string }) {
   const [scrolled, setScrolled] = useState(false)
   const pathname = usePathname()
   const router = useRouter()
+  const { theme, setTheme, resolvedTheme } = useTheme()
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => setMounted(true), [])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -55,10 +62,10 @@ export default function Navbar({ logoUrl, logoTextUrl }: { logoUrl: string; logo
           left: 0,
           right: 0,
           zIndex: 50,
-          background: scrolled ? 'rgba(245, 241, 232, 0.85)' : 'transparent',
+          background: scrolled ? 'var(--card-bg)' : 'transparent',
           backdropFilter: scrolled ? 'blur(16px) saturate(120%)' : 'none',
           WebkitBackdropFilter: scrolled ? 'blur(16px) saturate(120%)' : 'none',
-          borderBottom: scrolled ? '1px solid rgba(28, 49, 94, 0.06)' : '1px solid transparent',
+          borderBottom: scrolled ? '1px solid var(--card-border)' : '1px solid transparent',
           transition: 'background 0.3s ease, border-bottom 0.3s ease, backdrop-filter 0.3s ease',
           padding: '0 clamp(16px, 4vw, 80px)',
         }}
@@ -143,6 +150,11 @@ export default function Navbar({ logoUrl, logoTextUrl }: { logoUrl: string; logo
               )
             ))}
           </div>
+
+          {/* Theme Toggle */}
+          <div className="nav-desktop-links" style={{ marginLeft: 16 }}>
+            <ThemeToggle />
+          </div>
         </div>
       </motion.nav>
 
@@ -194,8 +206,8 @@ export default function Navbar({ logoUrl, logoTextUrl }: { logoUrl: string; logo
                   borderRadius: 999,
                   position: 'relative',
                   color: isEnquire
-                    ? 'var(--navy)'
-                    : (isActive ? 'var(--navy)' : 'rgba(255,255,255,0.7)'),
+                    ? '#1C315E'
+                    : (isActive ? '#1C315E' : 'rgba(255,255,255,0.7)'),
                   whiteSpace: 'nowrap',
                   zIndex: 1,
                 }}
@@ -230,6 +242,28 @@ export default function Navbar({ logoUrl, logoTextUrl }: { logoUrl: string; logo
               </Link>
             )
           })}
+          
+          {/* Mobile Theme Toggle */}
+          {mounted && (
+            <button
+              onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
+              aria-label="Toggle theme"
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: 'white',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '8px',
+                marginLeft: '4px',
+                cursor: 'pointer',
+                borderRadius: '50%',
+              }}
+            >
+              {resolvedTheme === 'dark' ? <Sun size={14} strokeWidth={2} /> : <Moon size={14} strokeWidth={2} />}
+            </button>
+          )}
         </div>
       </motion.div>
       </div>

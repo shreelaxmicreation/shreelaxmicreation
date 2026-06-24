@@ -126,14 +126,14 @@ export default function ProductsGrid({ mode, showHeader = true, products = [] }:
 
         {/* Filter Pills */}
         {mode === 'full' && (allFabrics.length > 0 || allPrints.length > 0) && (
-          <div className="mb-12 flex flex-col gap-6" style={{ marginTop: showHeader ? '0' : '40px' }}>
+          <div className={`mb-12 flex flex-col gap-4 md:gap-6 ${!showHeader ? 'mt-4 md:mt-10' : 'mt-0'}`}>
             {allFabrics.length > 0 && (
               <div>
                 <span className="text-sm uppercase tracking-widest text-muted mb-3 inline-block font-medium">Fabric Type</span>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex max-md:flex-nowrap flex-wrap gap-2 max-md:overflow-x-auto max-md:pb-2 max-md:[-ms-overflow-style:none] max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden">
                   <button
                     onClick={() => setSelectedFabrics([])}
-                    className="px-4 py-1.5 rounded-full text-sm transition-colors duration-300"
+                    className="max-md:px-3 max-md:py-1 max-md:text-[11px] px-4 py-1.5 rounded-full text-sm transition-colors duration-300 flex-shrink-0"
                     style={{
                       border: '1px solid var(--navy)',
                       backgroundColor: selectedFabrics.length === 0 ? 'var(--navy)' : 'transparent',
@@ -149,7 +149,7 @@ export default function ProductsGrid({ mode, showHeader = true, products = [] }:
                       <button
                         key={f}
                         onClick={() => toggleFabric(f)}
-                        className="px-4 py-1.5 rounded-full text-sm transition-colors duration-300"
+                        className="max-md:px-3 max-md:py-1 max-md:text-[11px] px-4 py-1.5 rounded-full text-sm transition-colors duration-300 flex-shrink-0"
                         style={{
                           border: '1px solid var(--navy)',
                           backgroundColor: isSelected ? 'var(--navy)' : 'transparent',
@@ -168,10 +168,10 @@ export default function ProductsGrid({ mode, showHeader = true, products = [] }:
             {allPrints.length > 0 && (
               <div>
                 <span className="text-sm uppercase tracking-widest text-muted mb-3 inline-block font-medium">Print & Pattern</span>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex max-md:flex-nowrap flex-wrap gap-2 max-md:overflow-x-auto max-md:pb-2 max-md:[-ms-overflow-style:none] max-md:[scrollbar-width:none] max-md:[&::-webkit-scrollbar]:hidden">
                   <button
                     onClick={() => setSelectedPrints([])}
-                    className="px-4 py-1.5 rounded-full text-sm transition-colors duration-300"
+                    className="max-md:px-3 max-md:py-1 max-md:text-[11px] px-4 py-1.5 rounded-full text-sm transition-colors duration-300 flex-shrink-0"
                     style={{
                       border: '1px solid var(--navy)',
                       backgroundColor: selectedPrints.length === 0 ? 'var(--navy)' : 'transparent',
@@ -187,7 +187,7 @@ export default function ProductsGrid({ mode, showHeader = true, products = [] }:
                       <button
                         key={p}
                         onClick={() => togglePrint(p)}
-                        className="px-4 py-1.5 rounded-full text-sm transition-colors duration-300"
+                        className="max-md:px-3 max-md:py-1 max-md:text-[11px] px-4 py-1.5 rounded-full text-sm transition-colors duration-300 flex-shrink-0"
                         style={{
                           border: '1px solid var(--navy)',
                           backgroundColor: isSelected ? 'var(--navy)' : 'transparent',
@@ -241,6 +241,7 @@ export default function ProductsGrid({ mode, showHeader = true, products = [] }:
                     slug={`/products/${item.slug}`}
                     fabricTypes={item.fabricTypes}
                     printTypes={item.printTypes}
+                    compactOnMobile={true}
                   />
                 </motion.div>
               )

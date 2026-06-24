@@ -7,6 +7,7 @@ import CookieBanner from '@/components/ui/CookieBanner'
 import FloatingBestSellers from '@/components/ui/FloatingBestSellers'
 import SmoothScroll from '@/components/layout/SmoothScroll'
 import Script from 'next/script'
+import ThemeProvider from '@/components/providers/ThemeProvider'
 
 const bodoni = Bodoni_Moda({
   subsets: ['latin'],
@@ -42,9 +43,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${bodoni.variable} ${hanken.variable} bg-background text-text`}>
+    <html lang="en" suppressHydrationWarning className={`${bodoni.variable} ${hanken.variable} bg-background text-text`}>
       <body>
-        {children}
+        <ThemeProvider>
+          {children}
+        </ThemeProvider>
         
         {/* Google Analytics */}
         <Script 

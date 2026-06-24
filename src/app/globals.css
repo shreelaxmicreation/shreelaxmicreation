@@ -26,6 +26,43 @@
   --space-xl:  120px;
 
   --max-content: 1200px;
+
+  /* Dark-mode aware card surfaces */
+  --card-bg: rgba(250, 248, 243, 0.9);
+  --card-border: rgba(28, 49, 94, 0.06);
+  --card-shadow: rgba(28, 49, 94, 0.08);
+  --footer-bg: #1C315E;
+  --footer-text: rgba(255,255,255,0.7);
+  --footer-text-dim: rgba(255,255,255,0.5);
+  --footer-text-dimmer: rgba(255,255,255,0.4);
+  --footer-text-label: rgba(255,255,255,0.35);
+  --footer-border: rgba(255,255,255,0.08);
+  --accent-bg: #1C315E;
+}
+
+.dark {
+  --ink:     #E8E4DC;
+  --canvas:  #0F1117;
+  --white:   #0F1117;
+  --brand:   #D6B06A;
+  --muted:   #9A9690;
+  --surface: #181A22;
+  --navy:    #E8E4DC;
+
+  --background: #0F1117;
+  --text: #E8E4DC;
+  --cta: #D6B06A;
+
+  --card-bg: rgba(24, 26, 34, 0.9);
+  --card-border: rgba(214, 176, 106, 0.08);
+  --card-shadow: rgba(0, 0, 0, 0.3);
+  --footer-bg: #0A0C12;
+  --footer-text: rgba(232,228,220,0.7);
+  --footer-text-dim: rgba(232,228,220,0.5);
+  --footer-text-dimmer: rgba(232,228,220,0.4);
+  --footer-text-label: rgba(232,228,220,0.35);
+  --footer-border: rgba(214,176,106,0.1);
+  --accent-bg: #141620;
 }
 
 *, *::before, *::after {
@@ -336,9 +373,6 @@ html.lenis, html.lenis body {
   align-items: center;
 }
 
-.footer-link:hover {
-  color: #FFFFFF !important;
-}
 
 /* ── Navbar ───────────────────────────────────── */
 
@@ -361,7 +395,7 @@ html.lenis, html.lenis body {
 
 @media (max-width: 1024px) {
   .collections-full-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .stats-grid {
@@ -425,9 +459,14 @@ html.lenis, html.lenis body {
     padding: 24px 16px !important;
   }
 
-  .collections-preview-grid,
+  .collections-preview-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  
   .collections-full-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
   }
 
   .about-strip-grid {
@@ -484,41 +523,49 @@ html.lenis, html.lenis body {
     display: flex !important;
   }
 
+  #navbar {
+    position: absolute !important;
+    background: transparent !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    border-bottom: none !important;
+  }
+
   .about-hero {
     padding: 72px 24px var(--space-lg) 24px !important;
     min-height: 50vh !important;
   }
 }
 
-/* ── Glass Utilities (Light Mode) ────────────── */
+/* ── Glass Utilities ─────────────────────────── */
 
 .liquid-glass {
-  background: rgba(250, 248, 243, 0.7);
+  background: var(--card-bg);
   backdrop-filter: blur(16px) saturate(120%);
   -webkit-backdrop-filter: blur(16px) saturate(120%);
-  border: 1px solid rgba(28, 49, 94, 0.08);
-  box-shadow: 0 4px 30px rgba(28, 49, 94, 0.06);
+  border: 1px solid var(--card-border);
+  box-shadow: 0 4px 30px var(--card-shadow);
 }
 
 .liquid-glass-card {
-  background: linear-gradient(135deg, rgba(250, 248, 243, 0.9) 0%, rgba(245, 241, 232, 0.95) 100%);
+  background: linear-gradient(135deg, var(--card-bg) 0%, var(--surface) 100%);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(28, 49, 94, 0.06);
+  border: 1px solid var(--card-border);
   transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
 .liquid-glass-card:hover {
   border-color: rgba(214, 176, 106, 0.4);
-  box-shadow: 0 8px 40px rgba(28, 49, 94, 0.08);
+  box-shadow: 0 8px 40px var(--card-shadow);
 }
 
 .liquid-gradient {
-  background: radial-gradient(circle at 50% 50%, rgba(214, 176, 106, 0.12) 0%, rgba(245, 241, 232, 0) 50%);
+  background: radial-gradient(circle at 50% 50%, rgba(214, 176, 106, 0.12) 0%, transparent 50%);
 }
 
 .text-gradient-gold {
-  background: linear-gradient(135deg, #1C315E 0%, #D6B06A 100%);
+  background: linear-gradient(135deg, var(--navy) 0%, var(--cta) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -532,11 +579,17 @@ html.lenis, html.lenis body {
   background: var(--background);
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(28, 49, 94, 0.15);
+  background: var(--muted);
   border-radius: 4px;
+  opacity: 0.4;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(28, 49, 94, 0.3);
+  opacity: 0.6;
+}
+
+/* ── Footer Link Dark-Mode Aware ─────────────── */
+.footer-link:hover {
+  color: #FFFFFF !important;
 }
 
 /* ── Spline Loader ──────────────────────────── */
@@ -552,3 +605,4 @@ html.lenis, html.lenis body {
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
+

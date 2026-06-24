@@ -1,10 +1,12 @@
 'use client';
 
 import React, { useEffect, useRef } from 'react';
+import { useTheme } from 'next-themes';
 
 export const SilkBackground = () => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number>();
+  const { resolvedTheme } = useTheme();
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -50,10 +52,16 @@ export const SilkBackground = () => {
       const imageData = ctx.createImageData(width, height);
       const data = imageData.data;
 
-      // CTA Warm Sand Color: #D6B06A (RGB: 214, 176, 106)
-      const r_val = 214;
-      const g_val = 176;
-      const b_val = 106;
+      let r_val = 214;
+      let g_val = 176;
+      let b_val = 106;
+
+      if (resolvedTheme === 'dark') {
+        // Elegant silvery/off-white for dark mode
+        r_val = 232;
+        g_val = 228;
+        b_val = 220;
+      }
 
       for (let x = 0; x < width; x += 1) {
         for (let y = 0; y < height; y += 1) {
@@ -97,7 +105,7 @@ export const SilkBackground = () => {
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, []);
+  }, [resolvedTheme]);
 
   return (
     <div className="absolute inset-0 w-full h-full overflow-hidden bg-[var(--canvas)] z-0">

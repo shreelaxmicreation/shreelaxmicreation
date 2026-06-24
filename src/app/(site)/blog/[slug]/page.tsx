@@ -62,19 +62,19 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
   }
 
   return (
-    <div className="bg-[#0a0a0a] min-h-screen text-white pt-24 pb-24">
+    <div className="min-h-screen pt-24 pb-24" style={{ background: 'var(--surface)' }}>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaData) }}
       />
       <div className="container mx-auto px-4 max-w-3xl">
         {/* Breadcrumb */}
-        <nav className="flex items-center text-sm text-gray-400 mb-8">
-          <Link href="/" className="hover:text-white transition-colors">Home</Link>
+        <nav className="flex items-center text-sm text-muted mb-8">
+          <Link href="/" className="hover:opacity-80 transition-opacity" style={{ color: 'var(--navy)' }}>Home</Link>
           <ChevronRight className="w-4 h-4 mx-2" />
-          <Link href="/blog" className="hover:text-white transition-colors">Blog</Link>
+          <Link href="/blog" className="hover:opacity-80 transition-opacity" style={{ color: 'var(--navy)' }}>Blog</Link>
           <ChevronRight className="w-4 h-4 mx-2" />
-          <span className="text-white truncate">{post.title}</span>
+          <span className="truncate" style={{ color: 'var(--navy)' }}>{post.title}</span>
         </nav>
 
         {/* Header */}
@@ -89,14 +89,14 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-normal mb-6 leading-tight" style={{ color: 'var(--navy)' }}>
             {post.title}
           </h1>
-          <p className="text-xl text-gray-300 leading-relaxed">
+          <p className="text-xl text-muted leading-relaxed">
             {post.excerpt}
           </p>
         </header>
 
         {/* Main Image */}
         {post.mainImage && (
-          <div className="relative aspect-[16/9] md:aspect-[21/9] rounded-2xl overflow-hidden mb-16 bg-white/5 border border-white/10">
+          <div className="relative aspect-[16/9] md:aspect-[21/9] rounded-2xl overflow-hidden mb-16 border" style={{ background: 'var(--surface)', borderColor: 'var(--card-border)' }}>
             <Image
               src={urlFor(post.mainImage).width(1200).height(600).url()}
               alt={post.title}
@@ -108,26 +108,28 @@ export default async function BlogPostPage({ params }: BlogPageProps) {
         )}
 
         {/* Content */}
-        <article className="prose prose-invert prose-lg max-w-none prose-headings:font-display prose-headings:text-[var(--navy)] prose-a:text-[var(--cta)] hover:prose-a:text-white">
+        <article className="prose prose-lg max-w-none prose-headings:font-display prose-headings:font-normal prose-headings:text-[var(--navy)] prose-a:text-[var(--cta)] hover:prose-a:opacity-80 prose-p:text-[var(--muted)] prose-li:text-[var(--muted)] prose-strong:text-[var(--navy)]">
           <PortableText value={post.body} />
         </article>
 
         {/* Footer CTA */}
-        <div className="mt-20 p-8 rounded-2xl bg-white/5 border border-white/10 text-center">
-          <h3 className="text-2xl font-bold mb-4">Sourcing Bulk Shirting Fabric?</h3>
-          <p className="text-gray-400 mb-8">
+        <div className="mt-20 p-8 rounded-2xl text-center" style={{ backgroundColor: 'var(--card-bg)', border: '1px solid var(--card-border)', boxShadow: '0 4px 20px var(--card-shadow)' }}>
+          <h3 className="text-2xl font-display font-normal mb-4" style={{ color: 'var(--navy)' }}>Sourcing Bulk Shirting Fabric?</h3>
+          <p className="text-muted mb-8">
             Explore our extensive catalog of high-quality fabrics, manufactured in-house to ensure premium quality at competitive prices.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link
               href="/products"
-              className="px-8 py-3 rounded-full bg-white text-black font-semibold hover:bg-gray-200 transition-colors"
+              className="px-8 py-3 rounded-full font-semibold transition-opacity hover:opacity-90"
+              style={{ backgroundColor: 'var(--navy)', color: 'var(--canvas)' }}
             >
               View Collection
             </Link>
             <Link
               href="/contact"
-              className="px-8 py-3 rounded-full border border-white/20 hover:bg-white/10 transition-colors"
+              className="px-8 py-3 rounded-full transition-colors"
+              style={{ border: '1px solid var(--navy)', color: 'var(--navy)' }}
             >
               Contact Us
             </Link>

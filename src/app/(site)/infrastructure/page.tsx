@@ -121,7 +121,7 @@ export default function InfrastructurePage() {
       </section>
 
       {/* Processing Capabilities — Navy section */}
-      <section className="w-full section-padded" style={{ background: 'var(--navy)' }}>
+      <section className="w-full section-padded" style={{ background: 'var(--accent-bg)' }}>
         <div className="max-w-[var(--max-content)] mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16">
           <div>
             <p className="text-label text-cta mb-4 tracking-[0.2em]">Processing</p>

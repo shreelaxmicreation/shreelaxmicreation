@@ -26,7 +26,7 @@ export default function CookieBanner() {
         bottom: 0,
         left: 0,
         right: 0,
-        background: 'var(--navy)',
+        background: 'var(--accent-bg)',
         color: 'rgba(255,255,255,0.8)',
         padding: '24px 80px',
         zIndex: 100,
@@ -47,7 +47,7 @@ export default function CookieBanner() {
           onClick={acceptCookies}
           style={{
             background: 'var(--cta)',
-            color: 'var(--navy)',
+            color: '#1C315E',
             border: 'none',
             padding: '12px 24px',
             fontFamily: 'var(--font-body)',

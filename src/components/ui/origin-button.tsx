@@ -190,11 +190,11 @@ const OriginButton = React.forwardRef<HTMLButtonElement, OriginButtonProps>(
         className={cn(
           componentThemeClassName,
           "relative inline-flex h-12 cursor-pointer touch-manipulation select-none items-center justify-center overflow-hidden rounded-xl px-8 font-medium text-[15px] tracking-[-0.02em]",
-          "bg-[var(--navy)] text-white border border-[rgba(255,255,255,0.1)]",
+          "bg-[var(--accent-bg)] text-white border border-[rgba(255,255,255,0.1)]",
           "transition-[color] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)]",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--canvas)]",
           "disabled:pointer-events-none disabled:opacity-50",
-          showFill && "text-[var(--navy)]",
+          showFill && "text-[var(--accent-bg)]",
           className
         )}
         data-pressed={isPressed ? "true" : "false"}
