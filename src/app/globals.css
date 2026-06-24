@@ -323,7 +323,7 @@ html.lenis, html.lenis body {
 
 .collections-full-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 24px;
 }
 
@@ -395,7 +395,7 @@ html.lenis, html.lenis body {
 
 @media (max-width: 1024px) {
   .collections-full-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .stats-grid {
@@ -465,7 +465,7 @@ html.lenis, html.lenis body {
   }
   
   .collections-full-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
 

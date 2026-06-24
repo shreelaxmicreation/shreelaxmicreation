@@ -178,12 +178,12 @@ export default function Navbar({ logoUrl, logoTextUrl }: { logoUrl: string; logo
           transition={{ duration: 0.6, delay: 0.5, ease: 'easeOut' }}
           style={{
             pointerEvents: 'auto',
-            background: 'rgba(28, 49, 94, 0.92)',
+            background: 'rgba(15, 17, 23, 0.95)',
             backdropFilter: 'blur(20px) saturate(150%)',
             WebkitBackdropFilter: 'blur(20px) saturate(150%)',
             borderRadius: 999,
             padding: '6px 6px',
-            boxShadow: '0 8px 32px rgba(28, 49, 94, 0.3), 0 2px 8px rgba(0,0,0,0.1)',
+            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0,0,0,0.2)',
             border: '1px solid rgba(255,255,255,0.1)',
           }}
         >

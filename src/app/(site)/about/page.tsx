@@ -84,14 +84,14 @@ export default async function AboutPage() {
             Scale That <span style={{ fontStyle: 'italic', color: 'var(--cta)' }}>Delivers</span>
           </h2>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 gap-4 md:gap-8 max-w-4xl mx-auto">
             {aboutContent.numbers.map((stat, idx) => (
-              <div key={idx} className="p-10 rounded-3xl text-center flex flex-col items-center justify-center min-h-[240px] border border-[rgba(255,255,255,0.1)]">
-                <h3 className="font-display text-[clamp(2.5rem,4vw,3.5rem)] font-light mb-4" style={{ color: '#FFFFFF' }}>
+              <div key={idx} className="p-6 sm:p-8 md:p-12 rounded-3xl text-center flex flex-col items-center justify-center min-h-[160px] md:min-h-[320px] border border-[rgba(255,255,255,0.1)]">
+                <h3 className="font-display text-4xl sm:text-5xl md:text-[clamp(4rem,8vw,7rem)] font-light mb-4 md:mb-6 leading-none" style={{ color: '#FFFFFF' }}>
                   {stat.value}
                 </h3>
-                <div className="w-8 h-[1px] bg-cta mb-4" />
-                <p className="text-sm font-medium tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.5)' }}>
+                <div className="w-8 md:w-16 h-[1px] bg-cta mb-4 md:mb-8" />
+                <p className="text-xs sm:text-sm md:text-base font-medium tracking-widest uppercase" style={{ color: 'rgba(255,255,255,0.5)' }}>
                   {stat.label}
                 </p>
               </div>
