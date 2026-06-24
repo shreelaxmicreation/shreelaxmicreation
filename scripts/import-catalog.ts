@@ -60,7 +60,7 @@ async function importCatalog() {
       console.log(`Uploading image for ${designCode}...`)
       try {
         const asset = await client.assets.upload('image', fs.createReadStream(imagePath), {
-          filename: fileName
+          filename: fileName || undefined
         })
         imageAssetId = asset._id
         console.log(`✅ Uploaded image -> ${asset._id}`)
