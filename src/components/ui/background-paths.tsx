@@ -86,12 +86,7 @@ export function BackgroundPaths({
         <div className="relative min-h-[90vh] w-full flex items-center justify-center overflow-hidden">
             <SilkBackground />
             <div className="relative z-10 container mx-auto px-4 md:px-6 text-center">
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 2 }}
-                    className="max-w-4xl mx-auto"
-                >
+                <div className="max-w-4xl mx-auto">
                     <h1 
                         className="font-display text-4xl sm:text-6xl md:text-8xl mb-8 tracking-tight font-medium text-[var(--navy)]"
                         onMouseEnter={() => setIsHovered(true)}
@@ -102,7 +97,7 @@ export function BackgroundPaths({
 
                     <div
                         className="inline-block group relative bg-gradient-to-b from-[var(--navy)]/10 to-[var(--brand)]/10 
-                        p-px rounded-2xl backdrop-blur-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300"
+                        p-px rounded-2xl backdrop-blur-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 animate-in fade-in slide-in-from-bottom-4 duration-1000 delay-300 fill-mode-both"
                     >
                         <Button
                             variant="ghost"
@@ -122,7 +117,7 @@ export function BackgroundPaths({
                             </span>
                         </Button>
                     </div>
-                </motion.div>
+                </div>
             </div>
         </div>
     );
