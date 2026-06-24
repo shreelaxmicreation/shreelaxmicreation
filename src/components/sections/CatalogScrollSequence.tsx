@@ -42,7 +42,7 @@ function SwatchCard({ item }: { item: SanityProduct | SanityFabricSwatch | any }
         className="relative w-full aspect-[4/5] rounded-2xl flex items-center justify-center transition-transform duration-700 group-hover:scale-105 overflow-hidden"
         style={{ backgroundColor: color }}
       >
-        {imageUrl && <img src={imageUrl} alt={name} className="absolute inset-0 w-full h-full object-cover" />}
+        {imageUrl && <Image src={imageUrl} alt={name} fill sizes="(max-width: 768px) 50vw, 33vw" className="object-cover" />}
         <div className="absolute inset-0 bg-gradient-to-t from-[rgba(28,49,94,0.85)] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-between p-6">
           <span className="font-body text-sm font-medium tracking-widest uppercase text-white">
             Enquire
@@ -309,7 +309,7 @@ export default function CatalogScrollSequence({ items = [] }: CatalogScrollSeque
                     className="group block rounded-2xl overflow-hidden relative"
                     style={{ textDecoration: 'none', aspectRatio: '3/4' }}
                   >
-                    {imageUrl && <img src={imageUrl} alt={card.name} className="absolute inset-0 w-full h-full object-cover" />}
+                    {imageUrl && <Image src={imageUrl} alt={card.name} fill sizes="(max-width: 768px) 100vw, 25vw" className="object-cover" />}
                     <div className="absolute inset-0 bg-gradient-to-t from-[rgba(28,49,94,0.85)] via-[rgba(28,49,94,0.2)] to-transparent" />
                     <div className="absolute bottom-0 left-0 right-0 p-6 relative z-10">
                       <span className="text-xs font-body uppercase tracking-widest text-[var(--white)] opacity-80 mb-2 block">
@@ -446,7 +446,7 @@ export default function CatalogScrollSequence({ items = [] }: CatalogScrollSeque
                   willChange: 'transform, opacity',
                 }}
               >
-                {imageUrl && <img src={imageUrl} alt={card.name} className="absolute inset-0 w-full h-full object-cover" />}
+                {imageUrl && <Image src={imageUrl} alt={card.name} fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover" />}
                 <div className="absolute inset-0 bg-gradient-to-t from-[rgba(28,49,94,0.7)] to-transparent z-0 pointer-events-none" />
                 
                 <div className="relative z-10">

@@ -1,6 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 interface DisplayCardProps {
   className?: string;
@@ -33,7 +34,7 @@ function DisplayCard({
       {/* Background fabric image */}
       {image && (
         <div className="absolute inset-0 z-0">
-          <img src={image} alt="" className="w-full h-full object-cover opacity-20" />
+          {image && <Image src={image} alt="" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover opacity-20" />}
           <div className="absolute inset-0 bg-gradient-to-r from-[var(--surface)] via-[var(--surface)]/80 to-transparent" />
         </div>
       )}
