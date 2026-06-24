@@ -307,14 +307,14 @@ export default function CatalogScrollSequence({ items = [] }: CatalogScrollSeque
                     className="group block rounded-2xl overflow-hidden relative"
                     style={{ textDecoration: 'none', aspectRatio: '3/4' }}
                   >
-                    {imageUrl && <img src={imageUrl} alt={card.label} className="absolute inset-0 w-full h-full object-cover" />}
+                    {imageUrl && <img src={imageUrl} alt={card.name} className="absolute inset-0 w-full h-full object-cover" />}
                     <div className="absolute inset-0 bg-gradient-to-t from-[rgba(28,49,94,0.85)] via-[rgba(28,49,94,0.2)] to-transparent" />
                     <div className="absolute bottom-0 left-0 right-0 p-6 relative z-10">
                       <span className="text-xs font-body uppercase tracking-widest text-[var(--white)] opacity-80 mb-2 block">
                         {card.category}
                       </span>
                       <h3 className="text-2xl md:text-3xl font-display text-[var(--white)] leading-tight m-0 font-normal">
-                        {'name' in card ? card.name : card.label}
+                        {card.name}
                       </h3>
                     </div>
                     {/* Hover arrow */}
@@ -339,14 +339,14 @@ export default function CatalogScrollSequence({ items = [] }: CatalogScrollSeque
             <div className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] touch-pan-x">
               <div className="flex gap-6 md:gap-8 w-max pl-[5vw]">
                 {allSwatches.map((swatch, idx) => (
-                  <SwatchCard key={`static-r1-${idx}`} swatch={swatch} />
+                  <SwatchCard key={`static-r1-${idx}`} item={swatch} />
                 ))}
               </div>
             </div>
             <div className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] touch-pan-x">
               <div className="flex gap-6 md:gap-8 w-max pl-[0vw]">
                 {[...allSwatches].reverse().map((swatch, idx) => (
-                  <SwatchCard key={`static-r2-${idx}`} swatch={swatch} />
+                  <SwatchCard key={`static-r2-${idx}`} item={swatch} />
                 ))}
               </div>
             </div>
@@ -427,7 +427,7 @@ export default function CatalogScrollSequence({ items = [] }: CatalogScrollSeque
         <div className="absolute inset-0 pointer-events-none flex items-center justify-center z-20">
           {featuredCards.map((card, i) => {
             const defaults = featuredCardDefaults[i] || featuredCardDefaults[0]
-            const size = card.featuredSize || (i === 0 || i === 2 ? 'lg' : i === 1 ? 'md' : 'sm')
+            const size = (i === 0 || i === 2 ? 'lg' : i === 1 ? 'md' : 'sm')
             const sourceImage = card.gallery?.[0] || card.image
             const imageUrl = sourceImage ? urlFor(sourceImage).width(1200).quality(80).format('webp').url() : ''
             
@@ -440,11 +440,11 @@ export default function CatalogScrollSequence({ items = [] }: CatalogScrollSeque
                   'w-[180px] h-[240px] md:w-[300px] md:h-[400px]'
                 }`}
                 style={{ 
-                  backgroundColor: card.color, 
+                  backgroundColor: 'var(--navy)', 
                   willChange: 'transform, opacity',
                 }}
               >
-                {imageUrl && <img src={imageUrl} alt={card.label} className="absolute inset-0 w-full h-full object-cover" />}
+                {imageUrl && <img src={imageUrl} alt={card.name} className="absolute inset-0 w-full h-full object-cover" />}
                 <div className="absolute inset-0 bg-gradient-to-t from-[rgba(28,49,94,0.7)] to-transparent z-0 pointer-events-none" />
                 
                 <div className="relative z-10">
@@ -452,7 +452,7 @@ export default function CatalogScrollSequence({ items = [] }: CatalogScrollSeque
                     {card.category}
                   </span>
                   <h3 className="text-3xl md:text-5xl font-display text-[var(--white)] leading-tight m-0 font-normal">
-                    {'name' in card ? card.name : card.label}
+                    {card.name}
                   </h3>
                 </div>
               </div>

@@ -1,5 +1,5 @@
 import { createClient } from '@sanity/client'
-import { fabricSwatchesQuery } from './src/sanity/lib/queries'
+import { fabricSwatchesQuery } from '../src/sanity/lib/queries'
 import dotenv from 'dotenv'
 dotenv.config({ path: '.env.local' })
 
