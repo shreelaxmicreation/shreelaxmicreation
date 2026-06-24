@@ -93,36 +93,11 @@ export function BackgroundPaths({
                     className="max-w-4xl mx-auto"
                 >
                     <h1 
-                        className="font-display text-4xl sm:text-6xl md:text-8xl mb-8 tracking-tight font-medium"
+                        className="font-display text-4xl sm:text-6xl md:text-8xl mb-8 tracking-tight font-medium text-[var(--navy)]"
                         onMouseEnter={() => setIsHovered(true)}
                         onMouseLeave={() => setIsHovered(false)}
                     >
-                        <AnimatePresence mode="popLayout">
-                            {words.map((word, wordIndex) => (
-                                <span
-                                    key={`${word}-${wordIndex}-${isHovered ? 'hover' : 'default'}`}
-                                    className="inline-block mr-4 last:mr-0"
-                                >
-                                    {word.split("").map((letter, letterIndex) => (
-                                        <motion.span
-                                            key={`${word}-${wordIndex}-${letterIndex}-${isHovered ? 'hover' : 'default'}`}
-                                            initial={{ y: 50, opacity: 0 }}
-                                            animate={{ y: 0, opacity: 1 }}
-                                            exit={{ y: -50, opacity: 0 }}
-                                            transition={{
-                                                delay: wordIndex * 0.05 + letterIndex * 0.02,
-                                                type: "spring",
-                                                stiffness: 200,
-                                                damping: 20,
-                                            }}
-                                            className="inline-block text-[var(--navy)]"
-                                        >
-                                            {letter}
-                                        </motion.span>
-                                    ))}
-                                </span>
-                            ))}
-                        </AnimatePresence>
+                        {displayText}
                     </h1>
 
                     <div

@@ -11,13 +11,13 @@ import { client } from '@/sanity/lib/client'
 import { productsQuery, fabricSwatchesQuery, siteSettingsQuery } from '@/sanity/lib/queries'
 import type { SanityProduct, SanityFabricSwatch, SanitySiteSettings } from '@/sanity/lib/types'
 
-export const dynamic = 'force-dynamic'
+export const revalidate = 3600
 
 export default async function Home() {
   const [products, swatches, siteSettings] = await Promise.all([
-    client.fetch<SanityProduct[]>(productsQuery, {}, { cache: 'no-store' }),
-    client.fetch<SanityFabricSwatch[]>(fabricSwatchesQuery, {}, { cache: 'no-store' }),
-    client.fetch<SanitySiteSettings | null>(siteSettingsQuery, {}, { cache: 'no-store' }),
+    client.fetch<SanityProduct[]>(productsQuery, {}, { next: { revalidate: 3600 } }),
+    client.fetch<SanityFabricSwatch[]>(fabricSwatchesQuery, {}, { next: { revalidate: 3600 } }),
+    client.fetch<SanitySiteSettings | null>(siteSettingsQuery, {}, { next: { revalidate: 3600 } }),
   ])
 
   console.log("SERVER LOG:", {

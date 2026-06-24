@@ -119,9 +119,11 @@ export default function CatalogScrollSequence({ items = [] }: CatalogScrollSeque
     window.addEventListener('resize', checkMobile)
 
     // Scroll the draggable containers to the middle so the user has infinite scrolling in both directions
-    if (row1ParentRef.current) row1ParentRef.current.scrollLeft = 4000;
-    if (row2ParentRef.current) row2ParentRef.current.scrollLeft = 4000;
-    if (row3ParentRef.current) row3ParentRef.current.scrollLeft = 4000;
+    requestAnimationFrame(() => {
+      if (row1ParentRef.current) row1ParentRef.current.scrollLeft = 4000;
+      if (row2ParentRef.current) row2ParentRef.current.scrollLeft = 4000;
+      if (row3ParentRef.current) row3ParentRef.current.scrollLeft = 4000;
+    });
 
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
@@ -263,7 +265,7 @@ export default function CatalogScrollSequence({ items = [] }: CatalogScrollSeque
   }, { scope: containerRef, dependencies: [isMounted, isMobile, reduceMotion, featuredCards] })
 
   // Concatenated arrays for smooth marquee scrolling
-  const marqueeItems = [...allSwatches, ...allSwatches, ...allSwatches, ...allSwatches]
+  const marqueeItems = [...allSwatches, ...allSwatches]
 
   // ── REDUCED MOTION FALLBACK ──────────────────────────
   if (reduceMotion && isMounted) {

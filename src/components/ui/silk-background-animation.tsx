@@ -25,14 +25,16 @@ export const SilkBackground = () => {
 
     const resizeCanvas = () => {
       // Use the parent element's dimensions to confine it to the Hero
-      const parent = canvas.parentElement;
-      if (parent) {
-        canvas.width = parent.clientWidth * pixelRatio;
-        canvas.height = parent.clientHeight * pixelRatio;
-      } else {
-        canvas.width = window.innerWidth * pixelRatio;
-        canvas.height = window.innerHeight * pixelRatio;
-      }
+      requestAnimationFrame(() => {
+        const parent = canvas.parentElement;
+        if (parent) {
+          canvas.width = parent.clientWidth * pixelRatio;
+          canvas.height = parent.clientHeight * pixelRatio;
+        } else {
+          canvas.width = window.innerWidth * pixelRatio;
+          canvas.height = window.innerHeight * pixelRatio;
+        }
+      });
     };
 
     resizeCanvas();

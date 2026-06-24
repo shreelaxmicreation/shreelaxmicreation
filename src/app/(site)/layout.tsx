@@ -1,7 +1,9 @@
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
-import CookieBanner from '@/components/ui/CookieBanner'
-import FloatingBestSellers from '@/components/ui/FloatingBestSellers'
+import dynamic from 'next/dynamic'
+
+const CookieBanner = dynamic(() => import('@/components/ui/CookieBanner'), { ssr: false })
+const FloatingBestSellers = dynamic(() => import('@/components/ui/FloatingBestSellers'), { ssr: false })
 import SmoothScroll from '@/components/layout/SmoothScroll'
 import { client } from '@/sanity/lib/client'
 import { siteSettingsQuery, bestSellersQuery } from '@/sanity/lib/queries'
@@ -10,8 +12,8 @@ import type { SanitySiteSettings, SanityBestSeller } from '@/sanity/lib/types'
 
 export default async function SiteLayout({ children }: { children: React.ReactNode }) {
   const [siteSettingsRaw, bestSellersRaw] = await Promise.all([
-    client.fetch<SanitySiteSettings | null>(siteSettingsQuery, {}, { cache: 'no-store' }),
-    client.fetch<SanityBestSeller[]>(bestSellersQuery, {}, { cache: 'no-store' })
+    client.fetch<SanitySiteSettings | null>(siteSettingsQuery, {}, { next: { revalidate: 3600 } }),
+    client.fetch<SanityBestSeller[]>(bestSellersQuery, {}, { next: { revalidate: 3600 } })
   ])
 
   // Deep clone to avoid Next.js RSC serialization issues with Sanity Stega objects
