@@ -142,18 +142,32 @@ export default function CatalogScrollSequence({ items = [] }: CatalogScrollSeque
       }
     })
 
-    // Fade out scroll indicator immediately upon scrolling
+    // Fade out scroll indicator only at the end of Act 2
     tl.to(scrollIndicatorRef.current, {
       opacity: 0,
-      duration: 0.3,
+      duration: 0.5,
       ease: "power2.out"
-    }, 0)
+    }, 4.4)
 
-    // ACT 1: Text Mask Reveal (Bottom to Top)
-    tl.to(maskRectRef.current, {
-      clipPath: 'inset(0% 0% 0% 0%)',
-      ease: "none",
-      duration: 0.4 // Fast Act 1
+    // ACT 1: Dynamic 3D Word Stagger
+    const act1Words = gsap.utils.toArray<HTMLSpanElement>('.act1-word', act1ContentRef.current);
+    
+    tl.fromTo(act1Words, {
+      y: "80%",
+      opacity: 0,
+      scale: 1.4,
+      rotationX: -60,
+      transformOrigin: "bottom center",
+      filter: "blur(12px)"
+    }, {
+      y: "0%",
+      opacity: 1,
+      scale: 1,
+      rotationX: 0,
+      filter: "blur(0px)",
+      stagger: 0.08,
+      ease: "power3.out",
+      duration: 0.6 
     }, 0)
 
     // Fade out Act 1 to prepare for Act 2
@@ -275,21 +289,19 @@ export default function CatalogScrollSequence({ items = [] }: CatalogScrollSeque
         <div className="w-full relative flex items-center justify-center overflow-hidden bg-[var(--canvas)]" style={{ minHeight: '60vh' }}>
           <div className="absolute inset-0 w-full h-full">
             {/* Text with texture fill - fully revealed */}
-            <svg width="100%" height="100%" className="absolute inset-0 pointer-events-none">
-              <defs>
-                <clipPath id="textMaskStatic">
-                  <text x="50%" y="38%" textAnchor="middle" dy="0.1em" dominantBaseline="middle" className="font-display uppercase font-bold tracking-tight" style={{ fontSize: 'clamp(3rem, 12vw, 13rem)' }}>
-                    FABRIC THAT
-                  </text>
-                  <text x="50%" y="62%" textAnchor="middle" dy="0.1em" dominantBaseline="middle" className="font-display uppercase font-bold tracking-tight" style={{ fontSize: 'clamp(3rem, 12vw, 13rem)' }}>
-                    BUILDS BRANDS
-                  </text>
-                </clipPath>
-              </defs>
-              <g clipPath="url(#textMaskStatic)">
-                <rect width="100%" height="100%" fill="var(--navy)" />
-              </g>
-            </svg>
+            {/* Dynamic Text fully revealed for static fallback */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <div className="font-display uppercase font-bold tracking-tight text-center leading-[0.9]" style={{ fontSize: 'clamp(3rem, 12vw, 13rem)', color: 'var(--navy)' }}>
+                 <div className="flex justify-center gap-[0.3em] overflow-visible">
+                    <span className="inline-block">FABRIC</span>
+                    <span className="inline-block">THAT</span>
+                 </div>
+                 <div className="flex justify-center gap-[0.3em] overflow-visible mt-2 md:mt-4">
+                    <span className="inline-block text-[var(--cta)]">BUILDS</span>
+                    <span className="inline-block">BRANDS</span>
+                 </div>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -383,45 +395,21 @@ export default function CatalogScrollSequence({ items = [] }: CatalogScrollSeque
 
 
         {/* Scroll Indicator */}
-        <div ref={scrollIndicatorRef} className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-60 z-30 pointer-events-none">
-          <span className="text-[10px] tracking-[0.2em] uppercase mb-3 font-medium text-[var(--navy)] animate-pulse">Scroll to explore</span>
-          <div className="w-[1px] h-12 bg-gradient-to-b from-[var(--navy)] to-transparent" />
+        <div ref={scrollIndicatorRef} className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-80 z-30 pointer-events-none">
+          <span className="text-[11px] tracking-[0.2em] uppercase mb-3 font-semibold text-[var(--navy)] animate-pulse">Keep scrolling</span>
+          <div className="w-[1px] h-16 bg-gradient-to-b from-[var(--navy)] to-transparent opacity-80" />
         </div>
 
-        <div ref={act1ContentRef} className="act1-content absolute inset-0 w-full h-full">
-          {/* Base Outline / Faded Text */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center z-0 pointer-events-none">
-            <svg className="w-full h-full" xmlns="http://www.w3.org/2000/svg">
-              <text x="50%" y="38%" textAnchor="middle" dy="0.1em" dominantBaseline="middle" className="font-display uppercase font-bold tracking-tight" style={{ fontSize: 'clamp(3rem, 12vw, 13rem)', fill: 'var(--navy)', opacity: 0.15 }}>
-                FABRIC THAT
-              </text>
-              <text x="50%" y="62%" textAnchor="middle" dy="0.1em" dominantBaseline="middle" className="font-display uppercase font-bold tracking-tight" style={{ fontSize: 'clamp(3rem, 12vw, 13rem)', fill: 'var(--navy)', opacity: 0.15 }}>
-                BUILDS BRANDS
-              </text>
-            </svg>
-          </div>
-
-          {/* Mask Reveal Layer using Native SVG to ensure iOS Safari compatibility */}
-          <div 
-            ref={maskRectRef}
-            className="absolute inset-0 z-10 pointer-events-none"
-            style={{ clipPath: 'inset(100% 0% 0% 0%)' }}
-          >
-            <svg width="100%" height="100%" className="absolute inset-0 pointer-events-none">
-              <defs>
-                <clipPath id="textMask">
-                  <text x="50%" y="38%" textAnchor="middle" dy="0.1em" dominantBaseline="middle" className="font-display uppercase font-bold tracking-tight" style={{ fontSize: 'clamp(3rem, 12vw, 13rem)' }}>
-                    FABRIC THAT
-                  </text>
-                  <text x="50%" y="62%" textAnchor="middle" dy="0.1em" dominantBaseline="middle" className="font-display uppercase font-bold tracking-tight" style={{ fontSize: 'clamp(3rem, 12vw, 13rem)' }}>
-                    BUILDS BRANDS
-                  </text>
-                </clipPath>
-              </defs>
-              <g clipPath="url(#textMask)">
-                <rect width="100%" height="100%" fill="var(--navy)" />
-              </g>
-            </svg>
+        <div ref={act1ContentRef} className="act1-content absolute inset-0 w-full h-full flex items-center justify-center pointer-events-none perspective-[1000px]">
+          <div className="font-display uppercase font-bold tracking-tight text-center leading-[0.9]" style={{ fontSize: 'clamp(3rem, 12vw, 13rem)', color: 'var(--navy)' }}>
+             <div className="flex justify-center gap-[0.3em] overflow-visible">
+                <span className="act1-word inline-block will-change-transform">FABRIC</span>
+                <span className="act1-word inline-block will-change-transform">THAT</span>
+             </div>
+             <div className="flex justify-center gap-[0.3em] overflow-visible mt-2 md:mt-4">
+                <span className="act1-word inline-block will-change-transform text-[var(--cta)]">BUILDS</span>
+                <span className="act1-word inline-block will-change-transform">BRANDS</span>
+             </div>
           </div>
         </div>
 

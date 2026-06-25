@@ -178,13 +178,13 @@ export default function Navbar({ logoUrl, logoTextUrl }: { logoUrl: string; logo
           transition={{ duration: 0.6, delay: 0.5, ease: 'easeOut' }}
           style={{
             pointerEvents: 'auto',
-            background: 'rgba(15, 17, 23, 0.95)',
+            background: 'var(--card-bg)',
             backdropFilter: 'blur(20px) saturate(150%)',
             WebkitBackdropFilter: 'blur(20px) saturate(150%)',
             borderRadius: 999,
             padding: '6px 6px',
-            boxShadow: '0 8px 32px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0,0,0,0.2)',
-            border: '1px solid rgba(255,255,255,0.1)',
+            boxShadow: '0 8px 32px var(--card-shadow), 0 2px 8px var(--card-shadow)',
+            border: '1px solid var(--card-border)',
           }}
         >
         <div style={{ display: 'flex', alignItems: 'center', gap: 2 }}>
@@ -207,9 +207,10 @@ export default function Navbar({ logoUrl, logoTextUrl }: { logoUrl: string; logo
                   position: 'relative',
                   color: isEnquire
                     ? '#1C315E'
-                    : (isActive ? '#1C315E' : 'rgba(255,255,255,0.7)'),
+                    : (isActive ? 'var(--canvas)' : 'var(--muted)'),
                   whiteSpace: 'nowrap',
                   zIndex: 1,
+                  transition: 'color 0.2s ease',
                 }}
               >
                 {/* Sliding active indicator */}
@@ -220,7 +221,7 @@ export default function Navbar({ logoUrl, logoTextUrl }: { logoUrl: string; logo
                       position: 'absolute',
                       inset: 0,
                       borderRadius: 999,
-                      background: 'rgba(255,255,255,0.95)',
+                      background: 'var(--ink)',
                       zIndex: -1,
                     }}
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
@@ -251,7 +252,7 @@ export default function Navbar({ logoUrl, logoTextUrl }: { logoUrl: string; logo
               style={{
                 background: 'transparent',
                 border: 'none',
-                color: 'white',
+                color: 'var(--ink)',
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -259,6 +260,7 @@ export default function Navbar({ logoUrl, logoTextUrl }: { logoUrl: string; logo
                 marginLeft: '4px',
                 cursor: 'pointer',
                 borderRadius: '50%',
+                transition: 'color 0.2s ease',
               }}
             >
               {resolvedTheme === 'dark' ? <Sun size={14} strokeWidth={2} /> : <Moon size={14} strokeWidth={2} />}
