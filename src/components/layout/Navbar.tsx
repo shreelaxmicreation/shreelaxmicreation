@@ -104,10 +104,8 @@ export default function Navbar({ logoUrl, logoTextUrl }: { logoUrl: string; logo
               alt="Shree Laxmi Creation"
               width={160}
               height={30}
-              className="hidden md:block"
+              className="h-[18px] md:h-[28px] w-auto"
               style={{
-                height: 28,
-                width: 'auto',
                 objectFit: 'contain',
                 transition: 'filter 0.2s ease',
                 filter: shouldInvert ? 'brightness(0) invert(1)' : 'none'
