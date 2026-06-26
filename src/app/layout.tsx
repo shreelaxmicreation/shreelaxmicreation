@@ -30,6 +30,11 @@ export const metadata: Metadata = {
     template: '%s — Shree Laxmi Creation',
   },
   description: 'Reliable Shirting Fabric Solutions for Bulk Programs. From yarn to finished fabric, we deliver smart fabric solutions for growing brands.',
+  icons: {
+    icon: '/images/logo.svg',
+    shortcut: '/images/logo.png',
+    apple: '/images/logo.png',
+  },
   openGraph: {
     images: ['/og-image.jpg'],
   },
