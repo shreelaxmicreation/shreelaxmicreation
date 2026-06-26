@@ -281,6 +281,16 @@ export default function CatalogScrollSequence({ items = [] }: CatalogScrollSeque
   // Concatenated arrays for smooth marquee scrolling
   const marqueeItems = [...allSwatches, ...allSwatches]
 
+  const handleManualScroll = (direction: 'left' | 'right') => {
+    const amount = direction === 'left' ? -400 : 400;
+    
+    [row1ParentRef, row2ParentRef, row3ParentRef].forEach(ref => {
+      if (ref.current) {
+        ref.current.scrollBy({ left: amount, behavior: 'smooth' });
+      }
+    });
+  }
+
   // ── REDUCED MOTION FALLBACK ──────────────────────────
   if (reduceMotion && isMounted) {
     return (
@@ -350,14 +360,29 @@ export default function CatalogScrollSequence({ items = [] }: CatalogScrollSeque
           </div>
 
           <div className="flex flex-col gap-6 md:gap-8 relative w-full">
-            <div className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] touch-pan-x">
+            <button 
+              onClick={() => handleManualScroll('left')}
+              className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-40 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-white/90 backdrop-blur shadow-[0_4px_20px_rgba(0,0,0,0.15)] text-navy hover:bg-white hover:scale-105 transition-all focus:outline-none"
+              aria-label="Scroll left"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <button 
+              onClick={() => handleManualScroll('right')}
+              className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-40 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-white/90 backdrop-blur shadow-[0_4px_20px_rgba(0,0,0,0.15)] text-navy hover:bg-white hover:scale-105 transition-all focus:outline-none"
+              aria-label="Scroll right"
+            >
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+
+            <div ref={row1ParentRef} className="w-full overflow-hidden">
               <div className="flex gap-6 md:gap-8 w-max pl-[5vw]">
                 {allSwatches.map((swatch, idx) => (
                   <SwatchCard key={`static-r1-${idx}`} item={swatch} />
                 ))}
               </div>
             </div>
-            <div className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] touch-pan-x">
+            <div ref={row2ParentRef} className="w-full overflow-hidden">
               <div className="flex gap-6 md:gap-8 w-max pl-[0vw]">
                 {[...allSwatches].reverse().map((swatch, idx) => (
                   <SwatchCard key={`static-r2-${idx}`} item={swatch} />
@@ -460,7 +485,22 @@ export default function CatalogScrollSequence({ items = [] }: CatalogScrollSeque
 
         <div className="flex flex-col gap-6 md:gap-8 relative w-full" style={{ willChange: 'transform' }}>
           
-          <div ref={row1ParentRef} className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] touch-pan-x">
+          <button 
+            onClick={() => handleManualScroll('left')}
+            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-40 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-white/90 backdrop-blur shadow-[0_4px_20px_rgba(0,0,0,0.15)] text-navy hover:bg-white hover:scale-105 transition-all focus:outline-none"
+            aria-label="Scroll left"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button 
+            onClick={() => handleManualScroll('right')}
+            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-40 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-white/90 backdrop-blur shadow-[0_4px_20px_rgba(0,0,0,0.15)] text-navy hover:bg-white hover:scale-105 transition-all focus:outline-none"
+            aria-label="Scroll right"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
+
+          <div ref={row1ParentRef} className="w-full overflow-hidden">
             <div ref={row1Ref} className="flex gap-6 md:gap-8 w-max pl-[5vw]" style={{ transform: 'translateX(0)' }}>
               {marqueeItems.map((item, idx) => (
                 <SwatchCard key={`r1-${idx}`} item={item} />
@@ -468,7 +508,7 @@ export default function CatalogScrollSequence({ items = [] }: CatalogScrollSeque
             </div>
           </div>
           
-          <div ref={row2ParentRef} className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] touch-pan-x">
+          <div ref={row2ParentRef} className="w-full overflow-hidden">
             <div ref={row2Ref} className="flex gap-6 md:gap-8 w-max pl-[0vw]" style={{ transform: 'translateX(0)' }}>
               {[...marqueeItems].reverse().map((item, idx) => (
                 <SwatchCard key={`r2-${idx}`} item={item} />
@@ -477,7 +517,7 @@ export default function CatalogScrollSequence({ items = [] }: CatalogScrollSeque
           </div>
           
           {!isMobile && (
-            <div ref={row3ParentRef} className="w-full overflow-x-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] touch-pan-x">
+            <div ref={row3ParentRef} className="w-full overflow-hidden">
               <div ref={row3Ref} className="flex gap-6 md:gap-8 w-max pl-[10vw]" style={{ transform: 'translateX(0)' }}>
                 {marqueeItems.map((item, idx) => (
                   <SwatchCard key={`r3-${idx}`} item={item} />
