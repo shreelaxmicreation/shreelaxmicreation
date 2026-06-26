@@ -10,9 +10,9 @@ import { urlFor } from '@/sanity/lib/image'
 import type { SanityBestSeller } from '@/sanity/lib/types'
 
 const cardClassNames = [
-  "[grid-area:stack] hover:-translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-[rgba(28,49,94,0.08)] before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-[var(--canvas)]/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
-  "[grid-area:stack] translate-x-12 translate-y-10 hover:-translate-y-1 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-[rgba(28,49,94,0.08)] before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-[var(--canvas)]/50 grayscale-[100%] hover:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 before:left-0 before:top-0",
-  "[grid-area:stack] translate-x-24 translate-y-20 hover:translate-y-10",
+  "[grid-area:stack] hover:-translate-y-10 focus:-translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-[rgba(28,49,94,0.08)] before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-[var(--canvas)]/50 grayscale-[100%] hover:before:opacity-0 focus:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 focus:grayscale-0 before:left-0 before:top-0",
+  "[grid-area:stack] translate-x-12 translate-y-10 hover:-translate-y-1 focus:-translate-y-1 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-[rgba(28,49,94,0.08)] before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-[var(--canvas)]/50 grayscale-[100%] hover:before:opacity-0 focus:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 focus:grayscale-0 before:left-0 before:top-0",
+  "[grid-area:stack] translate-x-24 translate-y-20 hover:translate-y-10 focus:translate-y-10",
 ]
 
 interface FloatingBestSellersProps {
@@ -63,7 +63,7 @@ export default function FloatingBestSellers({ bestSellers }: FloatingBestSellers
             exit={{ scale: 0, opacity: 0 }}
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
             onClick={() => setIsOpen(true)}
-            className="fixed bottom-6 right-6 z-[90] hidden md:flex items-center gap-2 rounded-full px-5 py-3 cursor-pointer border-none"
+            className="fixed bottom-24 md:bottom-6 right-4 md:right-6 z-[90] flex items-center gap-2 rounded-full px-4 md:px-5 py-3 cursor-pointer border-none"
             style={{
               background: 'var(--navy)',
               color: 'var(--white)',
@@ -91,7 +91,7 @@ export default function FloatingBestSellers({ bestSellers }: FloatingBestSellers
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 z-[90] bg-[rgba(28,49,94,0.15)] backdrop-blur-[2px] hidden md:block"
+              className="fixed inset-0 z-[90] bg-[rgba(28,49,94,0.15)] backdrop-blur-[2px] block"
             />
 
             {/* Card Panel */}
@@ -100,7 +100,7 @@ export default function FloatingBestSellers({ bestSellers }: FloatingBestSellers
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 40, scale: 0.9 }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed bottom-6 right-6 z-[95] hidden md:block"
+              className="fixed bottom-24 md:bottom-6 right-4 md:right-6 z-[95] block"
             >
               <div
                 className="rounded-3xl p-8 pb-6 relative"
