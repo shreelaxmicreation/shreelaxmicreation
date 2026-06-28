@@ -27,7 +27,7 @@ function DisplayCard({
   image,
   href,
 }: DisplayCardProps) {
-  const Component = href ? Link : "div";
+  const Component = (href ? Link : "div") as any;
   const linkProps = href ? { href } : {};
 
   return (
