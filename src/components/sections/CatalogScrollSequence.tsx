@@ -362,14 +362,14 @@ export default function CatalogScrollSequence({ items = [] }: CatalogScrollSeque
           <div className="flex flex-col gap-6 md:gap-8 relative w-full">
             <button 
               onClick={() => handleManualScroll('left')}
-              className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-40 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-white/90 backdrop-blur shadow-[0_4px_20px_rgba(0,0,0,0.15)] text-navy hover:bg-white hover:scale-105 transition-all focus:outline-none"
+              className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-40 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-white/90 backdrop-blur shadow-[0_4px_20px_rgba(0,0,0,0.15)] text-[#1C315E] hover:bg-white hover:scale-105 transition-all focus:outline-none"
               aria-label="Scroll left"
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
             </button>
             <button 
               onClick={() => handleManualScroll('right')}
-              className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-40 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-white/90 backdrop-blur shadow-[0_4px_20px_rgba(0,0,0,0.15)] text-navy hover:bg-white hover:scale-105 transition-all focus:outline-none"
+              className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-40 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-white/90 backdrop-blur shadow-[0_4px_20px_rgba(0,0,0,0.15)] text-[#1C315E] hover:bg-white hover:scale-105 transition-all focus:outline-none"
               aria-label="Scroll right"
             >
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
@@ -487,14 +487,14 @@ export default function CatalogScrollSequence({ items = [] }: CatalogScrollSeque
           
           <button 
             onClick={() => handleManualScroll('left')}
-            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-40 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-white/90 backdrop-blur shadow-[0_4px_20px_rgba(0,0,0,0.15)] text-navy hover:bg-white hover:scale-105 transition-all focus:outline-none"
+            className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 z-40 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-white/90 backdrop-blur shadow-[0_4px_20px_rgba(0,0,0,0.15)] text-[#1C315E] hover:bg-white hover:scale-105 transition-all focus:outline-none"
             aria-label="Scroll left"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
           </button>
           <button 
             onClick={() => handleManualScroll('right')}
-            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-40 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-white/90 backdrop-blur shadow-[0_4px_20px_rgba(0,0,0,0.15)] text-navy hover:bg-white hover:scale-105 transition-all focus:outline-none"
+            className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 z-40 w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-white/90 backdrop-blur shadow-[0_4px_20px_rgba(0,0,0,0.15)] text-[#1C315E] hover:bg-white hover:scale-105 transition-all focus:outline-none"
             aria-label="Scroll right"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>

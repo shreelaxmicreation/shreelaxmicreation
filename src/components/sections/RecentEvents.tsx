@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useRef } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
@@ -12,6 +13,39 @@ interface RecentEventsProps {
 }
 
 export default function RecentEvents({ events }: RecentEventsProps) {
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const isMobile = window.innerWidth < 768
+    if (!isMobile) return
+
+    const el = scrollRef.current
+    if (!el) return
+
+    let autoScroll = setInterval(() => {
+      const scrollWidth = el.scrollWidth
+      const clientWidth = el.clientWidth
+      
+      if (el.scrollLeft + clientWidth >= scrollWidth - 10) {
+        el.scrollTo({ left: 0, behavior: 'smooth' })
+      } else {
+        const item = el.children[0] as HTMLElement
+        const scrollAmount = item ? item.offsetWidth + 24 : clientWidth * 0.65
+        el.scrollBy({ left: scrollAmount, behavior: 'smooth' })
+      }
+    }, 3000)
+
+    const handleTouch = () => clearInterval(autoScroll)
+    el.addEventListener('touchstart', handleTouch, { passive: true })
+    el.addEventListener('mousedown', handleTouch)
+
+    return () => {
+      clearInterval(autoScroll)
+      el.removeEventListener('touchstart', handleTouch)
+      el.removeEventListener('mousedown', handleTouch)
+    }
+  }, [events])
+
   if (!events || events.length === 0) return null
 
   return (
@@ -37,7 +71,10 @@ export default function RecentEvents({ events }: RecentEventsProps) {
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+        <div 
+          ref={scrollRef}
+          className="flex overflow-x-auto snap-x snap-mandatory gap-6 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8 pb-4 md:pb-0 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+        >
           {events.map((post, idx) => (
             <motion.div
               key={post._id}
@@ -45,6 +82,7 @@ export default function RecentEvents({ events }: RecentEventsProps) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.6, delay: idx * 0.1 }}
+              className="w-[65vw] sm:w-[350px] md:w-auto flex-shrink-0 snap-start h-auto"
             >
               <Link href={`/blog/${post.slug}`} className="group block text-decoration-none h-full">
                 <div className="rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-2 h-full flex flex-col" style={{ backgroundColor: 'var(--card-bg)', border: '1px solid var(--card-border)', boxShadow: '0 8px 30px rgba(28, 49, 94, 0.04)' }}>
