@@ -36,7 +36,8 @@ export default function Hero() {
             Reliable Shirting <br /> Fabric solution
           </h1>
           <p className="text-xl md:text-2xl text-[#1C315E]/80 lg:text-[#8A8578] mb-12 max-w-xl font-medium lg:font-normal leading-relaxed">
-            Shree Laxmi Creation Ahmedabad and other locations out there
+            Shree Laxmi Creation <br className="hidden sm:block" />
+            Ahmedabad • Mumbai • Ichalkaranji
           </p>
           <div className="flex flex-row flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4 w-full sm:w-auto mt-4">
             <Link href="/products">
