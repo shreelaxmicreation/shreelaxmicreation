@@ -12,13 +12,13 @@ import { client } from '@/sanity/lib/client'
 import { productsQuery, siteSettingsQuery, recentEventsQuery } from '@/sanity/lib/queries'
 import type { SanityProduct, SanitySiteSettings, SanityBlogPost } from '@/sanity/lib/types'
 
-export const revalidate = 3600
+export const revalidate = 60
 
 export default async function Home() {
   const [products, siteSettings, recentEvents] = await Promise.all([
     client.fetch<SanityProduct[]>(productsQuery, {}, { next: { revalidate: 3600 } }),
     client.fetch<SanitySiteSettings | null>(siteSettingsQuery, {}, { next: { revalidate: 3600 } }),
-    client.fetch<SanityBlogPost[]>(recentEventsQuery, {}, { next: { revalidate: 3600 } }),
+    client.fetch<SanityBlogPost[]>(recentEventsQuery, {}, { next: { revalidate: 60 } }),
   ])
 
   console.log("SERVER LOG:", {
@@ -35,6 +35,8 @@ export default async function Home() {
   
 
 
+  const safeRecentEvents = JSON.parse(JSON.stringify(recentEvents || []))
+
   return (
     <>
       <Hero />
@@ -42,7 +44,7 @@ export default async function Home() {
       <CatalogScrollSequence items={safeProducts} />
       <ProductsGrid mode="preview" showHeader={true} products={safeProducts} />
       <HomepageSEOContent />
-      <RecentEvents events={recentEvents} />
+      <RecentEvents events={safeRecentEvents} />
       <StatsSection />
       <AboutStrip aboutStripImage={siteSettings?.aboutStripImage} />
       <EnquiryForm />
