@@ -7,7 +7,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
 import Image from 'next/image'
 import { urlFor } from '@/sanity/lib/image'
-import type { SanityFabricSwatch, SanityProduct } from '@/sanity/lib/types'
+import type { SanityProduct } from '@/sanity/lib/types'
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, useGSAP)
@@ -25,7 +25,7 @@ interface CatalogScrollSequenceProps {
   items: SanityProduct[]
 }
 
-function SwatchCard({ item }: { item: SanityProduct | SanityFabricSwatch | any }) {
+function SwatchCard({ item }: { item: SanityProduct | any }) {
   const sourceImage = item.gallery?.[0] || item.image
   const imageUrl = sourceImage ? urlFor(sourceImage).width(800).quality(80).format('webp').url() : ''
   const name = 'name' in item ? item.name : item.label
