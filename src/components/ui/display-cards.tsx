@@ -2,6 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import Link from "next/link";
 
 interface DisplayCardProps {
   className?: string;
@@ -12,6 +13,7 @@ interface DisplayCardProps {
   iconClassName?: string;
   titleClassName?: string;
   image?: string;
+  href?: string;
 }
 
 function DisplayCard({
@@ -23,9 +25,14 @@ function DisplayCard({
   iconClassName = "text-[var(--cta)]",
   titleClassName = "text-[var(--cta)]",
   image,
+  href,
 }: DisplayCardProps) {
+  const Component = href ? Link : "div";
+  const linkProps = href ? { href } : {};
+
   return (
-    <div
+    <Component
+      {...linkProps}
       tabIndex={0}
       className={cn(
         "relative flex h-36 w-[22rem] -skew-y-[8deg] select-none flex-col justify-between rounded-xl border-2 border-[rgba(28,49,94,0.1)] bg-[var(--surface)]/90 backdrop-blur-sm px-4 py-3 transition-all duration-700 after:absolute after:-right-1 after:top-[-5%] after:h-[110%] after:w-[20rem] after:bg-gradient-to-l after:from-[var(--canvas)] after:to-transparent after:content-[''] hover:border-[var(--cta)]/30 focus:border-[var(--cta)]/30 hover:bg-[var(--surface)] focus:bg-[var(--surface)] focus:outline-none [&>*]:flex [&>*]:items-center [&>*]:gap-2 overflow-hidden",
@@ -35,8 +42,8 @@ function DisplayCard({
       {/* Background fabric image */}
       {image && (
         <div className="absolute inset-0 z-0">
-          {image && <Image src={image} alt="" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover opacity-20" />}
-          <div className="absolute inset-0 bg-gradient-to-r from-[var(--surface)] via-[var(--surface)]/80 to-transparent" />
+          <Image src={image} alt="" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover opacity-60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[var(--surface)] via-[var(--surface)]/40 to-transparent" />
         </div>
       )}
       <div className="relative z-10">
@@ -49,7 +56,7 @@ function DisplayCard({
       </div>
       <p className="whitespace-nowrap text-sm text-[var(--ink)] relative z-10">{description}</p>
       <p className="text-[var(--muted)] text-xs relative z-10">{date}</p>
-    </div>
+    </Component>
   );
 }
 

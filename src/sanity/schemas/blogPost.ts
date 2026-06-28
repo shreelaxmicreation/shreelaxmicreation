@@ -25,6 +25,14 @@ export const blogPost = defineType({
       validation: (Rule) => Rule.required(),
     }),
     defineField({
+      name: 'isRecentEvent',
+      title: 'Show as Recent Event on Homepage',
+      type: 'boolean',
+      group: 'general',
+      initialValue: false,
+      description: 'Turn this on to feature this blog post in the Recent Events section on the homepage.',
+    }),
+    defineField({
       name: 'publishedAt',
       title: 'Published at',
       type: 'datetime',

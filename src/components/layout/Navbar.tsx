@@ -30,23 +30,23 @@ export default function Navbar({ logoUrl, logoTextUrl }: { logoUrl: string; logo
   }, [])
 
   const navLinks = [
+    { href: '/', label: 'Home' },
+    { href: '/about', label: 'About' },
     { href: '/products', label: 'Products' },
     { href: '/infrastructure', label: 'Infrastructure' },
-    { href: '/about', label: 'About' },
     { href: '/blog', label: 'Blog' },
     { href: '/contact', label: 'Enquire', isEnquire: true },
   ]
 
   const pillLinks = [
     { href: '/', label: 'Home' },
+    { href: '/about', label: 'About' },
     { href: '/products', label: 'Products' },
     { href: '/blog', label: 'Blog' },
-    { href: '/about', label: 'About' },
     { href: '/contact', label: 'Enquire' },
   ]
 
   const isDarkHero = pathname === '/about'
-  const shouldInvert = isDarkHero && !scrolled
 
   return (
     <>
@@ -62,10 +62,10 @@ export default function Navbar({ logoUrl, logoTextUrl }: { logoUrl: string; logo
           left: 0,
           right: 0,
           zIndex: 50,
-          background: scrolled ? 'var(--card-bg)' : 'transparent',
-          backdropFilter: scrolled ? 'blur(16px) saturate(120%)' : 'none',
-          WebkitBackdropFilter: scrolled ? 'blur(16px) saturate(120%)' : 'none',
-          borderBottom: scrolled ? '1px solid var(--card-border)' : '1px solid transparent',
+          background: 'var(--card-bg)',
+          backdropFilter: 'blur(16px) saturate(120%)',
+          WebkitBackdropFilter: 'blur(16px) saturate(120%)',
+          borderBottom: '1px solid var(--card-border)',
           transition: 'background 0.3s ease, border-bottom 0.3s ease, backdrop-filter 0.3s ease',
           padding: '0 clamp(16px, 4vw, 80px)',
         }}
@@ -77,38 +77,49 @@ export default function Navbar({ logoUrl, logoTextUrl }: { logoUrl: string; logo
             display: 'flex',
             justifyContent: 'space-between',
             alignItems: 'center',
-            height: 72,
+            height: 80,
           }}
         >
           {/* Logo */}
           <Link 
             href="/" 
             aria-label="Shree Laxmi Creation — Home"
-            style={{ display: 'flex', alignItems: 'center', gap: 16, textDecoration: 'none' }}
+            className="flex items-center gap-2 md:gap-4 no-underline flex-shrink-0 mr-4"
           >
             <Image
               src={logoUrl}
               alt="Shree Laxmi Creation"
-              width={50}
-              height={50}
+              width={64}
+              height={64}
+              className="h-10 md:h-[48px] lg:h-[60px] w-auto"
               style={{
-                height: 50,
-                width: 'auto',
                 objectFit: 'contain',
                 transition: 'filter 0.2s ease',
-                filter: shouldInvert ? 'brightness(0) invert(1)' : 'none'
+                filter: 'none'
               }}
             />
             <Image
               src={logoTextUrl}
               alt="Shree Laxmi Creation"
-              width={160}
-              height={30}
-              className="h-[18px] md:h-[28px] w-auto"
+              width={260}
+              height={52}
+              className="h-[32px] lg:h-[52px] w-auto hidden md:block"
               style={{
                 objectFit: 'contain',
                 transition: 'filter 0.2s ease',
-                filter: shouldInvert ? 'brightness(0) invert(1)' : 'none'
+                filter: 'none'
+              }}
+            />
+            <Image
+              src="/images/logo-text.svg"
+              alt="Shree Laxmi Creation"
+              width={200}
+              height={40}
+              className="h-[32px] sm:h-[40px] w-auto block md:hidden"
+              style={{
+                objectFit: 'contain',
+                transition: 'filter 0.2s ease',
+                filter: 'none'
               }}
             />
           </Link>
@@ -120,8 +131,8 @@ export default function Navbar({ logoUrl, logoTextUrl }: { logoUrl: string; logo
                 <div key={link.label} style={{ marginLeft: 32 }}>
                   <OriginButton 
                     onClick={() => router.push(link.href)}
-                    className={shouldInvert ? "!bg-white !text-[var(--navy)] !border-none" : ""}
-                    style={{ height: 40, padding: '0 24px', fontSize: 14 }}
+                    className=""
+                    style={{ height: 40, padding: '0 24px', fontSize: 16 }}
                   >
                     {link.label}
                   </OriginButton>
@@ -130,12 +141,10 @@ export default function Navbar({ logoUrl, logoTextUrl }: { logoUrl: string; logo
                 <Link
                   key={link.label}
                   href={link.href}
-                  className={`transition-colors duration-200 ${
-                    shouldInvert ? 'text-white hover:text-cta' : 'text-text hover:text-cta'
-                  }`}
+                  className="transition-colors duration-200 text-text hover:text-cta"
                   style={{
                     fontFamily: 'var(--font-body)',
-                    fontSize: 14,
+                    fontSize: 16,
                     marginLeft: 32,
                     borderBottom: pathname === link.href
                       ? '1px solid var(--brand)'
@@ -197,7 +206,7 @@ export default function Navbar({ logoUrl, logoTextUrl }: { logoUrl: string; logo
                 style={{
                   textDecoration: 'none',
                   fontFamily: 'var(--font-body)',
-                  fontSize: 11,
+                  fontSize: 12,
                   fontWeight: isActive ? 600 : 400,
                   letterSpacing: '0.02em',
                   padding: '8px 12px',

@@ -44,18 +44,7 @@ export const allProductSlugsQuery = groq`
   }
 `
 
-// ── Fabric Swatches (for marquee rows) ─────────────
-export const fabricSwatchesQuery = groq`
-  *[_type == "fabricSwatch"] | order(order asc) {
-    _id,
-    label,
-    category,
-    color,
-    image,
-    isFeaturedCategory,
-    featuredSize
-  }
-`
+
 
 // ── Best Sellers ───────────────────────────────────
 export const bestSellersQuery = groq`
@@ -69,6 +58,17 @@ export const bestSellersQuery = groq`
 `
 
 // ── Blog Posts ──────────────────────────────────────
+export const recentEventsQuery = groq`
+  *[_type == "blogPost" && isRecentEvent == true] | order(publishedAt desc)[0...3] {
+    _id,
+    title,
+    "slug": slug.current,
+    publishedAt,
+    excerpt,
+    mainImage
+  }
+`
+
 export const allBlogsQuery = groq`
   *[_type == "blogPost"] | order(publishedAt desc) {
     _id,

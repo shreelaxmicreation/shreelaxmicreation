@@ -35,15 +35,21 @@ export default function FloatingBestSellers({ bestSellers }: FloatingBestSellers
   // Map best sellers from props
   useEffect(() => {
     if (bestSellers && bestSellers.length > 0) {
-      const cards: DisplayCardProps[] = bestSellers.map((item, idx) => ({
-        icon: <Flame className="size-4 text-[var(--cta)]" />,
-        title: item.title,
-        description: item.description,
-        date: item.badge,
-        image: item.image ? urlFor(item.image).width(800).quality(80).format('webp').url() : undefined,
-        titleClassName: "text-[var(--navy)]",
-        className: cardClassNames[idx] || cardClassNames[cardClassNames.length - 1],
-      }))
+      const cards: DisplayCardProps[] = bestSellers.map((item, idx) => {
+        // Create a URL slug from the title (fallback to /products if it doesn't match a real product)
+        const slug = item.title ? item.title.toLowerCase().replace(/ /g, '-').replace(/[^a-z0-9-]/g, '') : ''
+        
+        return {
+          icon: <Flame className="size-4 text-[var(--cta)]" />,
+          title: item.title,
+          description: item.description,
+          date: item.badge,
+          image: item.image ? urlFor(item.image).width(800).quality(80).format('webp').url() : undefined,
+          href: slug ? `/products/${slug}` : '/products',
+          titleClassName: "text-[var(--navy)]",
+          className: cardClassNames[idx] || cardClassNames[cardClassNames.length - 1],
+        }
+      })
       setBestSellerCards(cards)
     }
   }, [bestSellers])

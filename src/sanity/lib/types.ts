@@ -12,16 +12,6 @@ export type SanityProduct = {
   gallery?: any[]
 }
 
-export type SanityFabricSwatch = {
-  _id: string
-  label: string
-  category: string
-  color: string
-  image: any
-  isFeaturedCategory?: boolean
-  featuredSize?: 'lg' | 'md' | 'sm'
-}
-
 export type SanityBestSeller = {
   _id: string
   title: string
@@ -38,4 +28,13 @@ export type SanitySiteSettings = {
   aboutHeroImage?: any
   factoryImage?: any
   homepageProducts?: SanityProduct[]
+}
+
+export type SanityBlogPost = {
+  _id: string
+  title: string
+  slug: string
+  publishedAt: string
+  excerpt: string
+  mainImage: any
 }

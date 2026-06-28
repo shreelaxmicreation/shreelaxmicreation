@@ -17,22 +17,26 @@ export default function CollectionCard({ image, name, category, slug, fabricType
   return (
     <Link
       href={slug}
-      className={`liquid-glass-card group block rounded-3xl relative overflow-hidden ${compactOnMobile ? 'p-2 md:p-4' : 'p-4'}`}
+      className={`liquid-glass-card group block h-full flex flex-col rounded-3xl relative overflow-hidden ${compactOnMobile ? 'p-2 md:p-4' : 'p-4'}`}
       style={{ textDecoration: 'none' }}
     >
       {/* Image with zoom */}
-      <div className="relative w-full aspect-[4/5] overflow-hidden rounded-2xl bg-surface">
-        <Image
-          src={image}
-          alt={name}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-          style={{
-            objectFit: 'cover',
-            transition: 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
-          }}
-          className="group-hover:scale-110 transition-all duration-700"
-        />
+      <div className="relative w-full aspect-[4/5] overflow-hidden rounded-2xl bg-surface flex items-center justify-center bg-[var(--surface)]">
+        {image ? (
+          <Image
+            src={image}
+            alt={name}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+            style={{
+              objectFit: 'cover',
+              transition: 'transform 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
+            }}
+            className="group-hover:scale-110 transition-all duration-700"
+          />
+        ) : (
+          <span className="text-[var(--muted)]/50 text-xs uppercase tracking-widest">Image Coming Soon</span>
+        )}
 
         {/* Hover overlay */}
         <div className={`absolute inset-0 bg-gradient-to-t from-[rgba(28,49,94,0.85)] via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-between ${compactOnMobile ? 'p-3 md:p-6' : 'p-6'}`}>
@@ -46,7 +50,7 @@ export default function CollectionCard({ image, name, category, slug, fabricType
       </div>
 
       {/* Info */}
-      <div className={`mt-6 px-2 pb-2 ${compactOnMobile ? 'max-md:mt-3 max-md:px-0 max-md:pb-0' : ''}`}>
+      <div className={`mt-6 px-2 pb-2 flex-grow flex flex-col ${compactOnMobile ? 'max-md:mt-3 max-md:px-0 max-md:pb-0' : ''}`}>
         <div className={`flex flex-wrap items-center gap-2 mb-2 ${compactOnMobile ? 'max-md:gap-1 max-md:mb-1' : ''}`}>
           <p className={`text-xs uppercase tracking-widest text-cta font-medium ${compactOnMobile ? 'max-md:text-[8px]' : ''}`}>
             {category}
