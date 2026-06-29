@@ -94,7 +94,7 @@ export default function EnquiryForm({
         {status === 'success' ? (
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="liquid-glass-card p-12 rounded-3xl text-center max-w-2xl mx-auto relative overflow-hidden">
             <h3 className="text-heading mb-4" style={{ color: 'var(--navy)' }}>Thank You.</h3>
-            <p className="text-body-text text-muted">We'll be in touch within 24 hours.</p>
+            <p className="text-body-text text-muted">We&apos;ll be in touch within 24 hours.</p>
           </motion.div>
         ) : (
           <div className="liquid-glass-card p-8 md:p-12 rounded-3xl max-w-3xl mx-auto relative overflow-hidden">

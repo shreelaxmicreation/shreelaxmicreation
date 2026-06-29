@@ -15,12 +15,12 @@ interface ProductsGridProps {
 }
 
 export default function ProductsGrid({ mode, showHeader = true, products = [] }: ProductsGridProps) {
-  // On homepage (preview mode), ensure we only show products with at least one photo
-  const baseProducts = mode === 'preview' 
-    ? (products || []).filter(p => (p.gallery && p.gallery.length > 0) || p.image)
-    : (products || []);
-  
-  const safeProducts = baseProducts.length > 0 ? baseProducts : (products || []);
+  const safeProducts = useMemo(() => {
+    const baseProducts = mode === 'preview' 
+      ? (products || []).filter(p => (p.gallery && p.gallery.length > 0) || p.image)
+      : (products || []);
+    return baseProducts.length > 0 ? baseProducts : (products || []);
+  }, [mode, products]);
   
   const [selectedFabrics, setSelectedFabrics] = useState<string[]>([]);
   const [selectedPrints, setSelectedPrints] = useState<string[]>([]);
