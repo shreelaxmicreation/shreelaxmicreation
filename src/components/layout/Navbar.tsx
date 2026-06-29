@@ -5,9 +5,9 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname, useRouter } from 'next/navigation'
 import { useTheme } from 'next-themes'
-import { Sun, Moon } from 'lucide-react'
+import { Sun, Moon, Menu, X } from 'lucide-react'
 
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { OriginButton } from '@/components/ui/origin-button'
 import ThemeToggle from '@/components/ui/ThemeToggle'
 
@@ -17,6 +17,7 @@ export default function Navbar({ logoUrl, logoTextUrl }: { logoUrl: string; logo
   const router = useRouter()
   const { theme, setTheme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   useEffect(() => setMounted(true), [])
 
@@ -40,11 +41,14 @@ export default function Navbar({ logoUrl, logoTextUrl }: { logoUrl: string; logo
 
   const pillLinks = [
     { href: '/', label: 'Home' },
-    { href: '/about', label: 'About' },
     { href: '/products', label: 'Products' },
+    { href: '/contact', label: 'Enquire' },
+  ]
+
+  const popupLinks = [
+    { href: '/about', label: 'About' },
     { href: '/infrastructure', label: 'Infrastructure' },
     { href: '/blog', label: 'Blog' },
-    { href: '/contact', label: 'Enquire' },
   ]
 
   const isDarkHero = pathname === '/about'
@@ -178,8 +182,88 @@ export default function Navbar({ logoUrl, logoTextUrl }: { logoUrl: string; logo
           display: 'none', // Hidden by default, shown on mobile via CSS
           justifyContent: 'center',
           pointerEvents: 'none',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: 12
         }}
       >
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.95 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+              style={{
+                pointerEvents: 'auto',
+                background: 'var(--card-bg)',
+                backdropFilter: 'blur(20px) saturate(150%)',
+                WebkitBackdropFilter: 'blur(20px) saturate(150%)',
+                borderRadius: 24,
+                padding: '16px 20px',
+                boxShadow: '0 12px 40px var(--card-shadow), 0 4px 12px var(--card-shadow)',
+                border: '1px solid var(--card-border)',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 16,
+                minWidth: 220,
+              }}
+            >
+              {popupLinks.map((link) => {
+                const isActive = pathname === link.href;
+                return (
+                  <Link
+                    key={link.label}
+                    href={link.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    style={{
+                      textDecoration: 'none',
+                      fontFamily: 'var(--font-body)',
+                      fontSize: 15,
+                      fontWeight: isActive ? 600 : 400,
+                      color: isActive ? 'var(--navy)' : 'var(--ink)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'space-between',
+                      transition: 'color 0.2s ease',
+                    }}
+                  >
+                    {link.label}
+                    {isActive && <div style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--cta)' }} />}
+                  </Link>
+                )
+              })}
+              
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', borderTop: '1px solid var(--card-border)', paddingTop: 16, marginTop: 4 }}>
+                <span style={{ fontSize: 14, color: 'var(--muted)', fontWeight: 500 }}>Theme</span>
+                {mounted && (
+                  <button
+                    onClick={() => {
+                      setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')
+                      setIsMobileMenuOpen(false)
+                    }}
+                    aria-label="Toggle theme"
+                    style={{
+                      background: 'var(--surface)',
+                      border: '1px solid var(--card-border)',
+                      color: 'var(--ink)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      padding: '8px',
+                      cursor: 'pointer',
+                      borderRadius: '50%',
+                      transition: 'all 0.2s ease',
+                    }}
+                  >
+                    {resolvedTheme === 'dark' ? <Sun size={16} strokeWidth={2} /> : <Moon size={16} strokeWidth={2} />}
+                  </button>
+                )}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+
         <motion.div
           initial={{ y: 80, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -204,13 +288,14 @@ export default function Navbar({ logoUrl, logoTextUrl }: { logoUrl: string; logo
               <Link
                 key={link.label}
                 href={link.href}
+                onClick={() => setIsMobileMenuOpen(false)}
                 style={{
                   textDecoration: 'none',
                   fontFamily: 'var(--font-body)',
-                  fontSize: 12,
+                  fontSize: 13,
                   fontWeight: isActive ? 600 : 400,
                   letterSpacing: '0.02em',
-                  padding: '8px 12px',
+                  padding: '8px 16px',
                   borderRadius: 999,
                   position: 'relative',
                   color: isEnquire
@@ -252,28 +337,27 @@ export default function Navbar({ logoUrl, logoTextUrl }: { logoUrl: string; logo
             )
           })}
           
-          {/* Mobile Theme Toggle */}
-          {mounted && (
-            <button
-              onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
-              aria-label="Toggle theme"
-              style={{
-                background: 'transparent',
-                border: 'none',
-                color: 'var(--ink)',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: '8px',
-                marginLeft: '4px',
-                cursor: 'pointer',
-                borderRadius: '50%',
-                transition: 'color 0.2s ease',
-              }}
-            >
-              {resolvedTheme === 'dark' ? <Sun size={14} strokeWidth={2} /> : <Moon size={14} strokeWidth={2} />}
-            </button>
-          )}
+          {/* Menu Toggle Button */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
+            style={{
+              background: isMobileMenuOpen ? 'var(--ink)' : 'transparent',
+              border: 'none',
+              color: isMobileMenuOpen ? 'var(--canvas)' : 'var(--ink)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '8px',
+              marginLeft: '4px',
+              marginRight: '2px',
+              cursor: 'pointer',
+              borderRadius: '50%',
+              transition: 'all 0.2s ease',
+            }}
+          >
+            {isMobileMenuOpen ? <X size={16} strokeWidth={2} /> : <Menu size={16} strokeWidth={2} />}
+          </button>
         </div>
       </motion.div>
       </div>

@@ -44,9 +44,12 @@ export default function EnquiryForm({
         setStatus('success')
         reset()
       } else {
+        const errorData = await res.json().catch(() => null)
+        console.error('Form submission failed:', res.status, errorData)
         setStatus('error')
       }
-    } catch {
+    } catch (err) {
+      console.error('Network or fetch error:', err)
       setStatus('error')
     }
   }

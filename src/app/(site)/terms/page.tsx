@@ -9,21 +9,20 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <section
-      className="w-full section-padded-top-nav"
-      style={{ background: 'var(--canvas)', minHeight: '100vh' }}
+      className="w-full section-padded-top-nav relative overflow-hidden"
+      style={{ minHeight: '100vh', background: 'var(--canvas)' }}
     >
-      <div style={{ maxWidth: 800, margin: '0 auto' }}>
+      <div className="absolute inset-0 liquid-gradient opacity-20 pointer-events-none" />
+      <div style={{ maxWidth: 800, margin: '0 auto', position: 'relative', zIndex: 1, padding: '0 24px' }}>
+        <p className="text-label text-cta mb-4 tracking-[0.2em]">Legal Information</p>
         <OrangeRule />
-        <p className="text-label" style={{ color: 'var(--muted)', marginBottom: 8 }}>
-          Legal Information
-        </p>
-        <h1 className="text-display-l" style={{ color: 'var(--ink)', marginBottom: 'var(--space-lg)' }}>
-          Terms & Conditions
+        <h1 className="font-display text-[clamp(2.5rem,5vw,4.5rem)] leading-[1.05] mt-6 mb-16 font-light" style={{ color: 'var(--navy)' }}>
+          Terms & <span style={{ fontStyle: 'italic', color: 'var(--cta)' }}>Conditions</span>
         </h1>
 
-        <div className="prose prose-p:text-body-text prose-p:text-ink prose-h2:text-subheading prose-h2:text-ink prose-a:text-brand prose-li:text-body-text prose-li:text-ink">
+        <div className="prose max-w-none font-light leading-relaxed" style={{ color: 'var(--muted)' }}>
           <p style={{ marginBottom: 32 }}>Last Updated: June 2026</p>
-          <h2 style={{ marginTop: 40, marginBottom: 16 }}>1. Acceptance of Terms</h2>
+          <h2 className="text-2xl mt-12 mb-6 font-display font-normal" style={{ color: 'var(--navy)' }}>1. Acceptance of Terms</h2>
           <p style={{ marginBottom: 24 }}>
             Welcome to Shree Laxmi Creation (&quot;we&quot;, &quot;our&quot;, &quot;us&quot;).
           </p>
@@ -36,7 +35,7 @@ export default function TermsPage() {
           <p style={{ marginBottom: 24 }}>
             These Terms apply to all visitors, customers, suppliers, business partners, and any other users of the Website.
           </p>
-          <h2 style={{ marginTop: 40, marginBottom: 16 }}>2. About Our Business</h2>
+          <h2 className="text-2xl mt-12 mb-6 font-display font-normal" style={{ color: 'var(--navy)' }}>2. About Our Business</h2>
           <p style={{ marginBottom: 24 }}>
             Shree Laxmi Creation is a proprietorship firm based in Ahmedabad, Gujarat, India, engaged in the manufacturing and supply of shirting fabrics for apparel brands, garment manufacturers, wholesalers, traders, and institutional buyers.
           </p>
@@ -49,7 +48,7 @@ export default function TermsPage() {
           <p style={{ marginBottom: 24 }}>
             All sales are subject to mutually agreed quotations, purchase orders, invoices, and other written agreements.
           </p>
-          <h2 style={{ marginTop: 40, marginBottom: 16 }}>3. Intellectual Property</h2>
+          <h2 className="text-2xl mt-12 mb-6 font-display font-normal" style={{ color: 'var(--navy)' }}>3. Intellectual Property</h2>
           <p style={{ marginBottom: 24 }}>
             Unless otherwise stated, all content on this Website—including but not limited to:
           </p>
@@ -86,7 +85,7 @@ export default function TermsPage() {
           <p style={{ marginBottom: 24 }}>
             Unauthorised use may result in legal action.
           </p>
-          <h2 style={{ marginTop: 40, marginBottom: 16 }}>4. Permitted Use</h2>
+          <h2 className="text-2xl mt-12 mb-6 font-display font-normal" style={{ color: 'var(--navy)' }}>4. Permitted Use</h2>
           <p style={{ marginBottom: 24 }}>
             You agree to use this Website only for lawful purposes.
           </p>
@@ -104,7 +103,7 @@ export default function TermsPage() {
           <p style={{ marginBottom: 24 }}>
             We reserve the right to suspend or restrict access where misuse is identified.
           </p>
-          <h2 style={{ marginTop: 40, marginBottom: 16 }}>5. Product Information</h2>
+          <h2 className="text-2xl mt-12 mb-6 font-display font-normal" style={{ color: 'var(--navy)' }}>5. Product Information</h2>
           <p style={{ marginBottom: 24 }}>
             We make reasonable efforts to ensure the information provided on this Website is accurate.
           </p>
@@ -130,7 +129,7 @@ export default function TermsPage() {
           <p style={{ marginBottom: 24 }}>
             Actual colours, textures and finishes may vary due to dye lots, lighting conditions, monitor settings and manufacturing tolerances.
           </p>
-          <h2 style={{ marginTop: 40, marginBottom: 16 }}>6. Enquiries, Samples and Orders</h2>
+          <h2 className="text-2xl mt-12 mb-6 font-display font-normal" style={{ color: 'var(--navy)' }}>6. Enquiries, Samples and Orders</h2>
           <p style={{ marginBottom: 24 }}>
             Submitting an enquiry through our Website or WhatsApp does not create a purchase contract.
           </p>
@@ -152,7 +151,7 @@ export default function TermsPage() {
           <p style={{ marginBottom: 24 }}>
             We reserve the right to refuse or cancel enquiries or quotations at our discretion before order confirmation.
           </p>
-          <h2 style={{ marginTop: 40, marginBottom: 16 }}>7. Pricing and Payment</h2>
+          <h2 className="text-2xl mt-12 mb-6 font-display font-normal" style={{ color: 'var(--navy)' }}>7. Pricing and Payment</h2>
           <p style={{ marginBottom: 24 }}>
             All quotations are subject to availability and remain valid only for the period stated in the quotation.
           </p>
@@ -168,7 +167,7 @@ export default function TermsPage() {
           <p style={{ marginBottom: 24 }}>
             International buyers shall be responsible for customs duties, import taxes, local compliance requirements and any other charges applicable in their respective countries.
           </p>
-          <h2 style={{ marginTop: 40, marginBottom: 16 }}>8. Delivery</h2>
+          <h2 className="text-2xl mt-12 mb-6 font-display font-normal" style={{ color: 'var(--navy)' }}>8. Delivery</h2>
           <p style={{ marginBottom: 24 }}>
             Delivery schedules are estimates only.
           </p>
@@ -181,7 +180,7 @@ export default function TermsPage() {
           <p style={{ marginBottom: 24 }}>
             Ownership of goods remains with Shree Laxmi Creation until full payment has been received.
           </p>
-          <h2 style={{ marginTop: 40, marginBottom: 16 }}>9. Quality and Claims</h2>
+          <h2 className="text-2xl mt-12 mb-6 font-display font-normal" style={{ color: 'var(--navy)' }}>9. Quality and Claims</h2>
           <p style={{ marginBottom: 24 }}>
             We maintain quality standards throughout our manufacturing process.
           </p>
@@ -213,7 +212,7 @@ export default function TermsPage() {
           <p style={{ marginBottom: 24 }}>
             We shall not be responsible for indirect losses, production losses, consequential damages or loss of business arising from the use of our products.
           </p>
-          <h2 style={{ marginTop: 40, marginBottom: 16 }}>10. Limitation of Liability</h2>
+          <h2 className="text-2xl mt-12 mb-6 font-display font-normal" style={{ color: 'var(--navy)' }}>10. Limitation of Liability</h2>
           <p style={{ marginBottom: 24 }}>
             To the fullest extent permitted under applicable law, our total liability arising out of any claim shall not exceed the value of the specific order giving rise to that claim.
           </p>
@@ -234,7 +233,7 @@ export default function TermsPage() {
           <p style={{ marginBottom: 24 }}>
             Nothing in these Terms limits liability where such limitation is prohibited by law.
           </p>
-          <h2 style={{ marginTop: 40, marginBottom: 16 }}>11. Third-Party Links</h2>
+          <h2 className="text-2xl mt-12 mb-6 font-display font-normal" style={{ color: 'var(--navy)' }}>11. Third-Party Links</h2>
           <p style={{ marginBottom: 24 }}>
             Our Website may contain links to third-party platforms including WhatsApp, Instagram or other external websites.
           </p>
@@ -244,7 +243,7 @@ export default function TermsPage() {
           <p style={{ marginBottom: 24 }}>
             We are not responsible for the content, availability or privacy practices of third-party websites.
           </p>
-          <h2 style={{ marginTop: 40, marginBottom: 16 }}>12. Force Majeure</h2>
+          <h2 className="text-2xl mt-12 mb-6 font-display font-normal" style={{ color: 'var(--navy)' }}>12. Force Majeure</h2>
           <p style={{ marginBottom: 24 }}>
             We shall not be liable for any failure or delay in performing our obligations caused by events beyond our reasonable control, including but not limited to:
           </p>
@@ -264,7 +263,7 @@ export default function TermsPage() {
           <p style={{ marginBottom: 24 }}>
             Performance shall resume as soon as reasonably practicable.
           </p>
-          <h2 style={{ marginTop: 40, marginBottom: 16 }}>13. Website Availability</h2>
+          <h2 className="text-2xl mt-12 mb-6 font-display font-normal" style={{ color: 'var(--navy)' }}>13. Website Availability</h2>
           <p style={{ marginBottom: 24 }}>
             We strive to keep the Website operational at all times.
           </p>
@@ -274,11 +273,11 @@ export default function TermsPage() {
           <p style={{ marginBottom: 24 }}>
             We reserve the right to modify, suspend or discontinue any part of the Website at any time without prior notice.
           </p>
-          <h2 style={{ marginTop: 40, marginBottom: 16 }}>14. Privacy</h2>
+          <h2 className="text-2xl mt-12 mb-6 font-display font-normal" style={{ color: 'var(--navy)' }}>14. Privacy</h2>
           <p style={{ marginBottom: 24 }}>
             Your use of this Website is also governed by our Privacy Policy, which explains how we collect, use and protect your personal information.
           </p>
-          <h2 style={{ marginTop: 40, marginBottom: 16 }}>15. Changes to These Terms</h2>
+          <h2 className="text-2xl mt-12 mb-6 font-display font-normal" style={{ color: 'var(--navy)' }}>15. Changes to These Terms</h2>
           <p style={{ marginBottom: 24 }}>
             We may revise these Terms &amp; Conditions at any time.
           </p>
@@ -288,7 +287,7 @@ export default function TermsPage() {
           <p style={{ marginBottom: 24 }}>
             Continued use of the Website after any update constitutes acceptance of the revised Terms.
           </p>
-          <h2 style={{ marginTop: 40, marginBottom: 16 }}>16. Governing Law</h2>
+          <h2 className="text-2xl mt-12 mb-6 font-display font-normal" style={{ color: 'var(--navy)' }}>16. Governing Law</h2>
           <p style={{ marginBottom: 24 }}>
             These Terms &amp; Conditions shall be governed by the laws of India.
           </p>
@@ -298,11 +297,11 @@ export default function TermsPage() {
           <p style={{ marginBottom: 24 }}>
             Before initiating legal proceedings, both parties agree to make reasonable efforts to resolve disputes amicably through good-faith discussions.
           </p>
-          <h2 style={{ marginTop: 40, marginBottom: 16 }}>17. Severability</h2>
+          <h2 className="text-2xl mt-12 mb-6 font-display font-normal" style={{ color: 'var(--navy)' }}>17. Severability</h2>
           <p style={{ marginBottom: 24 }}>
             If any provision of these Terms is found to be invalid or unenforceable, the remaining provisions shall continue in full force and effect.
           </p>
-          <h2 style={{ marginTop: 40, marginBottom: 16 }}>18. Contact Us</h2>
+          <h2 className="text-2xl mt-12 mb-6 font-display font-normal" style={{ color: 'var(--navy)' }}>18. Contact Us</h2>
           <p style={{ marginBottom: 24 }}>
             For any questions regarding these Terms &amp; Conditions, please contact:
           </p>
