@@ -8,7 +8,7 @@ export default function HomepageSEOContent() {
     description:
       'Ahmedabad-based shirting fabric manufacturer. Cotton, dobby, poplin, twill, herringbone fabrics for apparel brands and wholesalers.',
     url: 'https://shreelaxmicreation.com',
-    telephone: '+917990596697',
+    telephone: '+919998482159',
     address: {
       '@type': 'PostalAddress',
       addressLocality: 'Ahmedabad',

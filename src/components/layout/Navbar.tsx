@@ -42,6 +42,7 @@ export default function Navbar({ logoUrl, logoTextUrl }: { logoUrl: string; logo
     { href: '/', label: 'Home' },
     { href: '/about', label: 'About' },
     { href: '/products', label: 'Products' },
+    { href: '/infrastructure', label: 'Infrastructure' },
     { href: '/blog', label: 'Blog' },
     { href: '/contact', label: 'Enquire' },
   ]

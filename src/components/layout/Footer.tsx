@@ -93,13 +93,25 @@ export default function Footer({ logoUrl }: { logoUrl: string }) {
                   WhatsApp
                 </p>
                 <a
-                  href="https://wa.me/917990596697"
+                  href="https://wa.me/919998482159"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-caption-text footer-link"
                   style={{ color: 'var(--footer-text-dim)', textDecoration: 'none', transition: 'color 0.2s ease' }}
                 >
-                  +91 79905 96697
+                  +91 99984 82159
+                </a>
+              </div>
+              <div>
+                <p className="text-label" style={{ color: 'var(--footer-text-label)', marginBottom: 4, fontSize: '0.625rem' }}>
+                  Email
+                </p>
+                <a
+                  href="mailto:shreelaxmicreation81@gmail.com"
+                  className="text-caption-text footer-link"
+                  style={{ color: 'var(--footer-text-dim)', textDecoration: 'none', transition: 'color 0.2s ease' }}
+                >
+                  shreelaxmicreation81@gmail.com
                 </a>
               </div>
               <div>
@@ -132,7 +144,7 @@ export default function Footer({ logoUrl }: { logoUrl: string }) {
                 Instagram ↗
               </a>
               <a
-                href="https://wa.me/917990596697"
+                href="https://wa.me/919998482159"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-caption-text footer-link"

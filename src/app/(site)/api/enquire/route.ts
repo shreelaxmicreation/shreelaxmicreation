@@ -4,7 +4,7 @@ import { NextRequest, NextResponse } from 'next/server'
 export async function POST(req: NextRequest) {
   const resend = new Resend(process.env.RESEND_API_KEY)
   const body = await req.json()
-  const { name, company, location, whatsapp, message } = body
+  const { name, company, location, email, whatsapp, message } = body
 
   if (!name || !whatsapp || !message) {
     return NextResponse.json({ error: 'Required fields are missing.' }, { status: 400 })
@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
   try {
     const { data, error } = await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
-      to: process.env.RESEND_TO_EMAIL || 'shreelaxmicreation380002@gmail.com',
+      to: process.env.RESEND_TO_EMAIL || 'shreelaxmicreation81@gmail.com',
       subject: `New Enquiry from ${name} — Shree Laxmi Creation`,
       html: `
         <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eaeaec; border-radius: 8px; background-color: #fafafa;">
@@ -35,6 +35,12 @@ export async function POST(req: NextRequest) {
               <tr style="border-bottom: 1px solid #f0f0f0;">
                 <td style="padding: 16px; font-size: 13px; color: #888; text-transform: uppercase; letter-spacing: 0.5px;">Location</td>
                 <td style="padding: 16px; font-size: 15px; color: #222;">${location || '-'}</td>
+              </tr>
+              <tr style="border-bottom: 1px solid #f0f0f0;">
+                <td style="padding: 16px; font-size: 13px; color: #888; text-transform: uppercase; letter-spacing: 0.5px;">Email</td>
+                <td style="padding: 16px; font-size: 15px; color: #222;">
+                  ${email ? `<a href="mailto:${email}" style="color: #1C315E; text-decoration: none;">${email}</a>` : '-'}
+                </td>
               </tr>
               <tr style="border-bottom: 1px solid #f0f0f0;">
                 <td style="padding: 16px; font-size: 13px; color: #888; text-transform: uppercase; letter-spacing: 0.5px;">WhatsApp</td>

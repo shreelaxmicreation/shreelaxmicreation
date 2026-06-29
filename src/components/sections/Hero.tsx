@@ -8,10 +8,10 @@ import { motion } from "framer-motion"
 export default function Hero() {
   return (
     <section id="hero" className="relative w-full min-h-[85vh] lg:min-h-screen overflow-hidden bg-[var(--canvas)] lg:bg-transparent flex flex-col justify-start">
-      
+
       {/* Background Image (All Screens) */}
       <div className="absolute inset-0 z-0 top-[80px]">
-        <Image 
+        <Image
           src="/images/hero.PNG"
           alt="Reliable Shirting Fabric solution"
           fill
@@ -24,9 +24,9 @@ export default function Hero() {
       <div className="absolute inset-0 z-10 bg-gradient-to-b from-[#F7F4EB] via-[#F7F4EB]/80 to-transparent backdrop-blur-[2px] lg:hidden" />
 
       <div className="container mx-auto px-4 md:px-6 relative z-20 flex flex-col lg:flex-row items-center lg:items-start justify-between pt-24 pb-20 lg:pt-40 lg:pb-32 flex-grow">
-        
+
         {/* Text Content */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, x: -30 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
@@ -36,8 +36,7 @@ export default function Hero() {
             Reliable Shirting <br /> Fabric solution
           </h1>
           <p className="text-xl md:text-2xl text-[#1C315E]/80 lg:text-[#8A8578] mb-12 max-w-xl font-medium lg:font-normal leading-relaxed">
-            Shree Laxmi Creation <br className="hidden sm:block" />
-            Ahmedabad • Mumbai • Ichalkaranji
+            Shree Laxmi Creation • Ahmedabad
           </p>
           <div className="flex flex-row flex-wrap items-center justify-center lg:justify-start gap-3 sm:gap-4 w-full sm:w-auto mt-4">
             <Link href="/products">

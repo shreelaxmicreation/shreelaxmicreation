@@ -10,6 +10,7 @@ interface FormData {
   name: string
   company: string
   location: string
+  email?: string
   whatsapp: string
   message: string
 }
@@ -28,7 +29,7 @@ export default function EnquiryForm({
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>({
-    defaultValues: { name: '', company: '', location: '', whatsapp: '', message: defaultMessage },
+    defaultValues: { name: '', company: '', location: '', email: '', whatsapp: '', message: defaultMessage },
   })
 
   const onSubmit = async (data: FormData) => {
@@ -50,7 +51,7 @@ export default function EnquiryForm({
     }
   }
 
-  const whatsappLink = 'https://wa.me/917990596697?text=Hi%2C%20I%27m%20interested%20in%20Shree%20Laxmi%20Creation'
+  const whatsappLink = 'https://wa.me/919998482159?text=Hi%2C%20I%27m%20interested%20in%20Shree%20Laxmi%20Creation'
 
   if (abbreviated) {
     return (
@@ -93,7 +94,7 @@ export default function EnquiryForm({
         {status === 'success' ? (
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="liquid-glass-card p-12 rounded-3xl text-center max-w-2xl mx-auto relative overflow-hidden">
             <h3 className="text-heading mb-4" style={{ color: 'var(--navy)' }}>Thank You.</h3>
-            <p className="text-body-text text-muted">We have received your enquiry and will be in touch shortly.</p>
+            <p className="text-body-text text-muted">We'll be in touch within 24 hours.</p>
           </motion.div>
         ) : (
           <div className="liquid-glass-card p-8 md:p-12 rounded-3xl max-w-3xl mx-auto relative overflow-hidden">
@@ -124,6 +125,16 @@ export default function EnquiryForm({
                     {...register('location')}
                     className="form-input mb-0"
                     placeholder="City, Country"
+                  />
+                </div>
+
+                <div className="flex flex-col gap-2">
+                  <label className="text-sm font-medium text-navy tracking-wide">Email (Optional)</label>
+                  <input
+                    {...register('email')}
+                    type="email"
+                    className="form-input mb-0"
+                    placeholder="name@company.com"
                   />
                 </div>
 

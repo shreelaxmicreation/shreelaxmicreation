@@ -42,13 +42,24 @@ function ContactContent() {
             <div>
               <p className="text-xs tracking-widest uppercase text-muted mb-3 font-medium">WhatsApp</p>
               <a
-                href="https://wa.me/917990596697"
+                href="https://wa.me/919998482159"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-xl font-light hover:text-cta transition-colors"
                 style={{ color: 'var(--navy)' }}
               >
-                +91 79905 96697
+                +91 99984 82159
+              </a>
+            </div>
+
+            <div>
+              <p className="text-xs tracking-widest uppercase text-muted mb-3 font-medium">Email</p>
+              <a
+                href="mailto:shreelaxmicreation81@gmail.com"
+                className="text-xl font-light hover:text-cta transition-colors"
+                style={{ color: 'var(--navy)' }}
+              >
+                shreelaxmicreation81@gmail.com
               </a>
             </div>
 
