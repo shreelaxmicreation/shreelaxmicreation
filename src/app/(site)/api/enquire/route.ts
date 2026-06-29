@@ -13,7 +13,7 @@ export async function POST(req: NextRequest) {
   try {
     const { data, error } = await resend.emails.send({
       from: process.env.RESEND_FROM_EMAIL || 'onboarding@resend.dev',
-      to: process.env.RESEND_TO_EMAIL || 'shreelaxmicreation81@gmail.com',
+      to: process.env.RESEND_TO_EMAIL || 'shreelaxmicreation380002@gmail.com',
       subject: `New Enquiry from ${name} — Shree Laxmi Creation`,
       html: `
         <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eaeaec; border-radius: 8px; background-color: #fafafa;">

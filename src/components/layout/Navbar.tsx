@@ -41,12 +41,12 @@ export default function Navbar({ logoUrl, logoTextUrl }: { logoUrl: string; logo
 
   const pillLinks = [
     { href: '/', label: 'Home' },
+    { href: '/about', label: 'About' },
     { href: '/products', label: 'Products' },
     { href: '/contact', label: 'Enquire' },
   ]
 
   const popupLinks = [
-    { href: '/about', label: 'About' },
     { href: '/infrastructure', label: 'Infrastructure' },
     { href: '/blog', label: 'Blog' },
   ]
