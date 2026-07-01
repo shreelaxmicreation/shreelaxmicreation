@@ -16,13 +16,27 @@ export default function FloatingBestSellers({ bestSellers }: FloatingBestSellers
   const [isOpen, setIsOpen] = useState(false)
   const [hasScrolled, setHasScrolled] = useState(false)
   const [bestSellerCards, setBestSellerCards] = useState<CardStackItem[]>([])
+  const [dimensions, setDimensions] = useState({ width: 340, height: 240, spread: 40 })
 
   useEffect(() => {
     const handleScroll = () => {
       setHasScrolled(window.scrollY > 400)
     }
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setDimensions({ width: 280, height: 160, spread: 25 })
+      } else {
+        setDimensions({ width: 400, height: 225, spread: 40 })
+      }
+    }
+    
+    handleResize()
     window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
+    window.addEventListener('resize', handleResize, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleResize)
+    }
   }, [])
 
   // Map best sellers from props
@@ -133,7 +147,7 @@ export default function FloatingBestSellers({ bestSellers }: FloatingBestSellers
                 </div>
 
                 {/* Scaled-down cards */}
-                <div className="transform scale-[0.72] origin-top-right -mr-12 -mb-8">
+                <div className="w-full flex justify-center py-2 overflow-hidden px-8">
                   <CardStack
                     items={bestSellerCards}
                     initialIndex={0}
@@ -141,6 +155,10 @@ export default function FloatingBestSellers({ bestSellers }: FloatingBestSellers
                     intervalMs={2000}
                     pauseOnHover
                     showDots
+                    cardWidth={dimensions.width}
+                    cardHeight={dimensions.height}
+                    spreadDeg={dimensions.spread}
+                    overlap={0.6}
                   />
                 </div>
 
