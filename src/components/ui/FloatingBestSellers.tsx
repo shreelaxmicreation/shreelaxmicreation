@@ -112,7 +112,7 @@ export default function FloatingBestSellers({ bestSellers }: FloatingBestSellers
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 40, scale: 0.9 }}
               transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-              className="fixed bottom-24 right-4 md:bottom-auto md:right-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 z-[95] block w-[calc(100vw-2rem)] md:w-[700px] lg:w-[900px]"
+              className="fixed bottom-24 right-4 md:bottom-6 md:right-6 z-[95] block w-[calc(100vw-2rem)] md:w-[700px] lg:w-[900px]"
             >
               <div
                 className="rounded-3xl p-8 pb-6 relative"
