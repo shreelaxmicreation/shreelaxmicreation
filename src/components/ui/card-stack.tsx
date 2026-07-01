@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
-import { SquareArrowOutUpRight } from "lucide-react";
+import { SquareArrowOutUpRight, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 
 function cn(...classes: Array<string | undefined | null | false>) {
@@ -206,6 +206,23 @@ export function CardStack<T extends CardStackItem>({
         tabIndex={0}
         onKeyDown={onKeyDown}
       >
+        {/* Side Arrows */}
+        <button
+          onClick={(e) => { e.stopPropagation(); prev(); }}
+          className="absolute left-2 md:left-6 top-1/2 -translate-y-1/2 z-[110] flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-2xl bg-[#0F0F11] text-white hover:bg-black transition-colors shadow-lg"
+          aria-label="Previous card"
+        >
+          <ChevronLeft className="h-5 w-5 md:h-6 md:w-6" />
+        </button>
+
+        <button
+          onClick={(e) => { e.stopPropagation(); next(); }}
+          className="absolute right-2 md:right-6 top-1/2 -translate-y-1/2 z-[110] flex h-10 w-10 md:h-12 md:w-12 items-center justify-center rounded-2xl bg-[#0F0F11] text-white hover:bg-black transition-colors shadow-lg"
+          aria-label="Next card"
+        >
+          <ChevronRight className="h-5 w-5 md:h-6 md:w-6" />
+        </button>
+
         {/* background wash / spotlight (unique feel) */}
         <div
           className="pointer-events-none absolute inset-x-0 top-6 mx-auto h-48 w-[70%] rounded-full bg-black/5 blur-3xl dark:bg-white/5"
@@ -338,14 +355,14 @@ export function CardStack<T extends CardStackItem>({
 
       {/* Dots navigation centered at bottom */}
       {showDots ? (
-        <div className="mt-6 flex items-center justify-center gap-3">
+        <div className="mt-6 flex items-center justify-center gap-4">
           <div className="flex items-center gap-2">
             {items.map((it, idx) => {
               const on = idx === active;
               return (
                 <button
                   key={it.id}
-                  onClick={() => setActive(idx)}
+                  onClick={(e) => { e.stopPropagation(); setActive(idx); }}
                   className={cn(
                     "h-2 w-2 rounded-full transition",
                     on
@@ -357,12 +374,13 @@ export function CardStack<T extends CardStackItem>({
               );
             })}
           </div>
+
           {activeItem.href ? (
             <Link
               href={activeItem.href}
               target="_blank"
               rel="noreferrer"
-              className="text-muted-foreground hover:text-foreground transition"
+              className="text-muted-foreground hover:text-foreground transition ml-2"
               aria-label="Open link"
             >
               <SquareArrowOutUpRight className="h-4 w-4" />
