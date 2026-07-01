@@ -4,16 +4,9 @@ import { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Flame, X } from 'lucide-react'
 import Link from 'next/link'
-import DisplayCards from '@/components/ui/display-cards'
-import type { DisplayCardProps } from '@/components/ui/display-cards'
+import { CardStack, CardStackItem } from '@/components/ui/card-stack'
 import { urlFor } from '@/sanity/lib/image'
 import type { SanityBestSeller } from '@/sanity/lib/types'
-
-const cardClassNames = [
-  "[grid-area:stack] hover:-translate-y-10 focus:-translate-y-10 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-[rgba(28,49,94,0.08)] before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-[var(--canvas)]/50 grayscale-[100%] hover:before:opacity-0 focus:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 focus:grayscale-0 before:left-0 before:top-0",
-  "[grid-area:stack] translate-x-12 translate-y-10 hover:-translate-y-1 focus:-translate-y-1 before:absolute before:w-[100%] before:outline-1 before:rounded-xl before:outline-[rgba(28,49,94,0.08)] before:h-[100%] before:content-[''] before:bg-blend-overlay before:bg-[var(--canvas)]/50 grayscale-[100%] hover:before:opacity-0 focus:before:opacity-0 before:transition-opacity before:duration-700 hover:grayscale-0 focus:grayscale-0 before:left-0 before:top-0",
-  "[grid-area:stack] translate-x-24 translate-y-20 hover:translate-y-10 focus:translate-y-10",
-]
 
 interface FloatingBestSellersProps {
   bestSellers: SanityBestSeller[]
@@ -22,7 +15,7 @@ interface FloatingBestSellersProps {
 export default function FloatingBestSellers({ bestSellers }: FloatingBestSellersProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [hasScrolled, setHasScrolled] = useState(false)
-  const [bestSellerCards, setBestSellerCards] = useState<DisplayCardProps[]>([])
+  const [bestSellerCards, setBestSellerCards] = useState<CardStackItem[]>([])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -35,19 +28,16 @@ export default function FloatingBestSellers({ bestSellers }: FloatingBestSellers
   // Map best sellers from props
   useEffect(() => {
     if (bestSellers && bestSellers.length > 0) {
-      const cards: DisplayCardProps[] = bestSellers.map((item, idx) => {
+      const cards: CardStackItem[] = bestSellers.map((item, idx) => {
         // Create a URL slug from the title (fallback to /products if it doesn't match a real product)
         const slug = item.title ? item.title.toLowerCase().replace(/ /g, '-').replace(/[^a-z0-9-]/g, '') : ''
         
         return {
-          icon: <Flame className="size-4 text-[var(--cta)]" />,
-          title: item.title,
+          id: (item as any)._id || idx,
+          title: item.title || 'Product',
           description: item.description,
-          date: item.badge,
-          image: item.image ? urlFor(item.image).width(800).quality(80).format('webp').url() : undefined,
+          imageSrc: item.image ? urlFor(item.image).width(800).quality(80).format('webp').url() : undefined,
           href: slug ? `/products/${slug}` : '/products',
-          titleClassName: "text-[var(--navy)]",
-          className: cardClassNames[idx] || cardClassNames[cardClassNames.length - 1],
         }
       })
       setBestSellerCards(cards)
@@ -144,7 +134,14 @@ export default function FloatingBestSellers({ bestSellers }: FloatingBestSellers
 
                 {/* Scaled-down cards */}
                 <div className="transform scale-[0.72] origin-top-right -mr-12 -mb-8">
-                  <DisplayCards cards={bestSellerCards} />
+                  <CardStack
+                    items={bestSellerCards}
+                    initialIndex={0}
+                    autoAdvance
+                    intervalMs={2000}
+                    pauseOnHover
+                    showDots
+                  />
                 </div>
 
                 {/* Footer CTA */}
